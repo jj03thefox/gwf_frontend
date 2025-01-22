@@ -77,19 +77,19 @@ function CategoryTabs({ onMenuClick }: CategoryTabsProps) {
   const onSearchClick = useCallback(() => {
     trackEvent({
       category: TrackCategory.SearchVessel,
-      action: 'Click search icon to open search panel',
+      action: '单击搜索图标打开搜索面板',
     })
   }, [])
 
   return (
     <Fragment>
       <ul className={cx('print-hidden', styles.CategoryTabs)}>
-        {/* eslint-disable-next-line jsx-a11y/no-noninteractive-element-to-interactive-role */}
-        <li role="button" tabIndex={0} className={styles.tab} onClick={onMenuClick}>
-          <span className={styles.tabContent}>
-            <Icon icon="menu" />
-          </span>
-        </li>
+        { }
+        {/*<li role="button" tabIndex={0} className={styles.tab} onClick={onMenuClick}>*/}
+        {/*  <span className={styles.tabContent}>*/}
+        {/*    <Icon icon="menu" />*/}
+        {/*  </span>*/}
+        {/*</li>*/}
         <li
           className={cx(styles.tab, {
             [styles.current]: locationType === SEARCH || locationType === WORKSPACE_SEARCH,
@@ -107,7 +107,7 @@ function CategoryTabs({ onMenuClick }: CategoryTabsProps) {
             }}
             onClick={onSearchClick}
           >
-            <Tooltip content={t('search.vessels', 'Search vessels')} placement="right">
+            <Tooltip content={t('search.vessels', '搜索船只')} placement="right">
               <span className={styles.tabContent}>
                 <Icon icon="category-search" className={styles.searchIcon} />
               </span>
@@ -136,51 +136,51 @@ function CategoryTabs({ onMenuClick }: CategoryTabsProps) {
           </li>
         ))}
         <li className={styles.separator} aria-hidden></li>
-        <li className={cx(styles.tab, styles.secondary)}>
-          <WhatsNew />
-        </li>
+        {/*<li className={cx(styles.tab, styles.secondary)}>*/}
+        {/*  <WhatsNew />*/}
+        {/*</li>*/}
         <li className={cx(styles.tab, styles.secondary)}>
           <HelpHub />
         </li>
-        <li className={cx(styles.tab, styles.secondary)}>
-          <div className={cx(styles.linksToggle)}>
-            <div className={styles.linksBtn}>
-              <IconButton icon="feedback" />
-            </div>
-            <ul className={styles.links}>
-              <li>
-                <span
-                  role="button"
-                  tabIndex={0}
-                  className={cx(styles.link)}
-                  onClick={onFeedbackClick}
-                >
-                  {t('feedback.logAnIssue', 'Log an issue')}
-                </span>
-              </li>
-              <li>
-                <a
-                  href={'https://feedback.globalfishingwatch.org/'}
-                  target="_blank"
-                  rel="noreferrer"
-                  className={cx(styles.link)}
-                >
-                  {t('feedback.requestAnImprovement', 'Request an improvement')}
-                </a>
-              </li>
-            </ul>
-          </div>
-        </li>
+        {/*<li className={cx(styles.tab, styles.secondary)}>*/}
+        {/*  <div className={cx(styles.linksToggle)}>*/}
+        {/*    <div className={styles.linksBtn}>*/}
+        {/*      <IconButton icon="feedback" />*/}
+        {/*    </div>*/}
+        {/*    <ul className={styles.links}>*/}
+        {/*      <li>*/}
+        {/*        <span*/}
+        {/*          role="button"*/}
+        {/*          tabIndex={0}*/}
+        {/*          className={cx(styles.link)}*/}
+        {/*          onClick={onFeedbackClick}*/}
+        {/*        >*/}
+        {/*          {t('feedback.logAnIssue', 'Log an issue')}*/}
+        {/*        </span>*/}
+        {/*      </li>*/}
+        {/*      <li>*/}
+        {/*        <a*/}
+        {/*          href={'https://feedback.globalfishingwatch.org/'}*/}
+        {/*          target="_blank"*/}
+        {/*          rel="noreferrer"*/}
+        {/*          className={cx(styles.link)}*/}
+        {/*        >*/}
+        {/*          {t('feedback.requestAnImprovement', 'Request an improvement')}*/}
+        {/*        </a>*/}
+        {/*      </li>*/}
+        {/*    </ul>*/}
+        {/*  </div>*/}
+        {/*</li>*/}
         <li className={styles.tab}>
           <LanguageToggle />
         </li>
-        <li
-          className={cx(styles.tab, {
-            [styles.current]: locationType === USER,
-          })}
-        >
-          <UserButton className={styles.userButton} testId="sidebar-login-icon" />
-        </li>
+        {/*<li*/}
+        {/*  className={cx(styles.tab, {*/}
+        {/*    [styles.current]: locationType === USER,*/}
+        {/*  })}*/}
+        {/*>*/}
+        {/*  <UserButton className={styles.userButton} testId="sidebar-login-icon" />*/}
+        {/*</li>*/}
       </ul>
       {modalFeedbackOpen && (
         <FeedbackModal

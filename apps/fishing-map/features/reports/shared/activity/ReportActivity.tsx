@@ -174,7 +174,7 @@ function ActivityReport({ reportName }: { reportName?: string }) {
               <p className={styles.error}>
                 {t(
                   'analysis.errorTooComplex',
-                  'The geometry of the area is too complex to perform a report, try to simplify and upload again.'
+                  '该区域的几何形状太复杂，无法执行报告，请尝试简化并重新上传。'
                 )}
               </p>
             </div>
@@ -186,7 +186,7 @@ function ActivityReport({ reportName }: { reportName?: string }) {
           <ReportVesselsPlaceholder>
             <div className={styles.cover}>
               <p className={cx(styles.center, styles.top)}>
-                {t('analysis.timeoutError', 'This is taking more than expected, please wait')}
+                {t('analysis.timeoutError', '这比预期的要多，请稍候')}
               </p>
             </div>
           </ReportVesselsPlaceholder>
@@ -206,7 +206,7 @@ function ActivityReport({ reportName }: { reportName?: string }) {
         <p className={styles.error}>
           {t(
             'analysis.datasetsNotAllowedAll',
-            'None of your datasets are allowed to be used in reports'
+            '您的任何数据集都不允许在报告中使用'
           )}{' '}
         </p>
       )
@@ -214,7 +214,7 @@ function ActivityReport({ reportName }: { reportName?: string }) {
     return (
       <p className={styles.error}>
         <span>
-          {t('errors.generic', 'Something went wrong, try again or contact:')}{' '}
+          {t('errors.generic', '出现问题，请重试或联系：')}{' '}
           <a href={`mailto:${SUPPORT_EMAIL}`}>{SUPPORT_EMAIL}</a>
         </span>
       </p>
@@ -245,7 +245,7 @@ function ActivityReport({ reportName }: { reportName?: string }) {
             <p>
               {t(
                 'analysis.timeRangeTooLong',
-                'The selected time range is too long, please select a shorter time range'
+                '所选时间范围太长，请选择较短的时间范围'
               )}
             </p>
           </div>
@@ -265,7 +265,7 @@ function ActivityReport({ reportName }: { reportName?: string }) {
               dangerouslySetInnerHTML={{
                 __html: t(
                   'analysis.onlyEvolutionSupported',
-                  'Click the evolution button above to see the vessels active in the area'
+                  '点击上方的进化按钮，查看该区域活动的血管'
                 ),
               }}
             />
@@ -299,11 +299,11 @@ function ActivityReport({ reportName }: { reportName?: string }) {
                 dispatchFetchReport()
                 trackEvent({
                   category: TrackCategory.Analysis,
-                  action: 'Click on see vessels button in report activity',
+                  action: '点击报告活动中的“查看船只”按钮',
                 })
               }}
             >
-              {t('analysis.seeVessels', 'See vessels')}
+              {t('analysis.seeVessels', '查看船只')}
             </Button>
           </div>
         </ReportVesselsPlaceholder>

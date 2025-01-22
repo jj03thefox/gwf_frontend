@@ -125,7 +125,7 @@ export const getVesselShipNameLabel = (
   withGearType = false
 ): string => {
   const vesselInfo = getLatestIdentityPrioritised(vessel)
-  if (!vesselInfo) return t('common.unknownVessel', 'Unknown vessel')
+  if (!vesselInfo) return t('common.unknownVessel', '未知船只')
   if (vesselInfo.shipname && vesselInfo.geartypes && vesselInfo.flag && withGearType) {
     const gearTypes = getVesselGearTypeLabel(vesselInfo)
     return `${formatInfoField(vesselInfo.shipname, 'shipname')}
@@ -139,7 +139,7 @@ export const getVesselShipNameLabel = (
       gearType: getVesselGearTypeLabel({ geartypes: vesselInfo.geartypes }),
     })}`
   }
-  return t('common.unknownVessel', 'Unknown vessel')
+  return t('common.unknownVessel', '未知船只')
 }
 
 export const getVesselOtherNamesLabel = (otherVesselsNames: string[]) => {

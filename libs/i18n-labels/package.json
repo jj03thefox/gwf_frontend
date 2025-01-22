@@ -6,6 +6,7 @@
   "typings": "./index.d.ts",
   "scripts": {},
   "files": [
+    "zh",
     "en",
     "es",
     "fr",

@@ -78,26 +78,26 @@ function HelpHub() {
             </span>
           )}
         </li>
-        <li>
-          <a href={getUserGuideLink()} target="_blank" rel="noreferrer" className={cx(styles.link)}>
-            {t('common.userGuide', 'User guide')}
-          </a>
-        </li>
-        <li>
-          <a
-            href={getVideoTutorialsLink()}
-            target="_blank"
-            rel="noreferrer"
-            className={cx(styles.link)}
-          >
-            {t('common.tutorials', 'Tutorials')}
-          </a>
-        </li>
-        <li>
-          <a href={getFAQsLink()} target="_blank" rel="noreferrer" className={cx(styles.link)}>
-            {t('common.faq', 'FAQs')}
-          </a>
-        </li>
+        {/*<li>*/}
+        {/*  <a href={getUserGuideLink()} target="_blank" rel="noreferrer" className={cx(styles.link)}>*/}
+        {/*    {t('common.userGuide', 'User guide')}*/}
+        {/*  </a>*/}
+        {/*</li>*/}
+        {/*<li>*/}
+        {/*  <a*/}
+        {/*    href={getVideoTutorialsLink()}*/}
+        {/*    target="_blank"*/}
+        {/*    rel="noreferrer"*/}
+        {/*    className={cx(styles.link)}*/}
+        {/*  >*/}
+        {/*    {t('common.tutorials', 'Tutorials')}*/}
+        {/*  </a>*/}
+        {/*</li>*/}
+        {/*<li>*/}
+        {/*  <a href={getFAQsLink()} target="_blank" rel="noreferrer" className={cx(styles.link)}>*/}
+        {/*    {t('common.faq', 'FAQs')}*/}
+        {/*  </a>*/}
+        {/*</li>*/}
       </ul>
     </div>
   )

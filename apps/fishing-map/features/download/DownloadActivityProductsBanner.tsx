@@ -28,7 +28,7 @@ function DownloadActivityProductsBanner({ format }: DownloadActivityProductsBann
           </p>
           <Button
             className={styles.downloadBtn}
-            href="https://globalfishingwatch.org/data-download/datasets/public-fishing-effort"
+            href="https://gfw.roodata.com/data-download/datasets/public-fishing-effort"
             target="_blank"
           >
             {t('download.dataPortal', 'See data download portal')}
@@ -41,7 +41,7 @@ function DownloadActivityProductsBanner({ format }: DownloadActivityProductsBann
           </p>
           <Button
             className={styles.downloadBtn}
-            href="https://globalfishingwatch.org/our-apis/documentation?utm_source=map&utm_medium=banner&utm_campaign=download_activity#create-a-report-of-a-specified-region"
+            href="https://gfw.roodata.com/our-apis/documentation?utm_source=map&utm_medium=banner&utm_campaign=download_activity#create-a-report-of-a-specified-region"
             target="_blank"
           >
             {t('download.apiPortal', 'See our APIs here')}

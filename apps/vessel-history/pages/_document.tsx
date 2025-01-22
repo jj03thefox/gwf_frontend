@@ -175,7 +175,7 @@ class MyDocument extends Document {
           <meta name="msapplication-TileColor" content="#fff" />
           <meta name="msapplication-TileImage" content={`${BASE_URL}/icons/mstile-144x144.png`} />
           <meta name="msapplication-config" content={`${BASE_URL}/icons/browserconfig.xml`} />
-          <link rel="canonical" href="https://globalfishingwatch.org/vessel-viewer" />
+          <link rel="canonical" href="https://gfw.roodata.com/vessel-viewer" />
 
           <title>GFW | Vessel Viewer</title>
 

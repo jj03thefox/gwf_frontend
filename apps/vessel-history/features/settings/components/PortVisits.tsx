@@ -73,7 +73,7 @@ const PortVisits: React.FC<SettingsProps> = (props): React.ReactElement<any> => 
                 upon the Global Fishing Watch anchorages dataset, a global database of anchorage
                 locations where vessels congregate:
                 <a
-                  href="https://globalfishingwatch.org/datasets-and-code-anchorages/"
+                  href="https://gfw.roodata.com/datasets-and-code-anchorages/"
                   rel="noopener noreferrer"
                   target="_blank"
                 >

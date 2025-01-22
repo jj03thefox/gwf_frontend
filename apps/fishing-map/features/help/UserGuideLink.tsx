@@ -20,8 +20,8 @@ export type UserGuideSection =
   | 'detectionsSAR'
   | 'detectionsVIIRS'
 
-const USER_GUIDE_LINK_EN: string = 'https://globalfishingwatch.org/user-guide/'
-const USER_GUIDE_LINK_ES: string = 'https://globalfishingwatch.org/es/guia-de-usuario/'
+const USER_GUIDE_LINK_EN: string = '/user-guide/'
+const USER_GUIDE_LINK_ES: string = '/guia-de-usuario/'
 
 const USER_GUIDE_SECTIONS_EN: Record<UserGuideSection, string> = {
   uploadData: '#Uploading data',
@@ -68,18 +68,19 @@ function UserGuideLink({ section, className }: UserGuideLinkProps) {
   const userGuideLink = i18n.language === 'es' ? USER_GUIDE_LINK_ES : USER_GUIDE_LINK_EN
   const userGuideSections = i18n.language === 'es' ? USER_GUIDE_SECTIONS_ES : USER_GUIDE_SECTIONS_EN
   return (
-    <a
-      className={cx(styles.link, className)}
-      href={`${userGuideLink}${userGuideSections[section]}`}
-      target="_blank"
-      rel="noreferrer"
-    >
-      <IconButton size="small" icon="help" className={styles.icon} />{' '}
-      <div>
-        <label className={styles.label}>{t('userGuide.title', 'User Guide')}</label>
-        <span>{t(`userGuide.${section}` as any)}</span>
-      </div>
-    </a>
+    <div></div>
+    // <a
+    //   className={cx(styles.link, className)}
+    //   href={`${userGuideLink}${userGuideSections[section]}`}
+    //   target="_blank"
+    //   rel="noreferrer"
+    // >
+    //   <IconButton size="small" icon="help" className={styles.icon} />{' '}
+    //   <div>
+    //     <label className={styles.label}>{t('userGuide.title', 'User Guide')}</label>
+    //     <span>{t(`userGuide.${section}` as any)}</span>
+    //   </div>
+    // </a>
   )
 }
 

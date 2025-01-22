@@ -32,19 +32,20 @@ import LayerPanel from './UserLayerPanel'
 
 export function RegisterOrLoginToUpload() {
   return (
-    <Trans i18nKey="dataset.uploadLogin">
-      <a
-        className={styles.link}
-        href={GFWAPI.getRegisterUrl(
-          typeof window !== 'undefined' ? window.location.toString() : ''
-        )}
-      >
-        Register
-      </a>
-      or
-      <LocalStorageLoginLink className={styles.link}>login</LocalStorageLoginLink>
-      to upload datasets (free, 2 minutes)
-    </Trans>
+    <div></div>
+    // <Trans i18nKey="dataset.uploadLogin">
+    //   <a
+    //     className={styles.link}
+    //     href={GFWAPI.getRegisterUrl(
+    //       typeof window !== 'undefined' ? window.location.toString() : ''
+    //     )}
+    //   >
+    //     Register
+    //   </a>
+    //   or
+    //   <LocalStorageLoginLink className={styles.link}>login</LocalStorageLoginLink>
+    //   to upload datasets (free, 2 minutes)
+    // </Trans>
   )
 }
 
@@ -110,84 +111,85 @@ function UserSection(): React.ReactElement<any> {
   )
 
   return (
-    <div className={cx(styles.container, { 'print-hidden': !hasVisibleDataviews })}>
-      <div className={cx(styles.header, 'print-hidden')}>
-        <h2 className={styles.sectionTitle}>{t('user.datasets', 'User datasets')}</h2>
-        {!readOnly && (
-          <Fragment>
-            {!isSmallScreen && (
-              <div className={styles.relative}>
-                <Hint id="userContextLayers" />
-                <UserLoggedIconButton
-                  icon="upload"
-                  type="border"
-                  size="medium"
-                  onClick={onUploadClick}
-                  tooltip={t('dataset.upload', 'Upload dataset')}
-                  tooltipPlacement="top"
-                  loginTooltip={t(
-                    'download.eventsDownloadLogin',
-                    'Register and login to download vessel events (free, 2 minutes)'
-                  )}
-                />
-              </div>
-            )}
-            <UserLoggedIconButton
-              icon="draw"
-              type="border"
-              size="medium"
-              tooltip={t('layer.drawPolygon', 'Draw a layer')}
-              tooltipPlacement="top"
-              onClick={() => onDrawClick('polygons')}
-              loginTooltip={t(
-                'download.eventsDownloadLogin',
-                'Register and login to download vessel events (free, 2 minutes)'
-              )}
-            />
-            <UserLoggedIconButton
-              icon="draw-points"
-              type="border"
-              size="medium"
-              tooltip={t('layer.drawPoints', 'Draw points')}
-              tooltipPlacement="top"
-              onClick={() => onDrawClick('points')}
-              loginTooltip={t(
-                'download.eventsDownloadLogin',
-                'Register and login to download vessel events (free, 2 minutes)'
-              )}
-            />
-            <IconButton
-              icon="plus"
-              type="border"
-              size="medium"
-              tooltip={t('dataset.addUser', 'Add an uploaded dataset')}
-              tooltipPlacement="top"
-              onClick={onAddClick}
-            />
-          </Fragment>
-        )}
-      </div>
-      <Fragment>
-        {dataviews?.length > 0 && (
-          <SortableContext items={dataviews}>
-            {dataviews?.map((dataview, index) => (
-              <LayerPanelContainer key={dataview.id} dataview={dataview}>
-                <LayerPanel dataview={dataview} onToggle={onToggleLayer(dataview)} />
-              </LayerPanelContainer>
-            ))}
-          </SortableContext>
-        )}
-        {guestUser ? (
-          <div className={styles.emptyStateBig}>
-            <RegisterOrLoginToUpload />
-          </div>
-        ) : !dataviews.length ? (
-          <div className={styles.emptyStateBig}>
-            {t('workspace.emptyStateUser', 'Upload custom datasets clicking on the plus icon.')}
-          </div>
-        ) : null}
-      </Fragment>
-    </div>
+    <div></div>
+    // <div className={cx(styles.container, { 'print-hidden': !hasVisibleDataviews })}>
+    //   <div className={cx(styles.header, 'print-hidden')}>
+    //     <h2 className={styles.sectionTitle}>{t('user.datasets', 'User datasets')}</h2>
+    //     {!readOnly && (
+    //       <Fragment>
+    //         {!isSmallScreen && (
+    //           <div className={styles.relative}>
+    //             <Hint id="userContextLayers" />
+    //             <UserLoggedIconButton
+    //               icon="upload"
+    //               type="border"
+    //               size="medium"
+    //               onClick={onUploadClick}
+    //               tooltip={t('dataset.upload', 'Upload dataset')}
+    //               tooltipPlacement="top"
+    //               loginTooltip={t(
+    //                 'download.eventsDownloadLogin',
+    //                 'Register and login to download vessel events (free, 2 minutes)'
+    //               )}
+    //             />
+    //           </div>
+    //         )}
+    //         <UserLoggedIconButton
+    //           icon="draw"
+    //           type="border"
+    //           size="medium"
+    //           tooltip={t('layer.drawPolygon', 'Draw a layer')}
+    //           tooltipPlacement="top"
+    //           onClick={() => onDrawClick('polygons')}
+    //           loginTooltip={t(
+    //             'download.eventsDownloadLogin',
+    //             'Register and login to download vessel events (free, 2 minutes)'
+    //           )}
+    //         />
+    //         <UserLoggedIconButton
+    //           icon="draw-points"
+    //           type="border"
+    //           size="medium"
+    //           tooltip={t('layer.drawPoints', 'Draw points')}
+    //           tooltipPlacement="top"
+    //           onClick={() => onDrawClick('points')}
+    //           loginTooltip={t(
+    //             'download.eventsDownloadLogin',
+    //             'Register and login to download vessel events (free, 2 minutes)'
+    //           )}
+    //         />
+    //         <IconButton
+    //           icon="plus"
+    //           type="border"
+    //           size="medium"
+    //           tooltip={t('dataset.addUser', 'Add an uploaded dataset')}
+    //           tooltipPlacement="top"
+    //           onClick={onAddClick}
+    //         />
+    //       </Fragment>
+    //     )}
+    //   </div>
+    //   <Fragment>
+    //     {dataviews?.length > 0 && (
+    //       <SortableContext items={dataviews}>
+    //         {dataviews?.map((dataview, index) => (
+    //           <LayerPanelContainer key={dataview.id} dataview={dataview}>
+    //             <LayerPanel dataview={dataview} onToggle={onToggleLayer(dataview)} />
+    //           </LayerPanelContainer>
+    //         ))}
+    //       </SortableContext>
+    //     )}
+    //     {guestUser ? (
+    //       <div className={styles.emptyStateBig}>
+    //         <RegisterOrLoginToUpload />
+    //       </div>
+    //     ) : !dataviews.length ? (
+    //       <div className={styles.emptyStateBig}>
+    //         {t('workspace.emptyStateUser', 'Upload custom datasets clicking on the plus icon.')}
+    //       </div>
+    //     ) : null}
+    //   </Fragment>
+    // </div>
   )
 }
 

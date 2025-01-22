@@ -22,7 +22,7 @@ function AnnotationTooltip({ features }: AnnotationTooltipProps) {
     <div className={cx(styles.popupSection, styles.withoutIcon)}>
       <div className={styles.popupSectionContent}>
         <span className={styles.rowText}>
-          {t('map.annotationsHover', 'Drag to move or click to edit annotation')}
+          {t('map.annotationsHover', '拖动以移动或单击以编辑注释')}
         </span>
       </div>
     </div>

@@ -53,6 +53,10 @@ const HIGHLIGHT_CONFIGS: HighlightPanelConfig[] = [
     releaseDateTimestamp: Date.parse('2024-10-24T00:00:00Z'),
     imageUrl: '',
     learnMoreUrl: 'https://globalfishingwatch.org/platform-updates/',
+    zh: {
+      title: "新的船舶组功能",
+      description: "创建您的船舶组以在地图上可视化组活动。点击船舶组名称以启动分析并查看组报告。"
+    },
     en: {
       title: 'New vessel groups feature',
       description:
@@ -70,6 +74,10 @@ const HIGHLIGHT_CONFIGS: HighlightPanelConfig[] = [
     releaseDateTimestamp: Date.parse('2024-08-01T00:00:00Z'),
     imageUrl: `${PATH_BASENAME}/images/before-after@2x.gif`,
     learnMoreUrl: 'https://globalfishingwatch.org/platform-updates/',
+    zh: {
+      "title": "更新的AIS数据和新功能",
+      "description": "全球渔业观察组织已改进底层AIS数据的准确性,现在支持高分辨率地图图层。数据改进可能会影响捕捞努力和活动计算。工作区应更新以反映这些变化"
+    },
     en: {
       title: 'Updated AIS data and new features',
       description:
@@ -88,6 +96,10 @@ const HIGHLIGHT_CONFIGS: HighlightPanelConfig[] = [
     releaseDateTimestamp: Date.parse('2024-05-07T00:00:00Z'),
     imageUrl: `${PATH_BASENAME}/images/marine-traffic-ais.jpg`,
     learnMoreUrl: 'https://globalfishingwatch.org/faqs/marine-traffic-new-ais-source/',
+    zh:{
+      "title": "新功能 - Marine Traffic作为陆地AIS数据源以改善覆盖范围",
+      "description": "从2024年1月3日起,全球渔业观察组织已将Marine Traffic添加为陆地自动识别系统(AIS)数据源,以改善三个区域的覆盖范围 - 地中海、南海和北海。这些数据现在已自动包含在表观捕捞努力和船舶存在地图图层中。"
+    },
     en: {
       title: 'New - Marine Traffic as a terrestrial AIS data source to improve coverage',
       description:
@@ -106,6 +118,10 @@ const HIGHLIGHT_CONFIGS: HighlightPanelConfig[] = [
     releaseDateTimestamp: Date.parse('2024-04-08T00:00:00Z'),
     imageUrl: ``,
     learnMoreUrl: 'https://globalfishingwatch.org/faqs/2024-april-data-error/',
+    zh:{
+      title: "已解决 - 全球渔业观察组织已解决平台中的底层AIS数据错误",
+      description: "如果您在2024年1月26日至4月10日期间访问了全球渔业观察组织的AIS或VMS数据,捕捞努力和捕捞事件数据可能存在错误。所有错误已经解决,数据已被纠正。我们建议您使用正确的数据重新进行任何分析。对造成的任何不便,我们深表歉意。"
+    },
     en: {
       title:
         'Resolved - Global Fishing Watch has resolved an underlying AIS data error in the platform.',
@@ -126,6 +142,10 @@ const HIGHLIGHT_CONFIGS: HighlightPanelConfig[] = [
     releaseDateTimestamp: Date.parse('2024-01-08T00:00:00Z'),
     imageUrl: `${PATH_BASENAME}/images/chlorophyl@2x.jpg`,
     learnMoreUrl: 'https://globalfishingwatch.org/platform-updates/',
+    zh:{
+      title: "新增环境数据源",
+      description: "根据您的反馈,全球渔业观察组织已添加新的数据集,包括动态海洋学和生态系统数据。通过动态报告,探索这些与人类活动并列的新数据集,并在空间和时间维度上分析它们,以更多地了解您感兴趣的区域。"
+    },
     en: {
       title: 'New environmental data sources added',
       description:
@@ -139,6 +159,10 @@ const HIGHLIGHT_CONFIGS: HighlightPanelConfig[] = [
     imageUrl: `${PATH_BASENAME}/images/sar.webp`,
     learnMoreUrl:
       'https://globalfishingwatch.org/press-release/new-research-harnesses-ai-and-satellite-imagery-to-reveal-the-expanding-footprint-of-human-activity-at-sea',
+    zh: {
+      title: "新增卫星雷达数据揭示隐藏于公众视野之外的工业船舶",
+      description: "全球渔业观察组织已添加一个开放的全球雷达探测图层,该图层来自合成孔径雷达(SAR),可在任何天气条件下显示海上船舶。SAR可以显示其他合作跟踪系统无法探测到的船舶,以及海上基础设施,如石油平台和风力发电场。"
+    },
     en: {
       title: 'Data added from satellite radar reveals industrial vessels hidden from public view',
       description:
@@ -151,6 +175,10 @@ const HIGHLIGHT_CONFIGS: HighlightPanelConfig[] = [
     releaseDateTimestamp: Date.parse('2023-06-01T00:00:00Z'),
     imageUrl: `${PATH_BASENAME}/images/papua_new_guinea-vms.webp`,
     learnMoreUrl: 'https://globalfishingwatch.org/papua-new-guinea',
+    zh:{
+      title: "巴布亚新几内亚的VMS数据现已可用",
+      description: "船舶监控系统(VMS)数据由巴布亚新几内亚国家渔业局提供。现在可以追踪在巴布亚新几内亚国家水域作业的巴布亚新几内亚渔业协会渔船队所有船舶的位置和活动。"
+    },
     en: {
       title: 'Papua New Guinea’s VMS data is now available',
       description:

@@ -579,13 +579,13 @@ function SidebarHeader() {
       stickyClassName={styles.sticky}
     >
       <div className={styles.sidebarHeader}>
-        <a href="https://globalfishingwatch.org" className={styles.logoLink}>
+        <a href="https://gfw.roodata.com" className={styles.logoLink}>
           <Logo className={styles.logo} subBrand={getSubBrand()} />
         </a>
         {!readOnly && (
           <Fragment>
-            {isAreaReportLocation && <SaveReportButton />}
-            {isWorkspaceLocation && <SaveWorkspaceButton />}
+            {/*{isAreaReportLocation && <SaveReportButton />}*/}
+            {/*{isWorkspaceLocation && <SaveWorkspaceButton />}*/}
             {(isWorkspaceLocation || isAreaReportLocation || isAnyVesselLocation) && (
               <ShareWorkspaceButton />
             )}

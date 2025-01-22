@@ -9,7 +9,10 @@ import { Locale } from 'types'
 
 export const CROWDIN_IN_CONTEXT_LANG = 'val'
 
+
+
 export const LocaleLabels = [
+  { id: Locale.zh, label: '简体中文' },
   { id: Locale.en, label: 'English' },
   { id: Locale.es, label: 'Español' },
   { id: Locale.fr, label: 'Français' },
@@ -18,9 +21,11 @@ export const LocaleLabels = [
 ]
 
 const NPM_SCOPE = WORKSPACE_ENV === 'production' ? 'stable' : 'latest'
-const SHARED_LABELS_PATH = IS_DEVELOPMENT_ENV
-  ? 'http://localhost:8000'
-  : `https://cdn.jsdelivr.net/npm/@globalfishingwatch/i18n-labels@${NPM_SCOPE}`
+const SHARED_LABELS_PATH = 'http://localhost:8000'
+// const SHARED_LABELS_PATH = `http://gfw_i18n.roodata.com`
+//   IS_DEVELOPMENT_ENV
+//   ? 'http://localhost:8000'
+//   : `http://gfw_i18n.roodata.com`
 
 const PACKAGE_NAMESPACES = ['flags', 'datasets', 'timebar']
 
@@ -36,6 +41,7 @@ i18n
   // init i18next
   // for all options read: https://www.i18next.com/overview/configuration-options
   .init({
+    lng: Locale.zh, // 设置默认语言为中文
     backend: {
       loadPath: (lngs: string[], namespaces: string[]) => {
         if (namespaces.some((namespace: string) => PACKAGE_NAMESPACES.includes(namespace))) {
@@ -46,7 +52,7 @@ i18n
     },
     ns: ['translations', 'flags', 'datasets', 'timebar'],
     defaultNS: 'translations',
-    fallbackLng: Locale.en,
+    fallbackLng: Locale.zh,
     supportedLngs: [...Object.values(Locale), CROWDIN_IN_CONTEXT_LANG],
     debug: process.env.i18n_DEBUG === 'true',
     interpolation: {

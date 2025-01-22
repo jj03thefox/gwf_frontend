@@ -32,7 +32,7 @@ const ErrorBoundaryUI = ({ error }: { error: Error }) => {
   const errorInfo = [message, stack, document.URL]
 
   const mailto = [
-    'mailto:support@globalfishingwatch.org?',
+    'mailto:zhanyunfei@roodata.com?',
     Object.entries({
       subject: 'Reporting an error',
       body: errorInfo.join('\n'),

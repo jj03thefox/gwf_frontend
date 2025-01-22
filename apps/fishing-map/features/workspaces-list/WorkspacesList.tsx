@@ -90,9 +90,12 @@ function WorkspacesList() {
             )
             const i18nCta = geti18nProperty(highlightedWorkspace, 'cta', i18n.language as Locale)
             const active = highlightedWorkspace?.id !== undefined && highlightedWorkspace?.id !== ''
+
+
             const isExternalLink = highlightedWorkspace.id.includes('http')
             let linkTo: To
-            if (isExternalLink) linkTo = highlightedWorkspace.id
+            // if (isExternalLink) linkTo = highlightedWorkspace.id
+            if (isExternalLink) linkTo = ''
             else if (highlightedWorkspace.id === DEFAULT_WORKSPACE_ID) {
               linkTo = {
                 type: HOME,
@@ -111,90 +114,102 @@ function WorkspacesList() {
                 replaceQuery: true,
               }
             }
-            return (
-              <li
-                key={highlightedWorkspace.id || i18nName}
-                className={cx(styles.workspace, { [styles.disabled]: !active })}
-              >
-                {active ? (
-                  isExternalLink ? (
-                    <a
-                      className={styles.imageLink}
-                      target="_blank"
-                      href={linkTo as string}
-                      rel="noreferrer"
-                    >
-                      <img className={styles.image} alt={i18nName} src={img} />
-                    </a>
-                  ) : (
-                    <Link
-                      to={linkTo}
-                      target="_self"
-                      onClick={() => onWorkspaceClick(highlightedWorkspace)}
-                      className={styles.imageLink}
-                    >
-                      <img className={styles.image} alt={i18nName} src={img} />
-                    </Link>
-                  )
-                ) : (
-                  <img className={styles.image} alt={i18nName} src={img} />
-                )}
-                <div className={styles.info}>
+            // zhanyunfei 过滤列表 islist
+            // const islist = highlightedWorkspace?.id == 'default-public'
+            //
+            // if (islist) {
+              return (
+                <li
+                  key={highlightedWorkspace.id || i18nName}
+                  className={cx(styles.workspace, { [styles.disabled]: !active })}
+                >
                   {active ? (
                     isExternalLink ? (
-                      <a target="_blank" href={linkTo as string} rel="noreferrer">
-                        <h3 className={styles.title}>{i18nName}</h3>
+                      <a
+                        className={styles.imageLink}
+                        target="_blank"
+                        href={linkTo as string}
+                        rel="noreferrer"
+                      >
+                        <img className={styles.image} alt={i18nName} src={img} />
                       </a>
                     ) : (
                       <Link
                         to={linkTo}
                         target="_self"
                         onClick={() => onWorkspaceClick(highlightedWorkspace)}
+                        className={styles.imageLink}
                       >
-                        <h3 className={styles.title}>{i18nName}</h3>
+                        <img className={styles.image} alt={i18nName} src={img} />
                       </Link>
                     )
                   ) : (
-                    <h3 className={styles.title}>{i18nName}</h3>
+                    <img className={styles.image} alt={i18nName} src={img} />
                   )}
-                  {i18nDescription && (
-                    <p
-                      className={styles.description}
-                      dangerouslySetInnerHTML={{
-                        __html: i18nDescription,
-                      }}
-                    ></p>
-                  )}
-                  <div className={styles.linksContainer}>
-                    {reportUrl && (
-                      <a href={reportUrl as string} className={styles.link}>
-                        {t('analysis.see', 'See report')}
-                      </a>
-                    )}
-                    {active &&
-                      (isExternalLink ? (
-                        <a
-                          target="_blank"
-                          href={linkTo as string}
-                          className={styles.link}
-                          rel="noreferrer"
-                        >
-                          {i18nCta}
+                  <div className={styles.info}>
+                    {active ? (
+                      isExternalLink ? (
+                        <a target="_blank" href={linkTo as string} rel="noreferrer">
+                          <h3 className={styles.title}>{i18nName}</h3>
                         </a>
                       ) : (
                         <Link
                           to={linkTo}
                           target="_self"
-                          className={styles.link}
                           onClick={() => onWorkspaceClick(highlightedWorkspace)}
                         >
-                          {i18nCta}
+                          <h3 className={styles.title}>
+                            {i18nName}
+                            {/*{t('common.workspacetitle', '啊啊啊')}*/}
+                          </h3>
                         </Link>
-                      ))}
+                      )
+                    ) : (
+                      <h3 className={styles.title}>{i18nName}</h3>
+                    )}
+                    {i18nDescription && (
+                      <p
+                        className={styles.description}
+                        dangerouslySetInnerHTML={{
+                          __html: i18nDescription,
+                        }}
+                      ></p>
+                    )}
+                    <div className={styles.linksContainer}>
+                      {reportUrl && (
+                        <a href={reportUrl as string} className={styles.link}>
+                          {t('analysis.see', 'See report')}
+                        </a>
+                      )}
+                      {active &&
+                        (isExternalLink ? (
+                          <a
+                            target="_blank"
+                            href={linkTo as string}
+                            className={styles.link}
+                            rel="noreferrer"
+                          >
+                            {i18nCta}
+                          </a>
+                        ) : (
+                          <Link
+                            to={linkTo}
+                            target="_self"
+                            className={styles.link}
+                            onClick={() => onWorkspaceClick(highlightedWorkspace)}
+                          >
+                            {i18nCta}
+                          </Link>
+                        ))}
+                    </div>
                   </div>
-                </div>
-              </li>
-            )
+                </li>
+              )
+            // }
+            // else {
+            //   return null
+            // }
+
           })}
         </ul>
       )}

@@ -140,7 +140,7 @@ function PopupByCategory({ interaction, type = 'hover' }: PopupByCategoryProps) 
                     error={
                       activityInteractionStatus === AsyncReducerStatus.Error
                         ? activityInteractionError ||
-                          t('errors.genericShort', 'Something went wrong')
+                          t('errors.genericShort', '出了问题；情况不妙')
                         : undefined
                     }
                     feature={{
@@ -194,7 +194,7 @@ function PopupByCategory({ interaction, type = 'hover' }: PopupByCategoryProps) 
                 showFeaturesDetails={type === 'click'}
                 error={
                   apiEventStatus === AsyncReducerStatus.Error
-                    ? apiEventError || t('errors.genericShort', 'Something went wrong')
+                    ? apiEventError || t('errors.genericShort', '出了问题；情况不妙')
                     : undefined
                 }
               />

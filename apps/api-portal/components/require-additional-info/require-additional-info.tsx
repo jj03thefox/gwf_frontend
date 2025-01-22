@@ -4,7 +4,7 @@ import { useRouter } from 'next/router'
 
 import useUser from 'features/user/user'
 
- 
+
 export interface RequireAdditionalInfoProps {
   children: ReactNode
 }

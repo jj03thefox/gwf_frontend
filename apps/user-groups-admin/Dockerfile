@@ -13,7 +13,7 @@ RUN htpasswd -Bbn "$BASIC_AUTH_USER" "$BASIC_AUTH_PASS" > /home/.htpasswd
 #################################################################################
 # Using stable version that uses alpine 3.14 to fix build errors
 # https://github.com/alpinelinux/docker-alpine/issues/182
-FROM nginx:stable-alpine as production
+FROM nginx:stable-perl as production
 
 COPY ./nginx.conf /etc/nginx/nginx.template
 COPY --from=htpasswd /home/.htpasswd /home/.htpasswd

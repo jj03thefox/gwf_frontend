@@ -56,10 +56,7 @@ const DownloadPopupButton: React.FC<DownloadPopupButtonProps> = ({
   const datasetsReportSupported = datasetsReportAllowed?.length > 0
   return (
     <LoginButtonWrapper
-      tooltip={t(
-        'download.heatmapLogin',
-        'Register and login to download activity, detections or environment data (free, 2 minutes)'
-      )}
+      tooltip={t('download.heatmapLogin', '注册并登录以下载活动、检测或环境数据（免费，2分钟）')}
     >
       <IconButton
         icon="download"
@@ -67,11 +64,8 @@ const DownloadPopupButton: React.FC<DownloadPopupButtonProps> = ({
         testId="download-activity-layers"
         tooltip={
           datasetsReportSupported
-            ? t('download.heatmapLayers', 'Download visible layers for this area')
-            : t(
-                'download.noHeatmapLayers',
-                'Turn on an activity, detections or environment layer to download its data for this area'
-              )
+            ? t('download.heatmapLayers', '下载此区域的可见图层')
+            : t('download.noHeatmapLayers', '打开活动、检测或环境层以下载该区域的数据')
         }
         onClick={onClick}
         size="small"
@@ -218,11 +212,11 @@ const ContextLayersRow = ({
         <div className={styles.rowActions}>
           {handleDownloadClick && <DownloadPopupButton onClick={handleDownloadClick} />}
           <ReportPopupLink feature={feature} onClick={handleReportClick} />
-          {linkHref && (
+          {/* {linkHref && (
             <a target="_blank" rel="noopener noreferrer" href={linkHref}>
               <IconButton icon="info" tooltip={t('common.learnMore', 'Learn more')} size="small" />
             </a>
-          )}
+          )} */}
         </div>
       )}
     </div>

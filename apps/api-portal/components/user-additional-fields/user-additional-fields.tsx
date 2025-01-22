@@ -199,7 +199,7 @@ export function UserAdditionalFields(props: UserAdditionalFieldsProps) {
         <div className={styles.span}>
           I agree to the Global Fishing Watch API{' '}
           <a
-            href="https://globalfishingwatch.org/our-apis/documentation#terms-of-use"
+            href="https://gfw.roodata.com/our-apis/documentation#terms-of-use"
             onClick={onTermsOfUseClick}
             target={'_blank'}
             rel="noreferrer"

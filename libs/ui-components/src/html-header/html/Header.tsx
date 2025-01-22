@@ -56,7 +56,7 @@ export function Header({ mini = false, inverted = false }: HeaderProps) {
                   )
               )}
               <li key="donate" role="menuitem" className="highlight-btn">
-                <a href="https://globalfishingwatch.org/donate/">Donate</a>
+                <a href="https://gfw.roodata.com/donate/">Donate</a>
               </li>
             </ul>
           </nav>

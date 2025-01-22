@@ -33,7 +33,7 @@ const Welcome = ({ contentKey }: WelcomeProps) => {
 
   const welcomeModalContent = WELCOME_POPUP_CONTENT[contentKey]
   const welcomeModalContentTranslated =
-    welcomeModalContent?.[i18n.language as Locale] || welcomeModalContent?.[Locale.en]
+    welcomeModalContent?.[i18n.language as Locale] || welcomeModalContent?.[Locale.zh]
 
   useEffect(() => {
     if (!welcomePopup?.visible && welcomePopup?.showAgain) {

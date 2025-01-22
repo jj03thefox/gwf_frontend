@@ -1,5 +1,6 @@
 export enum Locale {
   en = 'en',
+  zh = 'zh',
 }
 
 export type WorkspaceParam =

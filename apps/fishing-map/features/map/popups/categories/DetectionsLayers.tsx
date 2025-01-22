@@ -60,7 +60,7 @@ function ViirsMatchTooltipRow({
                 <I18nNumber number={feature.value} />{' '}
               </Fragment>
             )}
-            {t([`common.${feature?.unit}` as any, 'common.detection'], 'detections', {
+            {t([`common.${feature?.unit}` as any, 'common.detection'], '探测', {
               count: feature.value, // neded to select the plural automatically
             })}{' '}
             {hasVesselsResolved && showFeaturesDetails && notMatchedDetectionsCount >= 0 && (

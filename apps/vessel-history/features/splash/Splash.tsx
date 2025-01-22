@@ -24,7 +24,7 @@ const Splash: React.FC<{ intro?: boolean }> = ({ intro }) => {
 
   const requestAccess = useCallback(() => {
     window.location.href =
-      'mailto:support@globalfishingwatch.org?subject=Requesting access to Vessel Viewer App'
+      'mailto:zhanyunfei@roodata.com?subject=Requesting access to Vessel Viewer App'
   }, [])
 
   const goToOfflineHome = useCallback(() => {

@@ -87,9 +87,9 @@ const RelatedEncounterVessels = () => {
           {visibleEvents === 'all' || visibleEvents.includes('encounter')
             ? t(
                 'vessel.noEncountersInTimeRange',
-                'There are no encounters fully contained in your timerange.'
+                '在您设定的时间范围内，没有完全包含在内的船舶相遇情况。'
               )
-            : t('vessel.noEncountersVisible', 'Please turn on encounter events visibility.')}
+            : t('vessel.noEncountersVisible', '请开启船舶相遇事件可见性。')}
         </span>
       )}
     </div>

@@ -16,7 +16,7 @@ const descriptionReducer = (state = DEFAULT, action: PayloadAction<{ category?: 
     }
     case SEARCH:
     case WORKSPACE_SEARCH: {
-      return t(`workspace.siteDescription.search`, 'search description')
+      return t(`workspace.siteDescription.search`, '搜索描述')
     }
     default:
       return state

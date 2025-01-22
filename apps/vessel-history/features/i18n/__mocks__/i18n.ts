@@ -3,8 +3,8 @@ import i18n from 'i18next'
 
 i18n.use(initReactI18next).init({
   react: { useSuspense: false },
-  lng: 'en',
-  fallbackLng: 'en',
+  lng: 'zh',
+  fallbackLng: 'zh',
 
   // have a common namespace used around the full app
   ns: ['translations', 'flags', 'datasets'],
@@ -16,7 +16,7 @@ i18n.use(initReactI18next).init({
     escapeValue: false, // not needed for react!!
   },
 
-  resources: { en: { translations: {} } },
+  resources: { zh: { translations: {} } },
 })
 
 export default i18n

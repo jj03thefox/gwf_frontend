@@ -68,7 +68,7 @@ export function SearchEmptyState({ className = '' }: SearchPlaceholderProps) {
           {activeSearchOption === 'basic' && (
             <div className={styles.description}>
               {t('search.description', 'Search by vessel name or identification code.')}
-              <br />
+              {/*<br />
               {isSmallScreen
                 ? t(
                     'search.descriptionSmallScreens',
@@ -77,7 +77,7 @@ export function SearchEmptyState({ className = '' }: SearchPlaceholderProps) {
                 : t(
                     'search.descriptionNarrow',
                     'You can narrow your search by clicking "ADVANCED" in the top menu bar.'
-                  )}
+                  )}*/}
             </div>
           )}
           {activeSearchOption === 'advanced' && (
@@ -90,20 +90,20 @@ export function SearchEmptyState({ className = '' }: SearchPlaceholderProps) {
           )}
           {guestUser && noGuestDatasets?.length > 0 && (
             <p className={cx(styles.description, styles.center)}>
-              <Tooltip content={noGuestDatasets.join(', ')}>
-                <span className={styles.bold}>
-                  {noGuestDatasets.length} {t('common.sources', 'Sources')}
-                </span>
-              </Tooltip>{' '}
-              <Trans i18nKey="search.missingSources">
-                won't appear unless you
-                <LocalStorageLoginLink className={styles.link}>log in</LocalStorageLoginLink>
-              </Trans>
+              {/*<Tooltip content={noGuestDatasets.join(', ')}>*/}
+              {/*  <span className={styles.bold}>*/}
+              {/*    {noGuestDatasets.length} {t('common.sources', 'Sources')}*/}
+              {/*  </span>*/}
+              {/*</Tooltip>{' '}*/}
+              {/*<Trans i18nKey="search.missingSources">*/}
+              {/*  won't appear unless you*/}
+              {/*  <LocalStorageLoginLink className={styles.link}>log in</LocalStorageLoginLink>*/}
+              {/*</Trans>*/}
             </p>
           )}
-          <p className={styles.highlighted}>
-            {parse(t('search.learnMore', 'Learn more about how vessel identity work'))}
-          </p>
+          {/*<p className={styles.highlighted}>*/}
+          {/*  {parse(t('search.learnMore', 'Learn more about how vessel identity work'))}*/}
+          {/*</p>*/}
           <UserGuideLink section="vesselSearch" className={cx(styles.userGuide, styles.center)} />
         </div>
       </div>

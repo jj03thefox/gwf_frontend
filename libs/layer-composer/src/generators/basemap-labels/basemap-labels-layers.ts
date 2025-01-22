@@ -19,7 +19,7 @@ export const layers: Dictionary<LayerSpecification[]> = {
   ],
 }
 
-export const getLabelsTilesUrlByLocale = (locale: Locale = Locale.en) => {
+export const getLabelsTilesUrlByLocale = (locale: Locale = Locale.zh) => {
   return `${API_GATEWAY}/${API_GATEWAY_VERSION}/tileset/nslabels/tile?locale=${locale}&x={x}&y={y}&z={z}`
 }
 

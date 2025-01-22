@@ -27,7 +27,7 @@ function WhatsNew() {
   useEffect(() => {
     // We want to hide the icon automatically for following visits
     setLastVersionSeen(currentVersion)
-     
+
   }, [])
 
   const dismissNewVersionHint = () => {
@@ -39,7 +39,7 @@ function WhatsNew() {
   return (
     <a
       className={cx({ [styles.newVersionHint]: newVersionSinceLastVisit.current })}
-      href="https://globalfishingwatch.org/platform-updates"
+      href="https://gfw.roodata.com/platform-updates"
       target="_blank"
       rel="noreferrer"
     >

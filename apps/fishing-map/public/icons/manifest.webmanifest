@@ -1,7 +1,7 @@
 {
   "name": "GFW Fishing map",
   "short_name": "GFW Fishing map",
-  "description": "The Global Fishing Watch map is the first open-access platform for visualization and analysis of marine traffic and vessel-based human activity at sea.",
+  "description": "全球渔业观察地图是第一个用于可视化和分析海上交通和海上船舶人类活动的开放式平台。",
   "dir": "auto",
   "lang": "en-US",
   "display": "standalone",

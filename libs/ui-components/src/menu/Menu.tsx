@@ -14,25 +14,25 @@ type MenuLink = {
 }
 
 export const defaultLinks: MenuLink[] = [
-  { id: 'topics', label: 'Topics', href: 'https://globalfishingwatch.org/topics/' },
-  { id: 'map-data', label: 'Map & data', href: 'https://globalfishingwatch.org/map-and-data/' },
-  { id: 'programs', label: 'Programs', href: 'https://globalfishingwatch.org/programs/' },
-  { id: 'newsroom', label: 'Newsroom', href: 'https://globalfishingwatch.org/newsroom/' },
-  { id: 'about-us', label: 'About Us', href: 'https://globalfishingwatch.org/about-us/' },
+  { id: 'topics', label: 'Topics', href: 'https://gfw.roodata.com/topics/' },
+  { id: 'map-data', label: 'Map & data', href: 'https://gfw.roodata.com/map-and-data/' },
+  { id: 'programs', label: 'Programs', href: 'https://gfw.roodata.com/programs/' },
+  { id: 'newsroom', label: 'Newsroom', href: 'https://gfw.roodata.com/newsroom/' },
+  { id: 'about-us', label: 'About Us', href: 'https://gfw.roodata.com/about-us/' },
   {
     id: 'help',
     label: 'Help',
-    href: 'https://globalfishingwatch.org/help-faqs/',
+    href: 'https://gfw.roodata.com/help-faqs/',
   },
   {
     id: 'terms-of-use',
     label: 'Terms of use',
-    href: 'https://globalfishingwatch.org/terms-of-use/',
+    href: 'https://gfw.roodata.com/terms-of-use/',
   },
   {
     id: 'privacy-policy',
     label: 'Privacy policy',
-    href: 'https://globalfishingwatch.org/privacy-policy/',
+    href: 'https://gfw.roodata.com/privacy-policy/',
   },
 ]
 
@@ -83,7 +83,7 @@ export function Menu(props: MenuProps) {
       onRequestClose={onClose}
     >
       <div className={styles.header}>
-        <a href="https://globalfishingwatch.org">
+        <a href="https://gfw.roodata.com">
           <Logo type="invert" className={styles.logo} />
         </a>
         <IconButton className={styles.closeBtn} icon="close" type="invert" onClick={onClose} />

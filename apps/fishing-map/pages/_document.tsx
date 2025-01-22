@@ -16,15 +16,15 @@ class MyDocument extends Document {
           <meta charSet="utf-8" />
           <meta
             property="og:description"
-            content="The Global Fishing Watch map is the first open-access platform for visualization and analysis of marine traffic and vessel-based human activity at sea."
+            content="全球渔业观察地图是第一个用于可视化和分析海上交通和海上船舶人类活动的开放式平台。"
           />
           <meta
             name="twitter:description"
-            content="The Global Fishing Watch map is the first open-access platform for visualization and analysis of marine traffic and vessel-based human activity at sea."
+            content="全球渔业观察地图是第一个用于可视化和分析海上交通和海上船舶人类活动的开放式平台。"
           />
           <meta
             name="description"
-            content="The Global Fishing Watch map is the first open-access platform for visualization and analysis of marine traffic and vessel-based human activity at sea."
+            content="全球渔业观察地图是第一个用于可视化和分析海上交通和海上船舶人类活动的开放式平台。"
           />
           <link rel="shortcut icon" href={`${PATH_BASENAME}/icons/favicon.ico`} />
           <link
@@ -187,7 +187,7 @@ class MyDocument extends Document {
           <meta name="msapplication-TileColor" content="#fff" />
           <meta name="msapplication-TileImage" content="icons/mstile-144x144.png" />
           <meta name="msapplication-config" content="icons/browserconfig.xml" />
-          <link rel="canonical" href="https://globalfishingwatch.org/map" />
+          <link rel="canonical" href="https://gfw.roodata.com/map" />
         </Head>
         <body>
           <noscript

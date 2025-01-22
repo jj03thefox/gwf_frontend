@@ -306,37 +306,38 @@ function LayerPanel({ dataview, onToggle }: LayerPanelProps): React.ReactElement
           })}
         >
           {DATAVIEWS_WARNING.includes(dataview?.id) && (
-            <Fragment>
-              <div>
-                {t(
-                  `dataview.${dataview?.id}.dataWarning` as any,
-                  'This platform uses a reference layer from an external source.'
-                )}
-              </div>
-              <div className={cx('print-hidden', styles.dataWarningLinks)}>
-                <button onClick={onAddNewClick}>
-                  {t('dataset.uploadYourOwn', 'Upload your own')}
-                </button>{' '}
-                |{' '}
-                <button onClick={() => setModalDataWarningOpen(!modalDataWarningOpen)}>
-                  {t('common.learnMore', 'Learn more')}
-                </button>
-                <Modal
-                  appSelector={ROOT_DOM_ELEMENT}
-                  title={title}
-                  isOpen={modalDataWarningOpen}
-                  onClose={onDataWarningModalClose}
-                  contentClassName={styles.modalContent}
-                >
-                  {parse(
-                    t(
-                      `dataview.${dataview?.id}.dataWarningDetail` as any,
-                      'This platform uses reference layers (shapefiles) from an external source. The designations employed and the presentation of the material on this platform do not imply the expression of any opinion whatsoever on the part of Global Fishing Watch concerning the legal status of any country, territory, city or area or of its authorities, or concerning the delimitation of its frontiers or boundaries. Should you consider these reference layers not applicable for your purposes, this platform allows custom reference layers to be uploaded. Draw or upload your own reference layer using the "+" icon in the left sidebar. Learn more on our <a href="https://globalfishingwatch.org/tutorials/">tutorials</a> and <a href="https://globalfishingwatch.org/help-faqs/">FAQs</a>.'
-                    )
-                  )}
-                </Modal>
-              </div>
-            </Fragment>
+            <div></div>
+            // <Fragment>
+            //   <div>
+            //     {t(
+            //       `dataview.${dataview?.id}.dataWarning` as any,
+            //       'This platform uses a reference layer from an external source.'
+            //     )}
+            //   </div>
+            //   <div className={cx('print-hidden', styles.dataWarningLinks)}>
+            //     <button onClick={onAddNewClick}>
+            //       {t('dataset.uploadYourOwn', 'Upload your own')}
+            //     </button>{' '}
+            //     |{' '}
+            //     <button onClick={() => setModalDataWarningOpen(!modalDataWarningOpen)}>
+            //       {t('common.learnMore', 'Learn more')}
+            //     </button>
+            //     <Modal
+            //       appSelector={ROOT_DOM_ELEMENT}
+            //       title={title}
+            //       isOpen={modalDataWarningOpen}
+            //       onClose={onDataWarningModalClose}
+            //       contentClassName={styles.modalContent}
+            //     >
+            //       {parse(
+            //         t(
+            //           `dataview.${dataview?.id}.dataWarningDetail` as any,
+            //           'This platform uses reference layers (shapefiles) from an external source. The designations employed and the presentation of the material on this platform do not imply the expression of any opinion whatsoever on the part of Global Fishing Watch concerning the legal status of any country, territory, city or area or of its authorities, or concerning the delimitation of its frontiers or boundaries. Should you consider these reference layers not applicable for your purposes, this platform allows custom reference layers to be uploaded. Draw or upload your own reference layer using the "+" icon in the left sidebar. Learn more on our <a href="https://globalfishingwatch.org/tutorials/">tutorials</a> and <a href="https://globalfishingwatch.org/help-faqs/">FAQs</a>.'
+            //         )
+            //       )}
+            //     </Modal>
+            //   </div>
+            // </Fragment>
           )}
           {hasSchemaFilterSelection && (
             <div className={styles.filters}>

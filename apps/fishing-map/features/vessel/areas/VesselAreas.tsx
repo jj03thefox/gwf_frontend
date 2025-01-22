@@ -189,34 +189,35 @@ const VesselAreas = ({ updateAreaLayersVisibility }: VesselAreasProps) => {
         onSelect={changeVesselArea}
       />
       {areaDataview && DATAVIEWS_WARNING.includes(areaDataview?.id) && (
-        <div className={styles.dataWarning}>
-          {t(
-            `dataview.${areaDataview?.id}.dataWarning` as any,
-            'This platform uses a reference layer from an external source.'
-          )}{' '}
-          <span className={'print-hidden'}>
-            <button
-              className={styles.dataWarningLink}
-              onClick={() => setModalDataWarningOpen(!modalDataWarningOpen)}
-            >
-              {t('common.learnMore', 'Learn more')}
-            </button>
-            <Modal
-              appSelector={ROOT_DOM_ELEMENT}
-              title={areaOptions.find((o) => o.id === vesselArea)?.label}
-              isOpen={modalDataWarningOpen}
-              onClose={onDataWarningModalClose}
-              contentClassName={styles.modalContent}
-            >
-              {parse(
-                t(
-                  `dataview.${areaDataview?.id}.dataWarningDetail` as any,
-                  'This platform uses reference layers (shapefiles) from an external source. The designations employed and the presentation of the material on this platform do not imply the expression of any opinion whatsoever on the part of Global Fishing Watch concerning the legal status of any country, territory, city or area or of its authorities, or concerning the delimitation of its frontiers or boundaries. Should you consider these reference layers not applicable for your purposes, this platform allows custom reference layers to be uploaded. Draw or upload your own reference layer using the "+" icon in the left sidebar. Learn more on our <a href="https://globalfishingwatch.org/tutorials/">tutorials</a> and <a href="https://globalfishingwatch.org/help-faqs/">FAQs</a>.'
-                )
-              )}
-            </Modal>
-          </span>
-        </div>
+        <div></div>
+        // <div className={styles.dataWarning}>
+        //   {t(
+        //     `dataview.${areaDataview?.id}.dataWarning` as any,
+        //     'This platform uses a reference layer from an external source.'
+        //   )}{' '}
+        //   <span className={'print-hidden'}>
+        //     <button
+        //       className={styles.dataWarningLink}
+        //       onClick={() => setModalDataWarningOpen(!modalDataWarningOpen)}
+        //     >
+        //       {t('common.learnMore', 'Learn more')}
+        //     </button>
+        //     <Modal
+        //       appSelector={ROOT_DOM_ELEMENT}
+        //       title={areaOptions.find((o) => o.id === vesselArea)?.label}
+        //       isOpen={modalDataWarningOpen}
+        //       onClose={onDataWarningModalClose}
+        //       contentClassName={styles.modalContent}
+        //     >
+        //       {parse(
+        //         t(
+        //           `dataview.${areaDataview?.id}.dataWarningDetail` as any,
+        //           'This platform uses reference layers (shapefiles) from an external source. The designations employed and the presentation of the material on this platform do not imply the expression of any opinion whatsoever on the part of Global Fishing Watch concerning the legal status of any country, territory, city or area or of its authorities, or concerning the delimitation of its frontiers or boundaries. Should you consider these reference layers not applicable for your purposes, this platform allows custom reference layers to be uploaded. Draw or upload your own reference layer using the "+" icon in the left sidebar. Learn more on our <a href="https://globalfishingwatch.org/tutorials/">tutorials</a> and <a href="https://globalfishingwatch.org/help-faqs/">FAQs</a>.'
+        //         )
+        //       )}
+        //     </Modal>
+        //   </span>
+        // </div>
       )}
       <div className={styles.areaList}>
         {eventsGroupedWithoutUnknown.length > 0 ? (

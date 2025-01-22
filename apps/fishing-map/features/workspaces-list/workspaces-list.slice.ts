@@ -80,6 +80,7 @@ export type HighlightedWorkspace = {
     fr?: string
     id?: string
     pt?: string
+    zh?: string
   }
   description: {
     en: string
@@ -87,6 +88,7 @@ export type HighlightedWorkspace = {
     fr?: string
     id?: string
     pt?: string
+    zh?: string
   }
   cta: {
     en: string
@@ -94,6 +96,7 @@ export type HighlightedWorkspace = {
     fr?: string
     id?: string
     pt?: string
+    zh?: string
   }
   img?: string
   userGroup?: string
@@ -114,6 +117,29 @@ export const fetchHighlightWorkspacesThunk = createAsyncThunk(
     const workspaces = await GFWAPI.fetch<APIPagination<HighlightedWorkspaces>>(
       `/highlighted-workspaces/${WORKSPACES_APP}`
     )
+
+    // zhanyunfei
+    workspaces.entries.forEach((entry) => {
+      entry.workspaces.forEach((workspace) => {
+        if (workspace.name.en === 'Carrier vessel portal') {
+          workspace.visible = 'hidden'
+          console.log(workspace.name.en, workspace.userGroup)
+        }
+        if (workspace.userGroup === 'Default') {
+          if (workspace.id !== 'default-public') {
+            workspace.visible = 'hidden'
+          }
+          workspace.name.zh = '全球渔业观察平台'
+          workspace.description.zh =
+            '根据我们伙伴国家的全球自动识别系统（AIS）和船舶监测系统（VMS）数据，近乎实时地监测海上船舶活动。'
+          workspace.cta.zh = '浏览地图'
+        }
+        if (workspace.cta.en === 'See marine manager portal') {
+          workspace.cta.zh = '查看海事经理门户'
+        }
+      })
+    })
+    // zhanyunfei end
 
     const workspacesIds = workspaces.entries.flatMap(({ workspaces }) => {
       return workspaces.flatMap(({ id, visible }) => (visible === 'visible' && id) || [])
