@@ -12,14 +12,14 @@ import type { _BasemapLabelsLayerProps } from './basemap.types'
 
 export type BaseMapLabelsLayerProps = Omit<MVTLayerProps, 'data'> & _BasemapLabelsLayerProps
 
-export const getLabelsTilesUrlByLocale = (locale: Locale = Locale.en) => {
+export const getLabelsTilesUrlByLocale = (locale: Locale = Locale.zh) => {
   return `${API_GATEWAY}/${API_VERSION}/tileset/nslabels/tile?locale=${locale}&x={x}&y={y}&z={z}`
 }
 
 export class BaseMapLabelsLayer extends CompositeLayer<BaseMapLabelsLayerProps> {
   static layerName = 'BasemapLabelsLayer'
   static defaultProps = {
-    locale: Locale.en,
+    locale: Locale.zh,
   }
 
   renderLayers() {

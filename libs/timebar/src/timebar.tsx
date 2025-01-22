@@ -123,7 +123,7 @@ export type TimebarProps = {
   maximumRangeUnit?: string
   stickToUnit?: (start: string, end: string) => 'day' | 'hour' | 'month' | 'year'
   // val is used to live edit translations in crowdin
-  locale: 'en' | 'es' | 'fr' | 'id' | 'pt' | 'val'
+  locale: 'en' | 'es' | 'fr' | 'id' | 'pt' | 'val' | 'zh'
   intervals?: FourwingsInterval[]
   getCurrentInterval?: typeof getFourwingsInterval
   displayWarningWhenInFuture?: boolean

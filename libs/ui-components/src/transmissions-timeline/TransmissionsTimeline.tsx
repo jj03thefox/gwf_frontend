@@ -18,7 +18,7 @@ export function TransmissionsTimeline({
   firstTransmissionDate,
   lastTransmissionDate,
   firstYearOfData = FIRST_YEAR_OF_DATA,
-  locale = Locale.en,
+  locale = Locale.zh,
 }: TransmissionsTimelineProps) {
   const [timelineWidth, setTimelineWidth] = useState<number>(0)
   const transmissionsRef = useRef<HTMLDivElement | null>(null)

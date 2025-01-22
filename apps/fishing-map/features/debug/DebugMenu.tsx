@@ -27,7 +27,7 @@ const DebugMenu: React.FC = () => {
       debugDatasetsInDataviews(dataviews, datasetId)
       debugRelatedDatasets(datasets, datasetId)
     }
-     
+
   }, [datasetId])
 
   return (

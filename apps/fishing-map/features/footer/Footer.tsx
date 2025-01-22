@@ -26,31 +26,31 @@ const FooterPartners = ({ smallScreen }: FooterPartnersProps) => {
     case WorkspaceCategory.MarineManager:
       return (
         <div className={styles.partners}>
-          {!smallScreen && (
-            <span className={styles.text}>{t('footer.supportBy', 'Supported by')}</span>
-          )}
-          <a href="https://donabertarelli.com/" rel="noopener noreferrer" target="_blank">
-            <img src={LogoDonaBertarelli.src} alt="Dona Bertarelli" width="129px" />
-          </a>
+          {/*{!smallScreen && (*/}
+          {/*  <span className={styles.text}>{t('footer.supportBy', 'Supported by')}</span>*/}
+          {/*)}*/}
+          {/*<a href="https://donabertarelli.com/" rel="noopener noreferrer" target="_blank">*/}
+          {/*  <img src={LogoDonaBertarelli.src} alt="Dona Bertarelli" width="129px" />*/}
+          {/*</a>*/}
         </div>
       )
     default:
       return (
         <div className={styles.partners}>
-          {!smallScreen && (
-            <span className={styles.text}>
-              {t('footer.convenedBy', 'A partnership convened by')}
-            </span>
-          )}
-          <a href="https://oceana.org/" rel="noopener noreferrer" target="_blank">
-            <img src={LogoOceana.src} alt="Oceana" width="64px" height="24px" />
-          </a>
-          <a href="https://skytruth.org/" rel="noopener noreferrer" target="_blank">
-            <img src={LogoSkytruth.src} alt="Skytruth" width="79px" height="24px" />
-          </a>
-          <a href="https://google.com" rel="noopener noreferrer" target="_blank">
-            <img src={LogoGoogle.src} alt="Google" width="57px" height="24px" />
-          </a>
+          {/*{!smallScreen && (*/}
+          {/*  <span className={styles.text}>*/}
+          {/*    {t('footer.convenedBy', 'A partnership convened by')}*/}
+          {/*  </span>*/}
+          {/*)}*/}
+          {/*<a href="https://oceana.org/" rel="noopener noreferrer" target="_blank">*/}
+          {/*  <img src={LogoOceana.src} alt="Oceana" width="64px" height="24px" />*/}
+          {/*</a>*/}
+          {/*<a href="https://skytruth.org/" rel="noopener noreferrer" target="_blank">*/}
+          {/*  <img src={LogoSkytruth.src} alt="Skytruth" width="79px" height="24px" />*/}
+          {/*</a>*/}
+          {/*<a href="https://google.com" rel="noopener noreferrer" target="_blank">*/}
+          {/*  <img src={LogoGoogle.src} alt="Google" width="57px" height="24px" />*/}
+          {/*</a>*/}
         </div>
       )
   }
@@ -58,7 +58,7 @@ const FooterPartners = ({ smallScreen }: FooterPartnersProps) => {
 
 function Footer(): React.ReactElement<any> {
   const isSmallScreen = useSmallScreen(900)
-  const copyright = isSmallScreen ? '© GFW ' : '© Global Fishing Watch '
+  const copyright = isSmallScreen ? '© GFW ' : '© RooData 袋鼠数据 '
   return (
     <footer className={cx('print-hidden', styles.footer)}>
       <FooterPartners smallScreen={isSmallScreen} />

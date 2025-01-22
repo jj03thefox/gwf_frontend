@@ -27,7 +27,7 @@ export type UserPermissionType =
   | 'user-property'
 
 export type UserPermissionValue =
-  | 'carrier-portal'
+  // | 'carrier-portal'
   | 'carriers:*'
   | 'data-portal'
   | 'dataview'

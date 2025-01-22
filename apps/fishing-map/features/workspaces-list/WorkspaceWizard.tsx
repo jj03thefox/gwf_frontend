@@ -195,8 +195,8 @@ function WorkspaceWizard() {
   }, [selectedItem, dataviews, linkToArea])
 
   const linkLabel = selectedItem
-    ? t('workspace.wizard.exploreArea', 'Explore area')
-    : t('workspace.wizard.exploreGlobal', 'Explore global')
+    ? t('workspace.wizard.exploreArea', '探索区域')
+    : t('workspace.wizard.exploreGlobal', '探索全球')
 
   return (
     <div className={styles.wizardContainer}>
@@ -204,13 +204,13 @@ function WorkspaceWizard() {
         className={cx(styles.inputContainer, { [styles.open]: isOpen && areasMatching.length > 0 })}
       >
         <label>
-          {t('workspace.wizard.title', 'Setup a marine manager workspace for any area globally')}
+          {t('workspace.wizard.title', '为全球任何区域设置海洋经理工作区')}
         </label>
         <div className={styles.comboContainer}>
           <InputText
             {...getInputProps({ ref: inputRef })}
             className={styles.input}
-            placeholder={t('map.search', 'Search areas')}
+            placeholder={t('map.search', '探索区域')}
             onBlur={onInputBlur}
           />
           <IconButton
@@ -238,13 +238,13 @@ function WorkspaceWizard() {
         <div>
           <p className={styles.hint}>
             <Icon icon="magic" />
-            {t('workspace.wizard.help', 'You can move the map and update your workspace later')}
+            {t('workspace.wizard.help', '您可以稍后移动地图并更新工作区')}
           </p>
         </div>
         <div className={styles.linksContainer}>
           {selectedItem && linkToReport && (
             <Link to={linkToReport} target="_self" className={cx(styles.confirmBtn)}>
-              {t('analysis.see', 'See report')}
+              {t('analysis.see', '查看报告')}
             </Link>
           )}
           <Link to={linkToArea} target="_self" className={cx(styles.confirmBtn)}>

@@ -1,4 +1,4 @@
- 
+
 import React, { Fragment } from 'react'
 
 import type { UserData } from '@globalfishingwatch/api-types'

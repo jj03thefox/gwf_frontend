@@ -18,12 +18,13 @@ function LocalStorageLoginLink({ children, className = '' }: LocalStorageLoginLi
     dispatch(setWorkspaceSuggestSave(false))
     saveRedirectUrl()
   }
+  return null
 
-  return (
-    <a ref={ref} href={getLoginUrl()} onClick={onClick} className={className} title="Login">
-      {children}
-    </a>
-  )
+  // return (
+  //   <a ref={ref} href={getLoginUrl()} onClick={onClick} className={className} title="Login">
+  //     {children}
+  //   </a>
+  // )
 }
 
 export default forwardRef(LocalStorageLoginLink)

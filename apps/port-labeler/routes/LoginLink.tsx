@@ -1,4 +1,5 @@
-import React, { forwardRef } from 'react'
+import type React from 'react';
+import { forwardRef } from 'react'
 
 import { getLoginUrl, useLoginRedirect } from '@globalfishingwatch/react-hooks'
 
@@ -10,11 +11,13 @@ type LocalStorageLoginLinkProps = {
 function LocalStorageLoginLink({ children, className = '' }: LocalStorageLoginLinkProps, ref: any) {
   const { saveRedirectUrl } = useLoginRedirect()
 
-  return (
-    <a ref={ref} href={getLoginUrl()} onClick={saveRedirectUrl} className={className} title="Login">
-      {children}
-    </a>
-  )
+  return null
+
+  // return (
+  //   <a ref={ref} href={getLoginUrl()} onClick={saveRedirectUrl} className={className} title="Login">
+  //     {children}
+  //   </a>
+  // )
 }
 
 export default forwardRef(LocalStorageLoginLink)

@@ -12,7 +12,7 @@ export const useGFWLogin = (APIClient) => {
       user: null,
       error: undefined,
     })
-  
+
     useEffect(() => {
       const accessToken = getAccessTokenFromUrl()
       APIClient.login({ accessToken })
@@ -20,7 +20,7 @@ export const useGFWLogin = (APIClient) => {
           const newState = user
             ? { loading: false, logged: true, user }
             : { loading: false, logged: false, error: 'no user' }
-  
+
           setState((state) => ({ ...state, ...newState }))
           if (accessToken) {
             removeAccessTokenFromUrl()
@@ -30,6 +30,6 @@ export const useGFWLogin = (APIClient) => {
           setState((state) => ({ ...state, loading: false, error: e }))
         })
     }, [APIClient])
-  
+
     return state
   }

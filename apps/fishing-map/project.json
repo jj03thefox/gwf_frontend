@@ -40,7 +40,7 @@
           "nx clean-locales fishing-map",
           "nx prepare-loaders fishing-map",
           "nx serve i18n-labels",
-          "nx serve fishing-map --hostname=0.0.0.0"
+          "nx serve fishing-map --hostname=0.0.0.0 --env-file=.production.env"
         ],
         "parallel": true
       }
@@ -76,7 +76,8 @@
         "buildTarget": "fishing-map:build",
         "dev": true,
         "port": 3003,
-        "turbo": true
+        "turbo": true,
+        "envFile": ".production.env"
       },
       "configurations": {
         "production": {

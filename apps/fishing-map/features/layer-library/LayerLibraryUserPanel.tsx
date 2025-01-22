@@ -96,21 +96,22 @@ const LayerLibraryUserPanel = ({ searchQuery }: { searchQuery: string }) => {
   const SectionComponent = () => {
     if (guestUser) {
       return (
-        <div className={styles.emptyState}>
-          <Trans i18nKey="dataset.uploadLogin">
-            <a
-              className={styles.link}
-              href={GFWAPI.getRegisterUrl(
-                typeof window !== 'undefined' ? window.location.toString() : ''
-              )}
-            >
-              Register
-            </a>
-            or
-            <LocalStorageLoginLink className={styles.link}>login</LocalStorageLoginLink>
-            to upload datasets (free, 2 minutes)
-          </Trans>
-        </div>
+        <div></div>
+        // <div className={styles.emptyState}>
+        //   <Trans i18nKey="dataset.uploadLogin">
+        //     <a
+        //       className={styles.link}
+        //       href={GFWAPI.getRegisterUrl(
+        //         typeof window !== 'undefined' ? window.location.toString() : ''
+        //       )}
+        //     >
+        //       Register
+        //     </a>
+        //     or
+        //     <LocalStorageLoginLink className={styles.link}>login</LocalStorageLoginLink>
+        //     to upload datasets (free, 2 minutes)
+        //   </Trans>
+        // </div>
       )
     }
     if (datasetStatus !== AsyncReducerStatus.Finished) {

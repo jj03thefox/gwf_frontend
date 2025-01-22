@@ -100,12 +100,12 @@ export const Footer = () => (
       </div>
     </div>
     <div className={styles.footerLinksContainer}>
-      <a href="https://globalfishingwatch.org/support-us/">Support Us</a>{' '}
-      <a href="https://globalfishingwatch.org/contact-us/">Contact Us</a>{' '}
-      <a href="https://globalfishingwatch.org/terms-of-use/">Terms of Use</a>{' '}
-      <a href="https://globalfishingwatch.org/privacy-policy/">Privacy Policy</a>{' '}
-      <a href="https://globalfishingwatch.org/cookie-policy/">Cookie Policy</a>{' '}
-      <a href="https://globalfishingwatch.org/sitemap/">Sitemap</a>
+      <a href="https://gfw.roodata.com/support-us/">Support Us</a>{' '}
+      <a href="https://gfw.roodata.com/contact-us/">Contact Us</a>{' '}
+      <a href="https://gfw.roodata.com/terms-of-use/">Terms of Use</a>{' '}
+      <a href="https://gfw.roodata.com/privacy-policy/">Privacy Policy</a>{' '}
+      <a href="https://gfw.roodata.com/cookie-policy/">Cookie Policy</a>{' '}
+      <a href="https://gfw.roodata.com/sitemap/">Sitemap</a>
     </div>
     <p className={styles.footerText}>
       © 2016 -2024 Global Fishing Watch. Founded by Oceana, SkyTruth and Google

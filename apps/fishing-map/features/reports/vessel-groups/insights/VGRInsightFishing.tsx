@@ -61,7 +61,7 @@ const VesselGroupReportInsightFishing = ({ skip }: { skip?: boolean }) => {
       trackEvent({
         category: TrackCategory.VesselGroupReport,
         action: 'vessel_group_profile_insights_tab_expand_insights',
-        label: 'fishing in no-take MPAs expanded',
+        label: '禁渔海洋保护区内的捕捞活动增加',
       })
     }
   }
@@ -77,7 +77,7 @@ const VesselGroupReportInsightFishing = ({ skip }: { skip?: boolean }) => {
       trackEvent({
         category: TrackCategory.VesselGroupReport,
         action: 'vessel_group_profile_insights_tab_expand_insights',
-        label: 'fishing RFMOs expanded',
+        label: '区域渔业组织管辖水域内的捕捞活动增加',
       })
     }
   }
@@ -175,7 +175,7 @@ const VesselGroupReportInsightFishing = ({ skip }: { skip?: boolean }) => {
             <p className={cx(styles.secondary, styles.row)}>
               {t(
                 'vessel.insights.fishingEventsInNoTakeMpasEmpty',
-                'No fishing events detected in no-take MPAs'
+                '在禁止捕捞的海洋保护区内未发现捕捞事件'
               )}
             </p>
           ) : (
@@ -206,7 +206,7 @@ const VesselGroupReportInsightFishing = ({ skip }: { skip?: boolean }) => {
             <p className={cx(styles.secondary, styles.row)}>
               {t(
                 'vessel.insights.fishingEventsInRfmoWithoutKnownAuthorizationEmpty',
-                'No fishing events detected outside known RFMO authorized areas'
+                '在区域渔业组织授权水域以外未发现捕捞事件'
               )}
             </p>
           ) : (

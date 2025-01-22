@@ -29,9 +29,9 @@ const VesselServerComponent = () => {
   return (
     <div className={styles.container} style={{ opacity: 0 }}>
       <div className={styles.sidebarHeader}>
-        <a href="https://globalfishingwatch.org" className={styles.logoLink}>
-          <Logo className={styles.logo} />
-        </a>
+        {/*<a href="https://globalfishingwatch.org" className={styles.logoLink}>*/}
+        {/*  <Logo className={styles.logo} />*/}
+        {/*</a>*/}
       </div>
       <div className={styles.content}>
         <h1 className={styles.title}>

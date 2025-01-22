@@ -80,6 +80,7 @@ export type HighlightedWorkspace = {
     fr?: string
     id?: string
     pt?: string
+    zh?: string
   }
   description: {
     en: string
@@ -87,6 +88,7 @@ export type HighlightedWorkspace = {
     fr?: string
     id?: string
     pt?: string
+    zh?: string
   }
   cta: {
     en: string
@@ -94,6 +96,7 @@ export type HighlightedWorkspace = {
     fr?: string
     id?: string
     pt?: string
+    zh?: string
   }
   img?: string
   userGroup?: string

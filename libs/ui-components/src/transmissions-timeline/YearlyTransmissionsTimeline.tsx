@@ -20,7 +20,7 @@ export function YearlyTransmissionsTimeline({
   firstTransmissionDate,
   lastTransmissionDate,
   firstYearOfData = FIRST_YEAR_OF_DATA,
-  locale = Locale.en,
+  locale = Locale.zh,
   onYearHover,
   showLastTimePoint = false,
 }: TransmissionsTimelineProps) {

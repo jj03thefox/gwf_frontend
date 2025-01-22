@@ -40,6 +40,7 @@ export enum OceanAreaLocale {
   es = 'es',
   fr = 'fr',
   id = 'id',
+  zh = 'zh',
 }
 
 const MIN_ZOOM_NOT_GLOBAL = 3
@@ -50,14 +51,14 @@ type GetOceanAreaNameLocaleParam = {
   locale: OceanAreaLocale
 }
 
-const localizeName = (name: OceanAreaLocaleKey, locale = OceanAreaLocale.en) => {
+const localizeName = (name: OceanAreaLocaleKey, locale = OceanAreaLocale.zh) => {
   if (!oceanAreasLocales?.[locale]) {
     return name
   }
   return (oceanAreasLocales?.[locale]?.[name] as OceanAreaLocaleKey) || name
 }
 
-const localizeArea = (area: typeof oceanAreas, locale = OceanAreaLocale.en) => {
+const localizeArea = (area: typeof oceanAreas, locale = OceanAreaLocale.zh) => {
   if (!oceanAreasLocales?.[locale]) {
     return area
   }
@@ -79,7 +80,7 @@ const localizeArea = (area: typeof oceanAreas, locale = OceanAreaLocale.en) => {
 type SearchOceanAreaParams = GetOceanAreaNameLocaleParam & { types?: OceanAreaType[] }
 export const searchOceanAreas = async (
   query: string,
-  { locale = OceanAreaLocale.en, types } = {} as SearchOceanAreaParams
+  { locale = OceanAreaLocale.zh, types } = {} as SearchOceanAreaParams
 ): Promise<OceanArea[]> => {
   await importOceanAreasData()
   const localizedAreas = localizeArea(oceanAreas, locale)
@@ -139,7 +140,7 @@ export const getAreasByDistance = (areas: FeatureCollection, { latitude, longitu
 type GetOceanAreaParams = GetOceanAreaNameLocaleParam & { types?: OceanAreaType[] }
 const getOceanAreas = async (
   center: LatLon,
-  { locale = OceanAreaLocale.en, types } = {} as GetOceanAreaParams
+  { locale = OceanAreaLocale.zh, types } = {} as GetOceanAreaParams
 ): Promise<OceanAreaProperties[]> => {
   await importOceanAreasData()
   let matchingAreas = getOverlappingAreas(oceanAreas, center)
@@ -165,7 +166,7 @@ type GetOceanAreaNameParams = GetOceanAreaNameLocaleParam & { combineWithEEZ?: b
 export const getOceanAreaName = async (
   { latitude, longitude, zoom }: Viewport,
   {
-    locale = OceanAreaLocale.en,
+    locale = OceanAreaLocale.zh,
     combineWithEEZ = false,
   }: GetOceanAreaNameParams = {} as GetOceanAreaNameParams
 ) => {

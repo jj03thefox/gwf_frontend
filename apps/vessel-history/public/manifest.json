@@ -1,9 +1,9 @@
 {
-  "name": "Vessel Viewer",
-  "short_name": "Vessel Viewer",
-  "description": "Global Fishing Watch and Trygg Mat Tracking are working together to enhance fishing vessel monitoring and support States in implementing effective port controls. To arm relevant authorities with the information needed to make a rapid assessment of a vessel’s compliance risk and verify its fishing operations, port visits and transshipment activity, the organizations developed a vessel history app called vessel viewer.",
+  "name": "船舶查看器",
+  "short_name": "船舶查看器",
+  "description": "全球渔业观察和特吕格马特追踪组织正在合作加强渔船监测，并支持各国实施有效的港口管制。为了让相关当局掌握所需信息，以便快速评估船舶的合规风险并核实其捕鱼作业、港口访问和转运活动，这些组织开发了一个名为船舶查看器的船舶历史应用程序。",
   "dir": "auto",
-  "lang": "en-US",
+  "lang": "zh-CN",
   "display": "standalone",
   "orientation": "any",
   "start_url": "./",

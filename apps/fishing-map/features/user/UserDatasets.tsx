@@ -151,7 +151,7 @@ function UserDatasets() {
                 const datasetDescription = dataset.description !== dataset.name
                 let infoTooltip: string = t(
                   `layer.seeDescription`,
-                  'Click to see layer description'
+                  '点击查看图层描述'
                 )
                 if (datasetImporting) {
                   infoTooltip = t('dataset.importing', 'Dataset is being imported')

@@ -166,7 +166,7 @@ export const useGlobalConfigConnect = () => {
           toast(
             t(
               'toasts.maxPointsVisualizationExceeded',
-              'Max points visualization exceeded, swithing to heatmap mode.'
+              '查看此端口的所有进入事件超过最大点数可视化，切换到热图模式。'
             ),
             { toastId: 'maxPointsVisualizationExceeded' }
           )

@@ -255,7 +255,7 @@ const Info: React.FC<InfoProps> = (props): React.ReactElement<any> => {
                       information in combination with a convolutional neural network used to
                       estimate vessel class, see more information here:
                       <a
-                        href="https://globalfishingwatch.org/datasets-and-code-vessel-identity/"
+                        href="https://gfw.roodata.com/datasets-and-code-vessel-identity/"
                         rel="noopener noreferrer"
                         target="_blank"
                       >

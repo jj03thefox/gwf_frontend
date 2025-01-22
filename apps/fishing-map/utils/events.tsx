@@ -89,7 +89,7 @@ export const getEventDescription = ({
       if (mainVesselName && encounterVesselName) {
         description = t(
           'event.encounterActionWithVessels',
-          'had an encounter with {{encounterVessel}} starting at {{start}} for {{duration}}',
+          '从{start}}开始，在{duration}}内与{encounterVessel}}相遇',
           {
             ...time,
             mainVessel: mainVesselName,
@@ -99,12 +99,12 @@ export const getEventDescription = ({
       } else {
         description = t(
           'event.encounterActionWith',
-          'had an encounter with {{vessel}} starting at {{start}} for {{duration}}',
+          '从{start}}开始与{{vessel}}相遇{{duration}}',
           {
             ...time,
             vessel: encounterVesselName
               ? encounterVesselName
-              : t('event.encounterAnotherVessel', 'another vessel'),
+              : t('event.encounterAnotherVessel', '其他船舶'),
           }
         )
       }
@@ -122,11 +122,11 @@ export const getEventDescription = ({
         ].join(', ')
         description = t(
           'event.portAt',
-          'Docked at {{port}} started at {{start}} for {{duration}}',
+          '停靠在｛｛port｝｝，从｛｛start｝｝开始，持续｛｛duration｝｝',
           { ...time, port: portLabel }
         )
       } else {
-        description = t('event.portAction', 'Docked started at {{start}} for {{duration}}', time)
+        description = t('event.portAction', '停靠从｛｛start｝｝开始，持续｛｛duration｝｝', time)
       }
       descriptionGeneric = t('event.port')
       break
@@ -134,18 +134,18 @@ export const getEventDescription = ({
     case EventTypes.Loitering:
       description = t(
         'event.loiteringAction',
-        'Loitering started at {{start}} for {{duration}}',
+        '漫游从｛｛start｝｝开始，持续｛｛duration｝｝',
         time
       )
       descriptionGeneric = t('event.loitering')
       break
     case EventTypes.Fishing:
-      description = t('event.fishingAction', 'Fishing started at {{start}} for {{duration}}', time)
+      description = t('event.fishingAction', '捕捞从｛｛start｝｝开始，持续｛｛duration｝｝', time)
       descriptionGeneric = t('event.fishing')
       break
     default:
-      description = t('event.unknown', 'Unknown event')
-      descriptionGeneric = t('event.unknown', 'Unknown event')
+      description = t('event.unknown', '未知事件')
+      descriptionGeneric = t('event.unknown', '未知事件')
   }
 
   return {

@@ -23,7 +23,7 @@ function ComparisonRow({ feature, showFeaturesDetails = false }: ComparisonRowPr
       <div className={styles.popupSectionContent}>
         {showFeaturesDetails && (
           <h3 className={styles.popupSectionTitle}>
-            {t('analysis.activityChange', 'Activity change')}
+            {t('analysis.activityChange', '活性变化')}
           </h3>
         )}
         <div className={styles.row}>
