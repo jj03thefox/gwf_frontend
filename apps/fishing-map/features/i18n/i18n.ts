@@ -21,8 +21,8 @@ export const LocaleLabels = [
 ]
 
 const NPM_SCOPE = WORKSPACE_ENV === 'production' ? 'stable' : 'latest'
-const SHARED_LABELS_PATH = 'http://localhost:8000'
-// const SHARED_LABELS_PATH = `http://gfw_i18n.roodata.com`
+// const SHARED_LABELS_PATH = 'http://localhost:8000'
+const SHARED_LABELS_PATH = `https://gfw_i18n.roodata.com`
 //   IS_DEVELOPMENT_ENV
 //   ? 'http://localhost:8000'
 //   : `http://gfw_i18n.roodata.com`

@@ -8,7 +8,7 @@ import { Locale } from 'types'
 
 export const LocaleLabels = [{ id: Locale.zh, label: '简体中文' },{ id: Locale.en, label: 'English' }]
 
-export const SHARED_LABELS_PATH = 'http://gfw_i18n.roodata.com'
+export const SHARED_LABELS_PATH = 'https://gfw_i18n.roodata.com'
   // process.env.NODE_ENV === 'development'
   //   ? 'http://localhost:8000'
   //   : 'http://gfw_i18n.roodata.com'
