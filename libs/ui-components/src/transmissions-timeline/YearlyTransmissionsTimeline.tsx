@@ -1,8 +1,11 @@
 import cx from 'classnames'
 import { DateTime } from 'luxon'
+
 import { Locale } from '@globalfishingwatch/api-types'
-import styles from './TransmissionsTimeline.module.css'
+
 import { FIRST_YEAR_OF_DATA } from './TransmissionsTimeline'
+
+import styles from './TransmissionsTimeline.module.css'
 
 type TransmissionsTimelineProps = {
   firstTransmissionDate: string
@@ -17,7 +20,7 @@ export function YearlyTransmissionsTimeline({
   firstTransmissionDate,
   lastTransmissionDate,
   firstYearOfData = FIRST_YEAR_OF_DATA,
-  locale = Locale.en,
+  locale = Locale.zh,
   onYearHover,
   showLastTimePoint = false,
 }: TransmissionsTimelineProps) {

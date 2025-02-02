@@ -1,8 +1,11 @@
 import { useTranslation } from 'react-i18next'
 import cx from 'classnames'
+
 import type { FourwingsHeatmapPickingObject } from '@globalfishingwatch/deck-layers'
+
 import I18nNumber from 'features/i18n/i18nNumber'
 import { useTimeCompareTimeDescription } from 'features/reports/shared/activity/reports-activity-timecomparison.hooks'
+
 import styles from '../Popup.module.css'
 
 type ComparisonRowProps = {
@@ -20,7 +23,7 @@ function ComparisonRow({ feature, showFeaturesDetails = false }: ComparisonRowPr
       <div className={styles.popupSectionContent}>
         {showFeaturesDetails && (
           <h3 className={styles.popupSectionTitle}>
-            {t('analysis.activityChange', 'Activity change')}
+            {t('analysis.activityChange', '活性变化')}
           </h3>
         )}
         <div className={styles.row}>

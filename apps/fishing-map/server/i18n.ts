@@ -1,17 +1,18 @@
 import get from 'lodash/get'
-import appEnglish from '../public/locales/en/translations.json'
-import appSource from '../public/locales/source/translations.json'
-import flagsEnglish from '../../../libs/i18n-labels/en/flags.json'
-import flagsSource from '../../../libs/i18n-labels/source/flags.json'
 
-type Namespace = { translations: typeof appEnglish; flags: typeof flagsEnglish }
+import flagsSource from '../../../libs/i18n-labels/source/flags.json'
+import flagsChinese from '../../../libs/i18n-labels/zh/flags.json'
+import appSource from '../public/locales/source/translations.json'
+import appChinese from '../public/locales/zh/translations.json'
+
+type Namespace = { translations: typeof appChinese; flags: typeof flagsChinese }
 const namespaces: Namespace = {
-  translations: appEnglish,
-  flags: flagsEnglish,
+  translations: appChinese,
+  flags: flagsChinese,
 }
 const sourceNamespaces = {
-  translations: appSource,
-  flags: flagsSource,
+  translations: appChinese,
+  flags: flagsChinese,
 }
 
 export const serverT: any = (key: string, fallback: string) => {

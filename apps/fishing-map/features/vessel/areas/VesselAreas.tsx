@@ -1,34 +1,38 @@
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
 import parse from 'html-react-parser'
-import { useCallback, useEffect, useMemo, useState } from 'react'
-import { Bar, BarChart, Tooltip as RechartsTooltip, XAxis, YAxis, LabelList } from 'recharts'
-import type { ChoiceOption } from '@globalfishingwatch/ui-components'
-import { Choice, Modal, Spinner, Tooltip } from '@globalfishingwatch/ui-components'
+import { Bar, BarChart, LabelList,Tooltip as RechartsTooltip, XAxis, YAxis } from 'recharts'
+
 import type { RegionType } from '@globalfishingwatch/api-types'
 import { eventsToBbox } from '@globalfishingwatch/data-transforms'
-import {
-  selectVesselEventTypes,
-  selectEventsGroupedByArea,
-  UNKNOWN_AREA,
-} from 'features/vessel/activity/vessels-activity.selectors'
-import { selectVesselAreaSubsection } from 'features/vessel/vessel.config.selectors'
-import { useLocationConnect } from 'routes/routes.hook'
-import { useRegionNamesByType } from 'features/regions/regions.hooks'
+import type { ChoiceOption } from '@globalfishingwatch/ui-components'
+import { Choice, Modal, Spinner, Tooltip } from '@globalfishingwatch/ui-components'
+
 import { EVENTS_COLORS, ROOT_DOM_ELEMENT } from 'data/config'
-import I18nNumber, { formatI18nNumber } from 'features/i18n/i18nNumber'
-import { selectVesselEventsFilteredByTimerange } from 'features/vessel/selectors/vessel.resources.selectors'
-import { VesselActivitySummary } from 'features/vessel/activity/VesselActivitySummary'
-import { DATAVIEWS_WARNING } from 'features/workspace/context-areas/ContextAreaLayerPanel'
 import { VESSEL_PROFILE_DATAVIEWS_INSTANCES } from 'data/default-workspaces/context-layers'
-import { getSidebarContentWidth } from 'features/vessel/vessel.utils'
 import { TrackCategory, trackEvent } from 'features/app/analytics.hooks'
 import { selectVesselProfileColor } from 'features/dataviews/selectors/dataviews.instances.selectors'
+import I18nNumber, { formatI18nNumber } from 'features/i18n/i18nNumber'
 import { useMapFitBounds } from 'features/map/map-bounds.hooks'
 import { useDebouncedDispatchHighlightedEvent } from 'features/map/map-interactions.hooks'
+import { useRegionNamesByType } from 'features/regions/regions.hooks'
 import { useFetchRegionsData } from 'features/vessel/activity/event/event.hook'
-import { useVesselProfileEventsLoading } from '../vessel-events.hooks'
+import { VesselActivitySummary } from 'features/vessel/activity/VesselActivitySummary'
+import {
+  selectEventsGroupedByArea,
+  selectVesselEventTypes,
+  UNKNOWN_AREA,
+} from 'features/vessel/activity/vessels-activity.selectors'
+import { selectVesselEventsFilteredByTimerange } from 'features/vessel/selectors/vessel.resources.selectors'
+import { selectVesselAreaSubsection } from 'features/vessel/vessel.config.selectors'
+import { getSidebarContentWidth } from 'features/vessel/vessel.utils'
+import { DATAVIEWS_WARNING } from 'features/workspace/context-areas/ContextAreaLayerPanel'
+import { useLocationConnect } from 'routes/routes.hook'
+
 import type { VesselAreaSubsection } from '../vessel.types'
+import { useVesselProfileEventsLoading } from '../vessel-events.hooks'
+
 import styles from './VesselAreas.module.css'
 
 type VesselAreasProps = {
@@ -185,34 +189,35 @@ const VesselAreas = ({ updateAreaLayersVisibility }: VesselAreasProps) => {
         onSelect={changeVesselArea}
       />
       {areaDataview && DATAVIEWS_WARNING.includes(areaDataview?.id) && (
-        <div className={styles.dataWarning}>
-          {t(
-            `dataview.${areaDataview?.id}.dataWarning` as any,
-            'This platform uses a reference layer from an external source.'
-          )}{' '}
-          <span className={'print-hidden'}>
-            <button
-              className={styles.dataWarningLink}
-              onClick={() => setModalDataWarningOpen(!modalDataWarningOpen)}
-            >
-              {t('common.learnMore', 'Learn more')}
-            </button>
-            <Modal
-              appSelector={ROOT_DOM_ELEMENT}
-              title={areaOptions.find((o) => o.id === vesselArea)?.label}
-              isOpen={modalDataWarningOpen}
-              onClose={onDataWarningModalClose}
-              contentClassName={styles.modalContent}
-            >
-              {parse(
-                t(
-                  `dataview.${areaDataview?.id}.dataWarningDetail` as any,
-                  'This platform uses reference layers (shapefiles) from an external source. The designations employed and the presentation of the material on this platform do not imply the expression of any opinion whatsoever on the part of Global Fishing Watch concerning the legal status of any country, territory, city or area or of its authorities, or concerning the delimitation of its frontiers or boundaries. Should you consider these reference layers not applicable for your purposes, this platform allows custom reference layers to be uploaded. Draw or upload your own reference layer using the "+" icon in the left sidebar. Learn more on our <a href="https://globalfishingwatch.org/tutorials/">tutorials</a> and <a href="https://globalfishingwatch.org/help-faqs/">FAQs</a>.'
-                )
-              )}
-            </Modal>
-          </span>
-        </div>
+        <div></div>
+        // <div className={styles.dataWarning}>
+        //   {t(
+        //     `dataview.${areaDataview?.id}.dataWarning` as any,
+        //     'This platform uses a reference layer from an external source.'
+        //   )}{' '}
+        //   <span className={'print-hidden'}>
+        //     <button
+        //       className={styles.dataWarningLink}
+        //       onClick={() => setModalDataWarningOpen(!modalDataWarningOpen)}
+        //     >
+        //       {t('common.learnMore', 'Learn more')}
+        //     </button>
+        //     <Modal
+        //       appSelector={ROOT_DOM_ELEMENT}
+        //       title={areaOptions.find((o) => o.id === vesselArea)?.label}
+        //       isOpen={modalDataWarningOpen}
+        //       onClose={onDataWarningModalClose}
+        //       contentClassName={styles.modalContent}
+        //     >
+        //       {parse(
+        //         t(
+        //           `dataview.${areaDataview?.id}.dataWarningDetail` as any,
+        //           'This platform uses reference layers (shapefiles) from an external source. The designations employed and the presentation of the material on this platform do not imply the expression of any opinion whatsoever on the part of Global Fishing Watch concerning the legal status of any country, territory, city or area or of its authorities, or concerning the delimitation of its frontiers or boundaries. Should you consider these reference layers not applicable for your purposes, this platform allows custom reference layers to be uploaded. Draw or upload your own reference layer using the "+" icon in the left sidebar. Learn more on our <a href="https://globalfishingwatch.org/tutorials/">tutorials</a> and <a href="https://globalfishingwatch.org/help-faqs/">FAQs</a>.'
+        //         )
+        //       )}
+        //     </Modal>
+        //   </span>
+        // </div>
       )}
       <div className={styles.areaList}>
         {eventsGroupedWithoutUnknown.length > 0 ? (

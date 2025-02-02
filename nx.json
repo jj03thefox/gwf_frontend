@@ -43,7 +43,10 @@
       "inputs": ["production", "^production"]
     },
     "build": { "dependsOn": ["^build"], "outputs": ["{projectRoot}/dist"], "cache": true },
-    "dist": { "dependsOn": ["^dist"], "outputs": ["{projectRoot}/dist"], "cache": true }
+    "build:workers": { "dependsOn": ["^build"], "outputs": ["{projectRoot}/dist"], "cache": true },
+    "dist": { "dependsOn": ["^dist"], "outputs": ["{projectRoot}/dist"], "cache": true },
+    "dist:workers": { "dependsOn": ["^dist"], "outputs": ["{projectRoot}/dist"], "cache": true },
+    "prepare-loaders": { "cache": true }
   },
   "generators": {
     "@nx/next": { "application": { "style": "css", "linter": "eslint" } },
@@ -84,6 +87,6 @@
     ]
   },
   "defaultBase": "develop",
-  "nxCloudId": "674f20939c6a380ef261e1ee",
-  "nxCloudAccessToken": ""
+  "nxCloudId": "675f9b0260d95b659a390c89",
+  "nxCloudAccessToken": "MTkwMmM0MTEtOTU3OS00NjUzLWI2MTctMzAyOTI3N2FmN2JjfHJlYWQtd3JpdGU="
 }

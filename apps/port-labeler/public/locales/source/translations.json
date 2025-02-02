@@ -1,23 +1,23 @@
 {
-    "common": {
-        "country": "Country",
-        "port": "Port",
-        "subarea": "Subarea",
-        "anchorage": "Anchorage",
-        "anchorageId": "Anchorage ID",
-        "destination": "Destination",
-        "zoom_more": "Increase zoom",
-        "zoom_less": "Decrease zoom",
-        "select_port": "Select port",
-        "add_port": "Add port",
-        "select_subarea": "Select subarea",
-        "add_subarea": "Add subarea"
-    },
-    "messages": {
-        "no_anchorages": "No anchorages found",
-        "country_selection": "Select a country",
-        "add_port": "Add new Port",
-        "add_subarea": "Add new community",
-        "select_subarea": "Select a community"
-    }
+  "common": {
+    "country": "国家",
+    "port": "港口",
+    "subarea": "地区",
+    "anchorage": "停泊处",
+    "anchorageId": "停泊处 ID",
+    "destination": "目的地",
+    "zoom_more": "放大",
+    "zoom_less": "缩小",
+    "select_port": "搜索港口",
+    "add_port": "增加港口",
+    "select_subarea": "选择地区",
+    "add_subarea": "添加区域"
+  },
+  "messages": {
+    "no_anchorages": "未找到停泊处",
+    "country_selection": "选择国家",
+    "add_port": "添加新港口",
+    "add_subarea": "添加新地区",
+    "select_subarea": "选择一个地区"
+  }
 }

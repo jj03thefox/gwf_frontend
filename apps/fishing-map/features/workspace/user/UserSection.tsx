@@ -1,50 +1,55 @@
 import { Fragment, useCallback } from 'react'
-import cx from 'classnames'
-import { SortableContext } from '@dnd-kit/sortable'
-import { useSelector } from 'react-redux'
 import { Trans, useTranslation } from 'react-i18next'
-import { IconButton } from '@globalfishingwatch/ui-components'
+import { useSelector } from 'react-redux'
+import { SortableContext } from '@dnd-kit/sortable'
+import cx from 'classnames'
+
+import { GFWAPI } from '@globalfishingwatch/api-client'
 import { DatasetTypes, DataviewCategory } from '@globalfishingwatch/api-types'
 import type { UrlDataviewInstance } from '@globalfishingwatch/dataviews-client'
-import { GFWAPI } from '@globalfishingwatch/api-client'
-import { useSmallScreen } from '@globalfishingwatch/react-hooks'
 import type { DrawFeatureType } from '@globalfishingwatch/deck-layers'
-import styles from 'features/workspace/shared/Sections.module.css'
-import { getEventLabel } from 'utils/analytics'
-import { useMapDrawConnect } from 'features/map/map-draw.hooks'
+import { useSmallScreen } from '@globalfishingwatch/react-hooks'
+import { IconButton } from '@globalfishingwatch/ui-components'
+
 import { TrackCategory, trackEvent } from 'features/app/analytics.hooks'
-import LocalStorageLoginLink from 'routes/LoginLink'
-import { useAddDataset } from 'features/datasets/datasets.hook'
 import { useAppDispatch } from 'features/app/app.hooks'
-import { setModalOpen } from 'features/modals/modals.slice'
-import UserLoggedIconButton from 'features/user/UserLoggedIconButton'
-import { selectIsGuestUser } from 'features/user/selectors/user.selectors'
 import { selectReadOnly } from 'features/app/selectors/app.selectors'
-import { selectUserContextDatasets } from 'features/user/selectors/user.permissions.selectors'
-import Hint from 'features/help/Hint'
+import { useAddDataset } from 'features/datasets/datasets.hook'
 import { selectCustomUserDataviews } from 'features/dataviews/selectors/dataviews.categories.selectors'
+import Hint from 'features/help/Hint'
+import { useMapDrawConnect } from 'features/map/map-draw.hooks'
+import { setModalOpen } from 'features/modals/modals.slice'
+import { selectUserContextDatasets } from 'features/user/selectors/user.permissions.selectors'
+import { selectIsGuestUser } from 'features/user/selectors/user.selectors'
+import UserLoggedIconButton from 'features/user/UserLoggedIconButton'
+import styles from 'features/workspace/shared/Sections.module.css'
+import LocalStorageLoginLink from 'routes/LoginLink'
+import { getEventLabel } from 'utils/analytics'
+
 import LayerPanelContainer from '../shared/LayerPanelContainer'
+
 import LayerPanel from './UserLayerPanel'
 
 export function RegisterOrLoginToUpload() {
   return (
-    <Trans i18nKey="dataset.uploadLogin">
-      <a
-        className={styles.link}
-        href={GFWAPI.getRegisterUrl(
-          typeof window !== 'undefined' ? window.location.toString() : ''
-        )}
-      >
-        Register
-      </a>
-      or
-      <LocalStorageLoginLink className={styles.link}>login</LocalStorageLoginLink>
-      to upload datasets (free, 2 minutes)
-    </Trans>
+    <div></div>
+    // <Trans i18nKey="dataset.uploadLogin">
+    //   <a
+    //     className={styles.link}
+    //     href={GFWAPI.getRegisterUrl(
+    //       typeof window !== 'undefined' ? window.location.toString() : ''
+    //     )}
+    //   >
+    //     Register
+    //   </a>
+    //   or
+    //   <LocalStorageLoginLink className={styles.link}>login</LocalStorageLoginLink>
+    //   to upload datasets (free, 2 minutes)
+    // </Trans>
   )
 }
 
-function UserSection(): React.ReactElement {
+function UserSection(): React.ReactElement<any> {
   const { t } = useTranslation()
   const { dispatchSetMapDrawing } = useMapDrawConnect()
   const guestUser = useSelector(selectIsGuestUser)
@@ -106,84 +111,85 @@ function UserSection(): React.ReactElement {
   )
 
   return (
-    <div className={cx(styles.container, { 'print-hidden': !hasVisibleDataviews })}>
-      <div className={cx(styles.header, 'print-hidden')}>
-        <h2 className={styles.sectionTitle}>{t('user.datasets', 'User datasets')}</h2>
-        {!readOnly && (
-          <Fragment>
-            {!isSmallScreen && (
-              <div className={styles.relative}>
-                <Hint id="userContextLayers" />
-                <UserLoggedIconButton
-                  icon="upload"
-                  type="border"
-                  size="medium"
-                  onClick={onUploadClick}
-                  tooltip={t('dataset.upload', 'Upload dataset')}
-                  tooltipPlacement="top"
-                  loginTooltip={t(
-                    'download.eventsDownloadLogin',
-                    'Register and login to download vessel events (free, 2 minutes)'
-                  )}
-                />
-              </div>
-            )}
-            <UserLoggedIconButton
-              icon="draw"
-              type="border"
-              size="medium"
-              tooltip={t('layer.drawPolygon', 'Draw a layer')}
-              tooltipPlacement="top"
-              onClick={() => onDrawClick('polygons')}
-              loginTooltip={t(
-                'download.eventsDownloadLogin',
-                'Register and login to download vessel events (free, 2 minutes)'
-              )}
-            />
-            <UserLoggedIconButton
-              icon="draw-points"
-              type="border"
-              size="medium"
-              tooltip={t('layer.drawPoints', 'Draw points')}
-              tooltipPlacement="top"
-              onClick={() => onDrawClick('points')}
-              loginTooltip={t(
-                'download.eventsDownloadLogin',
-                'Register and login to download vessel events (free, 2 minutes)'
-              )}
-            />
-            <IconButton
-              icon="plus"
-              type="border"
-              size="medium"
-              tooltip={t('dataset.addUser', 'Add an uploaded dataset')}
-              tooltipPlacement="top"
-              onClick={onAddClick}
-            />
-          </Fragment>
-        )}
-      </div>
-      <Fragment>
-        {dataviews?.length > 0 && (
-          <SortableContext items={dataviews}>
-            {dataviews?.map((dataview, index) => (
-              <LayerPanelContainer key={dataview.id} dataview={dataview}>
-                <LayerPanel dataview={dataview} onToggle={onToggleLayer(dataview)} />
-              </LayerPanelContainer>
-            ))}
-          </SortableContext>
-        )}
-        {guestUser ? (
-          <div className={styles.emptyStateBig}>
-            <RegisterOrLoginToUpload />
-          </div>
-        ) : !dataviews.length ? (
-          <div className={styles.emptyStateBig}>
-            {t('workspace.emptyStateUser', 'Upload custom datasets clicking on the plus icon.')}
-          </div>
-        ) : null}
-      </Fragment>
-    </div>
+    <div></div>
+    // <div className={cx(styles.container, { 'print-hidden': !hasVisibleDataviews })}>
+    //   <div className={cx(styles.header, 'print-hidden')}>
+    //     <h2 className={styles.sectionTitle}>{t('user.datasets', 'User datasets')}</h2>
+    //     {!readOnly && (
+    //       <Fragment>
+    //         {!isSmallScreen && (
+    //           <div className={styles.relative}>
+    //             <Hint id="userContextLayers" />
+    //             <UserLoggedIconButton
+    //               icon="upload"
+    //               type="border"
+    //               size="medium"
+    //               onClick={onUploadClick}
+    //               tooltip={t('dataset.upload', 'Upload dataset')}
+    //               tooltipPlacement="top"
+    //               loginTooltip={t(
+    //                 'download.eventsDownloadLogin',
+    //                 'Register and login to download vessel events (free, 2 minutes)'
+    //               )}
+    //             />
+    //           </div>
+    //         )}
+    //         <UserLoggedIconButton
+    //           icon="draw"
+    //           type="border"
+    //           size="medium"
+    //           tooltip={t('layer.drawPolygon', 'Draw a layer')}
+    //           tooltipPlacement="top"
+    //           onClick={() => onDrawClick('polygons')}
+    //           loginTooltip={t(
+    //             'download.eventsDownloadLogin',
+    //             'Register and login to download vessel events (free, 2 minutes)'
+    //           )}
+    //         />
+    //         <UserLoggedIconButton
+    //           icon="draw-points"
+    //           type="border"
+    //           size="medium"
+    //           tooltip={t('layer.drawPoints', 'Draw points')}
+    //           tooltipPlacement="top"
+    //           onClick={() => onDrawClick('points')}
+    //           loginTooltip={t(
+    //             'download.eventsDownloadLogin',
+    //             'Register and login to download vessel events (free, 2 minutes)'
+    //           )}
+    //         />
+    //         <IconButton
+    //           icon="plus"
+    //           type="border"
+    //           size="medium"
+    //           tooltip={t('dataset.addUser', 'Add an uploaded dataset')}
+    //           tooltipPlacement="top"
+    //           onClick={onAddClick}
+    //         />
+    //       </Fragment>
+    //     )}
+    //   </div>
+    //   <Fragment>
+    //     {dataviews?.length > 0 && (
+    //       <SortableContext items={dataviews}>
+    //         {dataviews?.map((dataview, index) => (
+    //           <LayerPanelContainer key={dataview.id} dataview={dataview}>
+    //             <LayerPanel dataview={dataview} onToggle={onToggleLayer(dataview)} />
+    //           </LayerPanelContainer>
+    //         ))}
+    //       </SortableContext>
+    //     )}
+    //     {guestUser ? (
+    //       <div className={styles.emptyStateBig}>
+    //         <RegisterOrLoginToUpload />
+    //       </div>
+    //     ) : !dataviews.length ? (
+    //       <div className={styles.emptyStateBig}>
+    //         {t('workspace.emptyStateUser', 'Upload custom datasets clicking on the plus icon.')}
+    //       </div>
+    //     ) : null}
+    //   </Fragment>
+    // </div>
   )
 }
 

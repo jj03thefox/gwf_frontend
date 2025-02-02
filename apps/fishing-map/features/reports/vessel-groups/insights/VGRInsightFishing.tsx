@@ -1,26 +1,31 @@
-import { useTranslation } from 'react-i18next'
 import { useState } from 'react'
-import cx from 'classnames'
+import { useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
-import type { ParsedAPIError } from '@globalfishingwatch/api-client'
-import { Collapsable } from '@globalfishingwatch/ui-components'
-import { RegionType, VesselIdentitySourceEnum } from '@globalfishingwatch/api-types'
+import cx from 'classnames'
 import { useGetVesselGroupInsightQuery } from 'queries/vessel-insight-api'
-import InsightError from 'features/vessel/insights/InsightErrorMessage'
-import DataTerminology from 'features/vessel/identity/DataTerminology'
-import { formatInfoField } from 'utils/info'
-import VesselLink from 'features/vessel/VesselLink'
+
+import type { ParsedAPIError } from '@globalfishingwatch/api-client'
+import { RegionType, VesselIdentitySourceEnum } from '@globalfishingwatch/api-types'
+import { Collapsable } from '@globalfishingwatch/ui-components'
+
 import { TrackCategory, trackEvent } from 'features/app/analytics.hooks'
-import { selectVGRData } from '../vessel-group-report.slice'
+import DataTerminology from 'features/vessel/identity/DataTerminology'
+import InsightError from 'features/vessel/insights/InsightErrorMessage'
+import VesselLink from 'features/vessel/VesselLink'
+import { formatInfoField } from 'utils/info'
+
 import { selectFetchVesselGroupReportFishingParams } from '../vessel-group-report.selectors'
-import styles from './VGRInsights.module.css'
-import VesselGroupReportInsightPlaceholder from './VGRInsightsPlaceholders'
-import VesselGroupReportInsightVesselEvents from './VGRInsightVesselEvents'
+import { selectVGRData } from '../vessel-group-report.slice'
+
 import type { VesselGroupReportInsightVessel } from './vessel-group-report-insights.selectors'
 import {
-  selectVGRVesselsWithNoTakeMpas,
   selectVGRVesselsInRfmoWithoutKnownAuthorization,
+  selectVGRVesselsWithNoTakeMpas,
 } from './vessel-group-report-insights.selectors'
+import VesselGroupReportInsightPlaceholder from './VGRInsightsPlaceholders'
+import VesselGroupReportInsightVesselEvents from './VGRInsightVesselEvents'
+
+import styles from './VGRInsights.module.css'
 
 export const RFMO_REGIONS_PRIORITY: RegionType[] = [
   RegionType.rfmo,
@@ -56,7 +61,7 @@ const VesselGroupReportInsightFishing = ({ skip }: { skip?: boolean }) => {
       trackEvent({
         category: TrackCategory.VesselGroupReport,
         action: 'vessel_group_profile_insights_tab_expand_insights',
-        label: 'fishing in no-take MPAs expanded',
+        label: '禁渔海洋保护区内的捕捞活动增加',
       })
     }
   }
@@ -72,7 +77,7 @@ const VesselGroupReportInsightFishing = ({ skip }: { skip?: boolean }) => {
       trackEvent({
         category: TrackCategory.VesselGroupReport,
         action: 'vessel_group_profile_insights_tab_expand_insights',
-        label: 'fishing RFMOs expanded',
+        label: '区域渔业组织管辖水域内的捕捞活动增加',
       })
     }
   }
@@ -170,7 +175,7 @@ const VesselGroupReportInsightFishing = ({ skip }: { skip?: boolean }) => {
             <p className={cx(styles.secondary, styles.row)}>
               {t(
                 'vessel.insights.fishingEventsInNoTakeMpasEmpty',
-                'No fishing events detected in no-take MPAs'
+                '在禁止捕捞的海洋保护区内未发现捕捞事件'
               )}
             </p>
           ) : (
@@ -201,7 +206,7 @@ const VesselGroupReportInsightFishing = ({ skip }: { skip?: boolean }) => {
             <p className={cx(styles.secondary, styles.row)}>
               {t(
                 'vessel.insights.fishingEventsInRfmoWithoutKnownAuthorizationEmpty',
-                'No fishing events detected outside known RFMO authorized areas'
+                '在区域渔业组织授权水域以外未发现捕捞事件'
               )}
             </p>
           ) : (

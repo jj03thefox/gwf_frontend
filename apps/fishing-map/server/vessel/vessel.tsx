@@ -1,17 +1,20 @@
-import cx from 'classnames'
 import { useSelector } from 'react-redux'
-import { Logo } from '@globalfishingwatch/ui-components'
+import cx from 'classnames'
 import { serverT } from 'server/i18n'
-import { AsyncReducerStatus } from 'utils/async-slice'
-import { IDENTITY_FIELD_GROUPS } from 'features/vessel/vessel.config'
-import { formatInfoField } from 'utils/info'
-import type { VesselIdentityProperty } from 'features/vessel/vessel.utils'
-import { getVesselProperty } from 'features/vessel/vessel.utils'
-import { selectVesselIdentitySource } from 'features/vessel/vessel.config.selectors'
+
+import { Logo } from '@globalfishingwatch/ui-components'
+
 import {
   selectVesselInfoData,
   selectVesselInfoStatus,
 } from 'features/vessel/selectors/vessel.selectors'
+import { IDENTITY_FIELD_GROUPS } from 'features/vessel/vessel.config'
+import { selectVesselIdentitySource } from 'features/vessel/vessel.config.selectors'
+import type { VesselIdentityProperty } from 'features/vessel/vessel.utils'
+import { getVesselProperty } from 'features/vessel/vessel.utils'
+import { AsyncReducerStatus } from 'utils/async-slice'
+import { formatInfoField } from 'utils/info'
+
 import styles from './styles.module.css'
 
 const VesselServerComponent = () => {
@@ -26,9 +29,9 @@ const VesselServerComponent = () => {
   return (
     <div className={styles.container} style={{ opacity: 0 }}>
       <div className={styles.sidebarHeader}>
-        <a href="https://globalfishingwatch.org" className={styles.logoLink}>
-          <Logo className={styles.logo} />
-        </a>
+        {/*<a href="https://globalfishingwatch.org" className={styles.logoLink}>*/}
+        {/*  <Logo className={styles.logo} />*/}
+        {/*</a>*/}
       </div>
       <div className={styles.content}>
         <h1 className={styles.title}>

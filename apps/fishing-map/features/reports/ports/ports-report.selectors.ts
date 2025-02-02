@@ -1,24 +1,35 @@
 import { createSelector } from '@reduxjs/toolkit'
 import { groupBy } from 'es-toolkit'
+
+import { EndpointId } from '@globalfishingwatch/api-types'
 import { getDataviewFilters } from '@globalfishingwatch/dataviews-client'
-import { EMPTY_FIELD_PLACEHOLDER } from 'utils/info'
-import { getVesselsFiltered } from 'features/reports/areas/area-reports.utils'
-import { MAX_CATEGORIES } from 'features/reports/areas/area-reports.config'
-import { selectEventsDataviews } from 'features/dataviews/selectors/dataviews.categories.selectors'
+
 import {
   CLUSTER_PORT_VISIT_EVENTS_DATAVIEW_SLUG,
+  PORTS_FOOTPRINT_DATAVIEW_SLUG,
   TEMPLATE_VESSEL_DATAVIEW_SLUG,
 } from 'data/workspaces'
+import { selectAreas } from 'features/areas/areas.slice'
 import { selectAllDataviews } from 'features/dataviews/dataviews.slice'
-import { REPORT_FILTER_PROPERTIES } from '../vessel-groups/vessels/vessel-group-report-vessels.selectors'
-import { OTHER_CATEGORY_LABEL } from '../vessel-groups/vessel-group-report.config'
-import { selectPortsReportVessels } from './ports-report.slice'
+import { selectEventsDataviews } from 'features/dataviews/selectors/dataviews.categories.selectors'
+import { MAX_CATEGORIES } from 'features/reports/areas/area-reports.config'
+import { getVesselsFiltered } from 'features/reports/areas/area-reports.utils'
+import { selectReportPortId } from 'routes/routes.selectors'
+import { EMPTY_FIELD_PLACEHOLDER } from 'utils/info'
+
+import { getVesselIndividualGroupedData } from '../shared/reports.utils'
+import {
+  OTHER_CATEGORY_LABEL,
+  REPORT_FILTER_PROPERTIES,
+} from '../vessel-groups/vessel-group-report.config'
+
 import {
   selectPortReportVesselsFilter,
   selectPortReportVesselsPage,
   selectPortReportVesselsProperty,
   selectPortReportVesselsResultsPerPage,
 } from './ports-report.config.selectors'
+import { selectPortsReportVessels } from './ports-report.slice'
 
 export const selectPortReportsDataview = createSelector([selectEventsDataviews], (dataviews) => {
   if (!dataviews?.length) {
@@ -50,6 +61,25 @@ export const selectPortReportsConfidences = createSelector(
       ?.find((d) => d.datasetId.includes('port-visits'))
       ?.query?.find((q) => q.id === 'confidences')?.value as number[]
     return confidences
+  }
+)
+
+export const selectPortReportFootprintDatasetId = createSelector(
+  [selectAllDataviews],
+  (dataviews) => {
+    if (!dataviews?.length) return null
+    const footprintDataview = dataviews.find((d) => d.slug === PORTS_FOOTPRINT_DATAVIEW_SLUG)
+    if (!footprintDataview) return null
+    return footprintDataview.datasetsConfig?.find((d) => d.endpoint === EndpointId.ContextTiles)
+      ?.datasetId
+  }
+)
+
+export const selectPortReportFootprintArea = createSelector(
+  [selectPortReportFootprintDatasetId, selectReportPortId, selectAreas],
+  (datasetId, areaId, areas) => {
+    if (!datasetId || !areaId || !areas) return null
+    return areas?.[datasetId]?.detail?.[areaId]
   }
 )
 
@@ -112,6 +142,14 @@ export const selectPortReportVesselsGrouped = createSelector(
         value: restOfGroups.reduce((acc, group) => acc + group.value, 0),
       },
     ] as GraphDataGroup[]
+  }
+)
+
+export const selectPortReportVesselsIndividualData = createSelector(
+  [selectPortReportVesselsFiltered, selectPortReportVesselsProperty],
+  (vessels, groupBy) => {
+    if (!vessels || !groupBy) return []
+    return getVesselIndividualGroupedData(vessels, groupBy)
   }
 )
 

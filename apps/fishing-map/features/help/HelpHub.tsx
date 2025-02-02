@@ -1,11 +1,15 @@
-import cx from 'classnames'
-import { useSelector } from 'react-redux'
 import { useTranslation } from 'react-i18next'
+import { useSelector } from 'react-redux'
+import cx from 'classnames'
+
 import { IconButton } from '@globalfishingwatch/ui-components'
-import { useAppDispatch } from 'features/app/app.hooks'
+
 import { TrackCategory, trackEvent } from 'features/app/analytics.hooks'
+import { useAppDispatch } from 'features/app/app.hooks'
+
 import hintsConfig from './hints.content'
 import { resetHints, selectHintsDismissed } from './hints.slice'
+
 import styles from './Hint.module.css'
 
 const HELP_COLOR =
@@ -74,26 +78,26 @@ function HelpHub() {
             </span>
           )}
         </li>
-        <li>
-          <a href={getUserGuideLink()} target="_blank" rel="noreferrer" className={cx(styles.link)}>
-            {t('common.userGuide', 'User guide')}
-          </a>
-        </li>
-        <li>
-          <a
-            href={getVideoTutorialsLink()}
-            target="_blank"
-            rel="noreferrer"
-            className={cx(styles.link)}
-          >
-            {t('common.tutorials', 'Tutorials')}
-          </a>
-        </li>
-        <li>
-          <a href={getFAQsLink()} target="_blank" rel="noreferrer" className={cx(styles.link)}>
-            {t('common.faq', 'FAQs')}
-          </a>
-        </li>
+        {/*<li>*/}
+        {/*  <a href={getUserGuideLink()} target="_blank" rel="noreferrer" className={cx(styles.link)}>*/}
+        {/*    {t('common.userGuide', 'User guide')}*/}
+        {/*  </a>*/}
+        {/*</li>*/}
+        {/*<li>*/}
+        {/*  <a*/}
+        {/*    href={getVideoTutorialsLink()}*/}
+        {/*    target="_blank"*/}
+        {/*    rel="noreferrer"*/}
+        {/*    className={cx(styles.link)}*/}
+        {/*  >*/}
+        {/*    {t('common.tutorials', 'Tutorials')}*/}
+        {/*  </a>*/}
+        {/*</li>*/}
+        {/*<li>*/}
+        {/*  <a href={getFAQsLink()} target="_blank" rel="noreferrer" className={cx(styles.link)}>*/}
+        {/*    {t('common.faq', 'FAQs')}*/}
+        {/*  </a>*/}
+        {/*</li>*/}
       </ul>
     </div>
   )

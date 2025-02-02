@@ -1,21 +1,21 @@
+import { useCallback, useEffect, useMemo } from 'react'
 import { useSelector } from 'react-redux'
-import { useCallback, useEffect } from 'react'
+
 import type { Dataset } from '@globalfishingwatch/api-types'
 import { DatasetCategory, DatasetStatus } from '@globalfishingwatch/api-types'
 import { getDatasetConfiguration } from '@globalfishingwatch/datasets-client'
 import { FourwingsAggregationOperation } from '@globalfishingwatch/deck-layers'
-import type { AsyncError } from 'utils/async-slice'
+
+import { TrackCategory, trackEvent } from 'features/app/analytics.hooks'
+import { useAppDispatch } from 'features/app/app.hooks'
 import {
-  getContextDataviewInstance,
-  getUserPolygonsDataviewInstance,
-  getUserPointsDataviewInstance,
-  getUserTrackDataviewInstance,
   getBigQuery4WingsDataviewInstance,
   getBigQueryEventsDataviewInstance,
+  getContextDataviewInstance,
+  getUserPointsDataviewInstance,
+  getUserPolygonsDataviewInstance,
+  getUserTrackDataviewInstance,
 } from 'features/dataviews/dataviews.utils'
-import { useDataviewInstancesConnect } from 'features/workspace/workspace.hook'
-import { useAppDispatch } from 'features/app/app.hooks'
-import { TrackCategory, trackEvent } from 'features/app/analytics.hooks'
 import type { DatasetUploadConfig } from 'features/modals/modals.slice'
 import {
   selectDatasetUploadModalConfig,
@@ -23,15 +23,18 @@ import {
   setDatasetUploadConfig,
   setModalOpen,
 } from 'features/modals/modals.slice'
+import { useDataviewInstancesConnect } from 'features/workspace/workspace.hook'
+import type { AsyncError } from 'utils/async-slice'
+
 import type { UpsertDataset } from './datasets.slice'
 import {
-  upsertDatasetThunk,
   deleteDatasetThunk,
   fetchDatasetByIdThunk,
   fetchLastestCarrierDatasetThunk,
   selectCarrierLatestDataset,
   selectCarrierLatestDatasetStatus,
   updateDatasetThunk,
+  upsertDatasetThunk,
 } from './datasets.slice'
 import { getIsBQEditorDataset } from './datasets.utils'
 
@@ -78,7 +81,7 @@ export const useAddDataviewFromDatasetToWorkspace = () => {
     [upsertDataviewInstance]
   )
 
-  return { addDataviewFromDatasetToWorkspace }
+  return useMemo(() => ({ addDataviewFromDatasetToWorkspace }), [addDataviewFromDatasetToWorkspace])
 }
 
 export const useDatasetModalOpenConnect = () => {
@@ -92,10 +95,13 @@ export const useDatasetModalOpenConnect = () => {
     [dispatch]
   )
 
-  return {
+  return useMemo(
+    () => ({
     datasetModalOpen,
     dispatchDatasetModalOpen,
-  }
+    }),
+    [datasetModalOpen, dispatchDatasetModalOpen]
+  )
 }
 
 export const useDatasetModalConfigConnect = () => {
@@ -109,10 +115,13 @@ export const useDatasetModalConfigConnect = () => {
     [dispatch]
   )
 
-  return {
+  return useMemo(
+    () => ({
     ...datasetModal,
     dispatchDatasetModalConfig,
-  }
+    }),
+    [datasetModal, dispatchDatasetModalConfig]
+  )
 }
 
 export const useDatasetsAPI = () => {
@@ -163,12 +172,15 @@ export const useDatasetsAPI = () => {
     [dispatch]
   )
 
-  return {
+  return useMemo(
+    () => ({
     dispatchFetchDataset,
     dispatchUpsertDataset,
     dispatchUpdateDataset,
     dispatchDeleteDataset,
-  }
+    }),
+    [dispatchDeleteDataset, dispatchFetchDataset, dispatchUpdateDataset, dispatchUpsertDataset]
+  )
 }
 
 export const useCarrierLatestConnect = () => {
@@ -188,11 +200,14 @@ export const useCarrierLatestConnect = () => {
     }
   }, [dispatch])
 
-  return {
+  return useMemo(
+    () => ({
     carrierLatest,
     carrierLatestStatus,
     dispatchFetchLatestCarrier,
-  }
+    }),
+    [carrierLatest, carrierLatestStatus, dispatchFetchLatestCarrier]
+  )
 }
 
 export const useAutoRefreshImportingDataset = (

@@ -1,22 +1,25 @@
-import i18n from 'i18next'
-import Backend from 'i18next-http-backend'
-import LanguageDetector from 'i18next-browser-languagedetector'
 import { initReactI18next } from 'react-i18next'
-import { Locale } from 'types'
-import { PATH_BASENAME } from 'routes/routes'
+import i18n from 'i18next'
+import LanguageDetector from 'i18next-browser-languagedetector'
+import Backend from 'i18next-http-backend'
+
 import { WORKSPACE_ENV } from 'data/config'
+import { PATH_BASENAME } from 'routes/routes'
+import { Locale } from 'types'
 
 export const LocaleLabels = [
+  { id: Locale.zh, label: '简体中文' },
   { id: Locale.en, label: 'English' },
   // { id: Locale.es, label: 'Español' },
   { id: Locale.fr, label: 'Français' },
+
 ]
 
 const NPM_SCOPE = WORKSPACE_ENV === 'production' ? 'stable' : 'latest'
-export const SHARED_LABELS_PATH =
-  process.env.NODE_ENV === 'development'
-    ? 'http://localhost:8000'
-    : `https://cdn.jsdelivr.net/npm/@globalfishingwatch/i18n-labels@${NPM_SCOPE}`
+export const SHARED_LABELS_PATH = 'https://gfw_i18n.roodata.com'
+  // process.env.NODE_ENV === 'development'
+  //   ? 'http://localhost:8000'
+  //   : `http://gfw_i18n.roodata.com}`
 
 export const PACKAGE_NAMESPACES = ['flags', 'datasets']
 
@@ -42,7 +45,7 @@ i18n
     },
     ns: ['translations', 'flags', 'datasets'],
     defaultNS: 'translations',
-    fallbackLng: Locale.en,
+    fallbackLng: Locale.zh,
     supportedLngs: Object.values(Locale),
     debug: process.env.i18n_DEBUG === 'true',
     interpolation: {

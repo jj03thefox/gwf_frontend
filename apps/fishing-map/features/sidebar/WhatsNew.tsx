@@ -1,9 +1,12 @@
-import { useRef, useEffect } from 'react'
-import cx from 'classnames'
+import { useEffect,useRef } from 'react'
 import { useTranslation } from 'react-i18next'
-import { IconButton } from '@globalfishingwatch/ui-components'
+import cx from 'classnames'
+
 import { useLocalStorage } from '@globalfishingwatch/react-hooks'
+import { IconButton } from '@globalfishingwatch/ui-components'
+
 import packageJson from '../../package.json'
+
 import styles from './WhatsNew.module.css'
 
 const GFW_LAST_VERSION_SEEN_KEY = 'GFW_LAST_VERSION_SEEN'
@@ -24,7 +27,7 @@ function WhatsNew() {
   useEffect(() => {
     // We want to hide the icon automatically for following visits
     setLastVersionSeen(currentVersion)
-     
+
   }, [])
 
   const dismissNewVersionHint = () => {
@@ -36,7 +39,7 @@ function WhatsNew() {
   return (
     <a
       className={cx({ [styles.newVersionHint]: newVersionSinceLastVisit.current })}
-      href="https://globalfishingwatch.org/platform-updates"
+      href="https://gfw.roodata.com/platform-updates"
       target="_blank"
       rel="noreferrer"
     >

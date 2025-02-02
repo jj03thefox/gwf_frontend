@@ -1,5 +1,6 @@
 import { uniq } from 'es-toolkit'
 import type { TFunction } from 'i18next'
+
 import type {
   GearType,
   IdentityVessel,
@@ -8,10 +9,12 @@ import type {
   VesselType,
 } from '@globalfishingwatch/api-types'
 import { API_LOGIN_REQUIRED } from '@globalfishingwatch/api-types'
-import type { ExtendedFeatureVessel } from 'features/map/map.slice'
+
 import { formatI18nNumber } from 'features/i18n/i18nNumber'
-import { getLatestIdentityPrioritised } from 'features/vessel/vessel.utils'
+import type { ExtendedFeatureVessel } from 'features/map/map.slice'
 import type { VesselDataIdentity } from 'features/vessel/vessel.slice'
+import { getLatestIdentityPrioritised } from 'features/vessel/vessel.utils'
+
 import { t } from '../features/i18n/i18n'
 
 export const EMPTY_FIELD_PLACEHOLDER = '---'
@@ -122,7 +125,7 @@ export const getVesselShipNameLabel = (
   withGearType = false
 ): string => {
   const vesselInfo = getLatestIdentityPrioritised(vessel)
-  if (!vesselInfo) return t('common.unknownVessel', 'Unknown vessel')
+  if (!vesselInfo) return t('common.unknownVessel', '未知船只')
   if (vesselInfo.shipname && vesselInfo.geartypes && vesselInfo.flag && withGearType) {
     const gearTypes = getVesselGearTypeLabel(vesselInfo)
     return `${formatInfoField(vesselInfo.shipname, 'shipname')}
@@ -136,7 +139,7 @@ export const getVesselShipNameLabel = (
       gearType: getVesselGearTypeLabel({ geartypes: vesselInfo.geartypes }),
     })}`
   }
-  return t('common.unknownVessel', 'Unknown vessel')
+  return t('common.unknownVessel', '未知船只')
 }
 
 export const getVesselOtherNamesLabel = (otherVesselsNames: string[]) => {

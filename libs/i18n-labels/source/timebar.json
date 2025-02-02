@@ -1,52 +1,52 @@
 {
   "playback": {
-    "playAnimation": "Play animation",
-    "pauseAnimation": "Pause animation",
-    "toogleAnimationLooping": "Toggle animation looping",
-    "moveBack": "Move back",
-    "moveForward": "Move forward",
-    "changeAnimationSpeed": "Change animation speed"
+    "playAnimation": "播放动画",
+    "pauseAnimation": "暂停动画",
+    "toogleAnimationLooping": "切换动画循环",
+    "moveBack": "后退",
+    "moveForward": "前进",
+    "changeAnimationSpeed": "更改动画速度"
   },
   "timerange": {
-    "title": "Select a time range",
-    "year": "Year",
-    "month": "Month",
-    "day": "Day",
-    "start": "start",
-    "end": "end",
-    "selectAValidDate": "Please select a valid date",
-    "endBeforeStart": "The end needs to be after the start",
-    "tooLongForMonths": "Your timerange is too long to see individual months",
-    "tooLongForDays": "Your timerange is too long to see individual days",
-    "last30days": "Last 30 days",
-    "last3months": "Last 3 months",
-    "last6months": "Last 6 months",
-    "lastYear": "Last year",
-    "done": "Done",
-    "errorEarlyStart": "Your start date is the earliest date with data available",
-    "errorLatestEnd": "Your end date is the latest date with data available",
-    "errorMinRange": "Your start and end date must be at least one day apart",
-    "errorMaxRange": "Your time range is the maximum range with data available"
+    "title": "选择时间范围",
+    "year": "年",
+    "month": "月",
+    "day": "日",
+    "start": "开始",
+    "end": "结束",
+    "selectAValidDate": "请选择有效日期",
+    "endBeforeStart": "结束时间必须在开始时间之后",
+    "tooLongForMonths": "所选时间范围过长，无法显示月份",
+    "tooLongForDays": "所选时间范围过长，无法显示日期",
+    "last30days": "最近30天",
+    "last3months": "最近3个月",
+    "last6months": "最近6个月",
+    "lastYear": "最近一年",
+    "done": "完成",
+    "errorEarlyStart": "您选择的开始日期是最早可用的数据日期",
+    "errorLatestEnd": "您选择的结束日期是最新可用的数据日期",
+    "errorMinRange": "开始和结束日期必须至少相差一天",
+    "errorMaxRange": "您选择的时间范围是最大可用数据范围"
   },
   "bookmark": {
-    "goToBookmark": "Go to your bookmarked time range",
-    "deleteBookmark": "Delete time range bookmark"
+    "goToBookmark": "跳转到已收藏的时间范围",
+    "deleteBookmark": "删除时间范围收藏"
   },
   "trackEvents": {
-    "events": "events"
+    "events": "事件"
   },
-  "dragLabel": "Drag to change the time range",
-  "lastUpdate": "Last update",
-  "setBookmark": "Bookmark current time range",
+  "dragLabel": "拖动以更改时间范围",
+  "lastUpdate": "最后更新",
+  "setBookmark": "收藏当前时间范围",
   "intervals": {
-    "hour": "hour",
-    "hourTooltip": "See hourly data",
-    "day": "day",
-    "dayTooltip": "See daily data",
-    "month": "month",
-    "monthTooltip": "See monthly data",
-    "year": "year",
-    "yearTooltip": "See yearly data"
+    "hour": "小时",
+    "hourTooltip": "查看每小时数据",
+    "day": "天",
+    "dayTooltip": "查看每天数据",
+    "month": "月",
+    "monthTooltip": "查看每月数据",
+    "year": "年",
+    "yearTooltip": "查看每年数据"
   },
-  "zoomTo": "Zoom to"
+  "zoomTo": "缩放至"
 }

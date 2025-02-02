@@ -1,8 +1,10 @@
 import { DateTime } from 'luxon'
+
+import { THINNING_LEVELS,ThinningLevels } from '@globalfishingwatch/api-client'
 import type { DataviewDatasetConfigParam, ThinningConfig } from '@globalfishingwatch/api-types'
-import { ThinningLevels, THINNING_LEVELS } from '@globalfishingwatch/api-client'
-import type { AppState } from 'types/redux.types'
+
 import { TimebarGraphs } from 'types'
+import type { AppState } from 'types/redux.types'
 
 export type WorkspaceEnv = 'development' | 'production'
 export const API_VERSION = 'v2'
@@ -114,8 +116,8 @@ export const DOWNLOAD_ACTIVITY_PERMISSION = {
   action: 'download',
 }
 
-export const GOOGLE_MEASUREMENT_ID = process.env.NEXT_PUBLIC_GOOGLE_MEASUREMENT_ID || 'G-R3PWRQW70G'
-export const GOOGLE_TAG_MANAGER_ID = process.env.NEXT_PUBLIC_GOOGLE_TAG_MANAGER_ID || 'GTM-KK5ZFST'
+export const GOOGLE_MEASUREMENT_ID = process.env.NEXT_PUBLIC_GOOGLE_MEASUREMENT_ID || 'G-B4BV8P2R0R'
+export const GOOGLE_TAG_MANAGER_ID = process.env.NEXT_PUBLIC_GOOGLE_TAG_MANAGER_ID || 'GTM-TJRDKJGL'
 export const GOOGLE_ANALYTICS_DEBUG_MODE =
   (process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_DEBUG_MODE || 'false').toLowerCase() === 'true'
 

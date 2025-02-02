@@ -1,4 +1,5 @@
 import { saveAs } from 'file-saver'
+
 import type {
   APIPagination,
   ResourceRequestType,
@@ -6,8 +7,10 @@ import type {
   UserData,
   UserPermission,
 } from '@globalfishingwatch/api-types'
-import { isUrlAbsolute } from './utils/url'
+
 import { getIsUnauthorizedError, isAuthError, parseAPIError } from './utils/errors'
+import { parseJSON, processStatus } from './utils/parse'
+import { isUrlAbsolute } from './utils/url'
 import {
   API_GATEWAY,
   API_VERSION,
@@ -18,7 +21,6 @@ import {
   USER_REFRESH_TOKEN_STORAGE_KEY,
   USER_TOKEN_STORAGE_KEY,
 } from './config'
-import { parseJSON, processStatus } from './utils/parse'
 
 export { GUEST_USER_TYPE, API_VERSION, API_GATEWAY } from './config'
 
@@ -121,7 +123,8 @@ export class GFW_API_CLASS {
       debug: this.debug,
       baseUrl: this.baseUrl,
       storageKeys: this.storageKeys,
-      token: this.getToken(),
+      token: 'eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6ImtpZEtleSJ9.eyJkYXRhIjp7Im5hbWUiOiJyb29kYXRhIiwidXNlcklkIjo0MDQ0OCwiYXBwbGljYXRpb25OYW1lIjoicm9vZGF0YSIsImlkIjoyMDg3LCJ0eXBlIjoidXNlci1hcHBsaWNhdGlvbiJ9LCJpYXQiOjE3MzM4Mjg1MDUsImV4cCI6MjA0OTE4ODUwNSwiYXVkIjoiZ2Z3IiwiaXNzIjoiZ2Z3In0.iO0iyqRS9hhA26wwHFIp4WiOay-qkmrNakkL7J_GZUD8z9KaugPjaTb98oEw450rjPlewGowVcjGlRnDeVs4kOSoOg1x1J8T5GbyAjzlkc6BEaOGBAmPE3YLfMCC4GWeuV3RPBoiWrJgsmHzjvzWaujpadYFMOAx0X-peeHY4EguREh51XAgk6ihLq8QUIoZrRi0ud4iiQeuI79ZpU9maFnQzdgQDRIA0zUUluJF1H2rOEJfJyX7KuN4j-sWL4AJvsKUqx0ZAOHS-v3uPwwtzE0NkvE54DMVtAcjyaH9zhvGTQ5GKuoVPzzJSgdfsq_SR7xpWZ4cASN9V80vgiYGRkW52P2C6153hQcc25v3bORJrUbLnCbfHZ_zkHs7WngP8UckQoDlSxYdJTb4OBANrWHUtHzzhQ3Q1Xeg7VVGSQLSj15zrO9eBjzquq9ybM5uP6zhbXtjW9Xrq3Cge1dh_rdHWqHnGR3Ir1WbkNJ2Vly0EVauZwcGSxHkx2wnP-Z-',
+      // token: this.getToken(),
       refreshToken: this.getRefreshToken(),
     }
   }

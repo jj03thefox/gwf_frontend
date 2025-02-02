@@ -1,32 +1,34 @@
 import { createSelector } from '@reduxjs/toolkit'
-import { getDatasetsExtent } from '@globalfishingwatch/datasets-client'
+
 import { DataviewCategory } from '@globalfishingwatch/api-types'
-import { TimebarVisualisations } from 'types'
-import { selectDataviewInstancesResolved } from 'features/dataviews/selectors/dataviews.resolvers.selectors'
+import { getDatasetsExtent } from '@globalfishingwatch/datasets-client'
+
+import { AVAILABLE_END, AVAILABLE_START } from 'data/config'
+import { selectReportCategory } from 'features/app/selectors/app.reports.selector'
+import {
+  selectActivityVisualizationMode,
+  selectDetectionsVisualizationMode,
+} from 'features/app/selectors/app.selectors'
 import {
   selectTimebarSelectedEnvId,
   selectTimebarSelectedVGId,
   selectTimebarVisualisation,
 } from 'features/app/selectors/app.timebar.selectors'
-import { AVAILABLE_END, AVAILABLE_START } from 'data/config'
-import { getDatasetsInDataviews } from 'features/datasets/datasets.utils'
 import { selectAllDatasets } from 'features/datasets/datasets.slice'
-import {
-  selectActiveHeatmapEnvironmentalDataviewsWithoutStatic,
-  selectActiveReportActivityDataviews,
-} from 'features/dataviews/selectors/dataviews.selectors'
-import {
-  selectActivityVisualizationMode,
-  selectDetectionsVisualizationMode,
-} from 'features/app/selectors/app.selectors'
-import { getReportCategoryFromDataview } from 'features/reports/areas/area-reports.utils'
-import { selectIsAnyAreaReportLocation } from 'routes/routes.selectors'
-import { selectReportCategory } from 'features/app/selectors/app.reports.selector'
+import { getDatasetsInDataviews } from 'features/datasets/datasets.utils'
 import {
   selectActiveActivityDataviews,
   selectActiveDetectionsDataviews,
   selectActiveVesselGroupDataviews,
 } from 'features/dataviews/selectors/dataviews.categories.selectors'
+import { selectDataviewInstancesResolved } from 'features/dataviews/selectors/dataviews.resolvers.selectors'
+import {
+  selectActiveHeatmapEnvironmentalDataviewsWithoutStatic,
+  selectActiveReportActivityDataviews,
+} from 'features/dataviews/selectors/dataviews.selectors'
+import { getReportCategoryFromDataview } from 'features/reports/areas/area-reports.utils'
+import { selectIsAnyAreaReportLocation } from 'routes/routes.selectors'
+import { TimebarVisualisations } from 'types'
 import { getUTCDateTime } from 'utils/dates'
 
 export const selectActiveActivityDataviewsByVisualisation = (
@@ -71,11 +73,15 @@ export const selectActiveActivityDataviewsByVisualisation = (
     }
   )
 
-const selectDatasetsExtent = createSelector(
+const selectActiveDatasets = createSelector(
   [selectDataviewInstancesResolved, selectAllDatasets],
   (dataviews, datasets) => {
     const activeDataviewDatasets = getDatasetsInDataviews(dataviews)
-    const activeDatasets = datasets.filter((d) => activeDataviewDatasets.includes(d.id))
+    return datasets.filter((d) => activeDataviewDatasets.includes(d.id))
+  }
+)
+
+const selectDatasetsExtent = createSelector([selectActiveDatasets], (activeDatasets) => {
     return getDatasetsExtent<number>(activeDatasets, {
       format: 'timestamp',
     })
@@ -94,7 +100,9 @@ export const selectAvailableEnd = createSelector([selectDatasetsExtent], (datase
   const defaultAvailableEndMs = getUTCDateTime(AVAILABLE_END).toMillis()
   const availableEndMs = getUTCDateTime(
     Math.max(defaultAvailableEndMs, datasetsExtent.extentEnd || -Infinity)
-  ).toISO() as string
+  )
+    .endOf('day')
+    .toISO() as string
   return availableEndMs
 })
 

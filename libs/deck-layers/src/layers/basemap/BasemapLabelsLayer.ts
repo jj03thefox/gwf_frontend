@@ -1,22 +1,25 @@
-import { BitmapLayer } from '@deck.gl/layers'
 import { CompositeLayer } from '@deck.gl/core'
-import { TileLayer } from '@deck.gl/geo-layers'
 import type { MVTLayerProps } from '@deck.gl/geo-layers'
-import { Locale } from '@globalfishingwatch/api-types'
+import { TileLayer } from '@deck.gl/geo-layers'
+import { BitmapLayer } from '@deck.gl/layers'
+
 import { API_GATEWAY, API_VERSION } from '@globalfishingwatch/api-client'
-import { LayerGroup, getFetchLoadOptions, getLayerGroupOffset } from '../../utils'
+import { Locale } from '@globalfishingwatch/api-types'
+
+import { getFetchLoadOptions, getLayerGroupOffset,LayerGroup } from '../../utils'
+
 import type { _BasemapLabelsLayerProps } from './basemap.types'
 
 export type BaseMapLabelsLayerProps = Omit<MVTLayerProps, 'data'> & _BasemapLabelsLayerProps
 
-export const getLabelsTilesUrlByLocale = (locale: Locale = Locale.en) => {
+export const getLabelsTilesUrlByLocale = (locale: Locale = Locale.zh) => {
   return `${API_GATEWAY}/${API_VERSION}/tileset/nslabels/tile?locale=${locale}&x={x}&y={y}&z={z}`
 }
 
 export class BaseMapLabelsLayer extends CompositeLayer<BaseMapLabelsLayerProps> {
   static layerName = 'BasemapLabelsLayer'
   static defaultProps = {
-    locale: Locale.en,
+    locale: Locale.zh,
   }
 
   renderLayers() {

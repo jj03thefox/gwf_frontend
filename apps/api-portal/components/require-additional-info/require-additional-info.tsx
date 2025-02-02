@@ -1,9 +1,10 @@
-import { useRouter } from 'next/router'
 import type { ReactNode} from 'react';
 import { Fragment, useEffect } from 'react'
+import { useRouter } from 'next/router'
+
 import useUser from 'features/user/user'
 
- 
+
 export interface RequireAdditionalInfoProps {
   children: ReactNode
 }

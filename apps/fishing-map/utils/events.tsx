@@ -1,17 +1,20 @@
 import { Fragment } from 'react'
+import { Trans } from 'react-i18next'
 import type { Duration } from 'luxon'
 import { DateTime } from 'luxon'
-import { Trans } from 'react-i18next'
+
 import type { ApiEvent } from '@globalfishingwatch/api-types'
 import { EventTypes } from '@globalfishingwatch/api-types'
+import type { SupportedDateType } from '@globalfishingwatch/data-transforms'
+
+import { EVENTS_COLORS } from 'data/config'
 import { t } from 'features/i18n/i18n'
 import { formatI18nDate } from 'features/i18n/i18nDate'
-import { EVENTS_COLORS } from 'data/config'
-import { formatInfoField } from 'utils/info'
-import VesselPin from 'features/vessel/VesselPin'
 import { DEFAULT_VESSEL_IDENTITY_ID } from 'features/vessel/vessel.config'
-import type { SupportedDateType } from './dates'
+import VesselPin from 'features/vessel/VesselPin'
+
 import { getUTCDateTime } from './dates'
+import { formatInfoField } from './info'
 
 const getEventColors = ({ type }: { type: ApiEvent['type'] }) => {
   const colorKey = type
@@ -24,30 +27,6 @@ const getEventColors = ({ type }: { type: ApiEvent['type'] }) => {
   return {
     color,
     colorLabels,
-  }
-}
-
-type TimeLabels = {
-  start: string
-  duration: string
-}
-const getTimeLabels = ({
-  start,
-  end,
-}: {
-  start: SupportedDateType
-  end: SupportedDateType
-}): TimeLabels => {
-  const startDT = getUTCDateTime(start)
-  const endDT = getUTCDateTime(end)
-  const durationRaw = endDT.diff(startDT, ['days', 'hours', 'minutes'])
-
-  const startLabel = formatI18nDate(start, { format: DateTime.DATETIME_MED, showUTCLabel: true })
-
-  const durationLabel = getEventDurationLabel({ durationRaw })
-  return {
-    start: startLabel,
-    duration: durationLabel,
   }
 }
 
@@ -68,6 +47,30 @@ const getEventDurationLabel = ({ durationRaw }: { durationRaw: Duration }): stri
   ].join(' ')
 }
 
+type TimeLabels = {
+  start: string
+  duration: string
+}
+export const getTimeLabels = ({
+  start,
+  end,
+}: {
+  start: SupportedDateType
+  end: SupportedDateType
+}): TimeLabels => {
+  const startDT = getUTCDateTime(start)
+  const endDT = getUTCDateTime(end)
+  const durationRaw = endDT.diff(startDT, ['days', 'hours', 'minutes'])
+
+  const startLabel = formatI18nDate(start, { format: DateTime.DATETIME_MED, showUTCLabel: true })
+
+  const durationLabel = getEventDurationLabel({ durationRaw })
+  return {
+    start: startLabel,
+    duration: durationLabel,
+  }
+}
+
 export const getEventDescription = ({
   start,
   end,
@@ -86,7 +89,7 @@ export const getEventDescription = ({
       if (mainVesselName && encounterVesselName) {
         description = t(
           'event.encounterActionWithVessels',
-          'had an encounter with {{encounterVessel}} starting at {{start}} for {{duration}}',
+          '从{start}}开始，在{duration}}内与{encounterVessel}}相遇',
           {
             ...time,
             mainVessel: mainVesselName,
@@ -96,12 +99,12 @@ export const getEventDescription = ({
       } else {
         description = t(
           'event.encounterActionWith',
-          'had an encounter with {{vessel}} starting at {{start}} for {{duration}}',
+          '从{start}}开始与{{vessel}}相遇{{duration}}',
           {
             ...time,
             vessel: encounterVesselName
               ? encounterVesselName
-              : t('event.encounterAnotherVessel', 'another vessel'),
+              : t('event.encounterAnotherVessel', '其他船舶'),
           }
         )
       }
@@ -119,11 +122,11 @@ export const getEventDescription = ({
         ].join(', ')
         description = t(
           'event.portAt',
-          'Docked at {{port}} started at {{start}} for {{duration}}',
+          '停靠在｛｛port｝｝，从｛｛start｝｝开始，持续｛｛duration｝｝',
           { ...time, port: portLabel }
         )
       } else {
-        description = t('event.portAction', 'Docked started at {{start}} for {{duration}}', time)
+        description = t('event.portAction', '停靠从｛｛start｝｝开始，持续｛｛duration｝｝', time)
       }
       descriptionGeneric = t('event.port')
       break
@@ -131,18 +134,18 @@ export const getEventDescription = ({
     case EventTypes.Loitering:
       description = t(
         'event.loiteringAction',
-        'Loitering started at {{start}} for {{duration}}',
+        '漫游从｛｛start｝｝开始，持续｛｛duration｝｝',
         time
       )
       descriptionGeneric = t('event.loitering')
       break
     case EventTypes.Fishing:
-      description = t('event.fishingAction', 'Fishing started at {{start}} for {{duration}}', time)
+      description = t('event.fishingAction', '捕捞从｛｛start｝｝开始，持续｛｛duration｝｝', time)
       descriptionGeneric = t('event.fishing')
       break
     default:
-      description = t('event.unknown', 'Unknown event')
-      descriptionGeneric = t('event.unknown', 'Unknown event')
+      description = t('event.unknown', '未知事件')
+      descriptionGeneric = t('event.unknown', '未知事件')
   }
 
   return {

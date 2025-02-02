@@ -1,28 +1,29 @@
 import type { PayloadAction } from '@reduxjs/toolkit'
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
+import { createAsyncThunk,createSlice } from '@reduxjs/toolkit'
 import { getQueryParamsResolved } from 'queries/base'
 import type {
   ReportEventsVesselsResponse,
   ReportEventsVesselsResponseItem,
 } from 'queries/report-events-stats-api'
 import { EVENTS_TIME_FILTER_MODE } from 'queries/report-events-stats-api'
+
 import { GFWAPI } from '@globalfishingwatch/api-client'
 import { VesselIdentitySourceEnum } from '@globalfishingwatch/api-types'
-import type { AsyncError } from 'utils/async-slice'
-import { AsyncReducerStatus } from 'utils/async-slice'
+
+import type { VesselLastIdentity } from 'features/search/search.slice'
 import {
   DEFAULT_VESSEL_IDENTITY_ID,
   INCLUDES_RELATED_SELF_REPORTED_INFO_ID,
 } from 'features/vessel/vessel.config'
+import { getSearchIdentityResolved, getVesselIdentities } from 'features/vessel/vessel.utils'
 import {
   fetchAllSearchVessels,
   SEARCH_PAGINATION,
 } from 'features/vessel-groups/vessel-groups-modal.slice'
-import { getSearchIdentityResolved, getVesselIdentities } from 'features/vessel/vessel.utils'
-import type { VesselLastIdentity } from 'features/search/search.slice'
-import { t } from 'features/i18n/i18n'
-import { formatInfoField } from 'utils/info'
-import { OTHER_CATEGORY_LABEL } from '../vessel-groups/vessel-group-report.config'
+import type { AsyncError } from 'utils/async-slice'
+import { AsyncReducerStatus } from 'utils/async-slice'
+
+import { normalizeVesselProperties } from '../areas/area-reports.utils'
 import { getDateRangeHash } from '../shared/activity/reports-activity.slice'
 
 export type EventsStatsVessel = ReportEventsVesselsResponseItem &
@@ -132,18 +133,7 @@ export const fetchPortsReportThunk = createAsyncThunk(
           ...identity,
           ...eventsVessel,
           vesselId: identity.id,
-          shipName: formatInfoField(identity.shipname, 'shipname') as string,
-          geartype:
-            (identity.geartypes || [])
-              .sort()
-              .map((g) => formatInfoField(g, 'geartypes'))
-              .join(', ') || OTHER_CATEGORY_LABEL,
-          shiptype:
-            (identity.shiptypes || [])
-              .sort()
-              .map((g) => formatInfoField(g, 'shiptypes'))
-              .join(', ') || OTHER_CATEGORY_LABEL,
-          flagTranslated: t(`flags:${identity.flag as string}` as any),
+          ...normalizeVesselProperties(identity),
         } as EventsStatsVessel
       })
       return {

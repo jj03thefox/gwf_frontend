@@ -1,14 +1,18 @@
 import React, { Fragment, useEffect } from 'react'
+import { useAnalytics } from 'app/analytics.hooks'
 // import type { NextPage } from 'next'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
-import { Spinner } from '@globalfishingwatch/ui-components'
+
 import { GUEST_USER_TYPE } from '@globalfishingwatch/api-client'
-import { useAnalytics } from 'app/analytics.hooks'
+import { Spinner } from '@globalfishingwatch/ui-components'
+
 import useUser from 'features/user/user'
-import styles from '../styles/layout.module.css'
+
 import { APPLICATION_NAME, GOOGLE_TAG_MANAGER_ID, PATH_BASENAME } from './data/config'
 import Header from './header/header'
+
+import styles from '../styles/layout.module.css'
 
 const Layout = ({ children }) => {
   const { data: user, isLoading, authorized, logout, loginLink } = useUser()
@@ -18,7 +22,7 @@ const Layout = ({ children }) => {
     user ? 'User:' + user.email : '',
   ]
   const mailto = [
-    'mailto:support@globalfishingwatch.org?',
+    'mailto:zhanyunfei@roodata.com?',
     Object.entries({
       subject: 'Not authorized',
       body: errorInfo.join('\n'),
@@ -43,8 +47,7 @@ const Layout = ({ children }) => {
         <title>Access Tokens - Global Fishing Watch API Documentation</title>
         <meta
           name="description"
-          content="You need an acccess token to call Global Fishing Watch API endpoints like Vessel search
-          or 4wings activity tiles. Read more about API access tokens in our documentation"
+          content="您需要一个acccess令牌来调用地图 API端点，如船只搜索或活动图块。在我们的文档中阅读有关API访问令牌的更多信息"
         />
         <meta name="robots" content="noindex" />
         <link rel="icon" href={`${PATH_BASENAME}/favicon.ico`} />

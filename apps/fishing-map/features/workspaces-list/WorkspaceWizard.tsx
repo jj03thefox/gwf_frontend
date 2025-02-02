@@ -1,35 +1,39 @@
-import { useState, useEffect, useRef, useMemo } from 'react'
-import cx from 'classnames'
-import Link from 'redux-first-router-link'
+import { useEffect, useMemo,useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
+import { useSelector } from 'react-redux'
+import cx from 'classnames'
 import type { UseComboboxStateChange } from 'downshift'
 import { useCombobox } from 'downshift'
-import { useSelector } from 'react-redux'
-import type { OceanAreaLocale, OceanArea } from '@globalfishingwatch/ocean-areas'
+import Link from 'redux-first-router-link'
+import type { Bbox } from 'types'
+
+import type { Dataview } from '@globalfishingwatch/api-types'
+import type { OceanArea,OceanAreaLocale } from '@globalfishingwatch/ocean-areas'
 import { searchOceanAreas } from '@globalfishingwatch/ocean-areas'
 import { Icon, IconButton, InputText } from '@globalfishingwatch/ui-components'
-import type { Dataview } from '@globalfishingwatch/api-types'
-import { t as trans } from 'features/i18n/i18n'
-import { useMapViewState } from 'features/map/map-viewport.hooks'
+
 import {
   MARINE_MANAGER_DATAVIEWS,
   MARINE_MANAGER_DATAVIEWS_INSTANCES,
   WIZARD_TEMPLATE_ID,
 } from 'data/default-workspaces/marine-manager'
-import { useAppDispatch } from 'features/app/app.hooks'
-import { fetchDataviewsByIdsThunk, selectAllDataviews } from 'features/dataviews/dataviews.slice'
-import { getDatasetsInDataviews } from 'features/datasets/datasets.utils'
-import { fetchDatasetsByIdsThunk } from 'features/datasets/datasets.slice'
-import { useDeckMap } from 'features/map/map-context.hooks'
 import {
   EEZ_DATAVIEW_INSTANCE_ID,
   MPA_DATAVIEW_INSTANCE_ID,
   WorkspaceCategory,
 } from 'data/workspaces'
+import { TrackCategory, trackEvent } from 'features/app/analytics.hooks'
+import { useAppDispatch } from 'features/app/app.hooks'
+import { fetchDatasetsByIdsThunk } from 'features/datasets/datasets.slice'
+import { getDatasetsInDataviews } from 'features/datasets/datasets.utils'
+import { fetchDataviewsByIdsThunk, selectAllDataviews } from 'features/dataviews/dataviews.slice'
+import { t as trans } from 'features/i18n/i18n'
+import { getMapCoordinatesFromBounds, useMapFitBounds } from 'features/map/map-bounds.hooks'
+import { useDeckMap } from 'features/map/map-context.hooks'
+import { useMapViewState } from 'features/map/map-viewport.hooks'
 import { WORKSPACE, WORKSPACE_REPORT } from 'routes/routes'
 import { getEventLabel } from 'utils/analytics'
-import { TrackCategory, trackEvent } from 'features/app/analytics.hooks'
-import { getMapCoordinatesFromBounds, useMapFitBounds } from 'features/map/map-bounds.hooks'
+
 import styles from './WorkspaceWizard.module.css'
 
 const MAX_RESULTS_NUMBER = 10
@@ -134,7 +138,7 @@ function WorkspaceWizard() {
   }
   const linkToArea = useMemo(() => {
     const linkViewport = selectedItem
-      ? getMapCoordinatesFromBounds(map, selectedItem.properties?.bounds as any)
+      ? getMapCoordinatesFromBounds(selectedItem.properties?.bounds as Bbox)
       : viewState
 
     return {
@@ -160,7 +164,7 @@ function WorkspaceWizard() {
       },
       replaceQuery: true,
     }
-  }, [map, selectedItem, viewState])
+  }, [selectedItem, viewState])
 
   const linkToReport = useMemo(() => {
     if (!selectedItem || selectedItem?.properties?.type === 'ocean') {
@@ -192,8 +196,8 @@ function WorkspaceWizard() {
   }, [selectedItem, dataviews, linkToArea])
 
   const linkLabel = selectedItem
-    ? t('workspace.wizard.exploreArea', 'Explore area')
-    : t('workspace.wizard.exploreGlobal', 'Explore global')
+    ? t('workspace.wizard.exploreArea', '探索区域')
+    : t('workspace.wizard.exploreGlobal', '探索全球')
 
   return (
     <div className={styles.wizardContainer}>
@@ -201,13 +205,13 @@ function WorkspaceWizard() {
         className={cx(styles.inputContainer, { [styles.open]: isOpen && areasMatching.length > 0 })}
       >
         <label>
-          {t('workspace.wizard.title', 'Setup a marine manager workspace for any area globally')}
+          {t('workspace.wizard.title', '为全球任何区域设置海洋经理工作区')}
         </label>
         <div className={styles.comboContainer}>
           <InputText
             {...getInputProps({ ref: inputRef })}
             className={styles.input}
-            placeholder={t('map.search', 'Search areas')}
+            placeholder={t('map.search', '探索区域')}
             onBlur={onInputBlur}
           />
           <IconButton
@@ -235,13 +239,13 @@ function WorkspaceWizard() {
         <div>
           <p className={styles.hint}>
             <Icon icon="magic" />
-            {t('workspace.wizard.help', 'You can move the map and update your workspace later')}
+            {t('workspace.wizard.help', '您可以稍后移动地图并更新工作区')}
           </p>
         </div>
         <div className={styles.linksContainer}>
           {selectedItem && linkToReport && (
             <Link to={linkToReport} target="_self" className={cx(styles.confirmBtn)}>
-              {t('analysis.see', 'See report')}
+              {t('analysis.see', '查看报告')}
             </Link>
           )}
           <Link to={linkToArea} target="_self" className={cx(styles.confirmBtn)}>

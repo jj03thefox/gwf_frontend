@@ -1,32 +1,39 @@
 import { createSelector } from '@reduxjs/toolkit'
 import { groupBy } from 'es-toolkit'
-import { DatasetTypes } from '@globalfishingwatch/api-types'
-import { getDataviewFilters } from '@globalfishingwatch/dataviews-client'
-import {
-  selectReportEventsStatsApiSlice,
-  selectReportEventsVessels,
-} from 'queries/report-events-stats-api'
 import type {
   ReportEventsVesselsParams,
   ReportEventsVesselsResponseItem,
 } from 'queries/report-events-stats-api'
-import { selectVGRData } from 'features/reports/vessel-groups/vessel-group-report.slice'
-import { getSearchIdentityResolved } from 'features/vessel/vessel.utils'
+import {
+  selectReportEventsStatsApiSlice,
+  selectReportEventsVessels,
+} from 'queries/report-events-stats-api'
+
+import { DatasetTypes } from '@globalfishingwatch/api-types'
+import { getDataviewFilters } from '@globalfishingwatch/dataviews-client'
+
 import { selectTimeRange } from 'features/app/selectors/app.timebar.selectors'
-import { selectReportVesselGroupId } from 'routes/routes.selectors'
+import { MAX_CATEGORIES } from 'features/reports/areas/area-reports.config'
+import {
+  getVesselsFiltered,
+  normalizeVesselProperties,
+} from 'features/reports/areas/area-reports.utils'
 import {
   selectVGREventsResultsPerPage,
   selectVGREventsVesselFilter,
   selectVGREventsVesselPage,
   selectVGREventsVesselsProperty,
 } from 'features/reports/vessel-groups/vessel-group.config.selectors'
-import { getVesselsFiltered } from 'features/reports/areas/area-reports.utils'
-import { REPORT_FILTER_PROPERTIES } from 'features/reports/vessel-groups/vessels/vessel-group-report-vessels.selectors'
+import {
+  OTHER_CATEGORY_LABEL,
+  REPORT_FILTER_PROPERTIES,
+} from 'features/reports/vessel-groups/vessel-group-report.config'
 import { selectVGREventsSubsectionDataview } from 'features/reports/vessel-groups/vessel-group-report.selectors'
-import { OTHER_CATEGORY_LABEL } from 'features/reports/vessel-groups/vessel-group-report.config'
+import { selectVGRData } from 'features/reports/vessel-groups/vessel-group-report.slice'
+import { getSearchIdentityResolved } from 'features/vessel/vessel.utils'
+import { selectReportVesselGroupId } from 'routes/routes.selectors'
 import { EMPTY_FIELD_PLACEHOLDER, formatInfoField } from 'utils/info'
-import { MAX_CATEGORIES } from 'features/reports/areas/area-reports.config'
-import { t } from 'features/i18n/i18n'
+
 import type { EventsStatsVessel } from '../../ports/ports-report.slice'
 
 export const selectFetchVGREventsVesselsParams = createSelector(
@@ -89,13 +96,8 @@ export const selectVGREventsVessels = createSelector(
       return {
         ...vesselWithEvents,
         ...identity,
+        ...normalizeVesselProperties(identity),
         shipName,
-        geartype:
-          (identity.geartypes || [])
-            .sort()
-            .map((g) => formatInfoField(g, 'geartypes'))
-            .join(', ') || OTHER_CATEGORY_LABEL,
-        flagTranslated: t(`flags:${identity.flag as string}` as any),
       } as EventsStatsVessel
     })
     return insightVessels.sort((a, b) => b.numEvents - a.numEvents)
@@ -129,7 +131,7 @@ export const selectVGREventsVesselsGrouped = createSelector(
     if (!vessels?.length) return []
     const orderedGroups: { name: string; value: number }[] = Object.entries(
       groupBy(vessels, (vessel) => {
-        return property === 'flag' ? vessel.flagTranslated : (vessel.geartype as string)
+        return property === 'flag' ? vessel.flagTranslated : (vessel[property] as string)
       })
     )
       .map(([key, value]) => ({ name: key, property: key, value: value.length }))

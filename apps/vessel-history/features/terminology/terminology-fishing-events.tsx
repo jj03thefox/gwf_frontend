@@ -1,4 +1,5 @@
 import { Trans } from 'react-i18next'
+
 import { t } from 'features/i18n/i18n'
 
 /* eslint-disable-next-line */
@@ -19,7 +20,7 @@ export function TerminologyFishingEvents(props: TerminologyFishingEventsProps) {
         “apparently fishing” or “not fishing” and shows the former on our fishing activity heat map.
         You can find more detail in our Technology page:{' '}
         <a
-          href="https://globalfishingwatch.org/our-technology/"
+          href="https://gfw.roodata.com/our-technology/"
           rel="noopener noreferrer"
           target="_blank"
         >
@@ -27,7 +28,7 @@ export function TerminologyFishingEvents(props: TerminologyFishingEventsProps) {
         </a>{' '}
         and Dataset page:{' '}
         <a
-          href="https://globalfishingwatch.org/datasets-and-code/"
+          href="https://gfw.roodata.com/datasets-and-code/"
           rel="noopener noreferrer"
           target="_blank"
         >

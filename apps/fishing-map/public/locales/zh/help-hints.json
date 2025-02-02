@@ -1,9 +1,9 @@
 {
-  "areaSearch": "Search by country, sea or ocean to focus on an area you're interested in.",
-  "changingTheTimeRange": "Click and drag to change the time range you are viewing in the time bar.",
-  "clickingOnAGridCellToShowVessels": "Click on any grid cell to show the most active vessels in that area over the chosen time range.",
-  "filterActivityLayers": "Click the filter icon to filter activity using different available criteria, including data source, flag and gear types.",
-  "fishingEffortHeatmap": "The map shows an interactive heat map of activity. The lighter grid cells are the areas with more activity.",
-  "periodComparisonBaseline": "Select a baseline to compare changes in activity e.g. between now and the same date last year, or to compare activity at different times of year.",
-  "userContextLayers": "Upload and combine your area, track or point data in more formats with flexible color, size, labeling, time and filter options to best visualize and analyze your datasets alongside Global Fishing Watch layers."
+  "areaSearch": "通过搜索国家、海域或海洋来聚焦您感兴趣的区域。",
+  "changingTheTimeRange": "点击并拖动时间轴以更改您正在查看的时间范围。",
+  "clickingOnAGridCellToShowVessels": "点击任何网格单元以显示在所选时间范围内该区域最活跃的船只。",
+  "filterActivityLayers": "点击筛选图标，使用不同的可用条件（包括数据来源、船旗国和渔具类型）来筛选活动。",
+  "fishingEffortHeatmap": "地图显示活动的交互式热图。颜色较浅的网格单元表示活动较多的区域。",
+  "periodComparisonBaseline": "选择基准线以比较活动变化，例如比较现在与去年同期的情况，或比较一年中不同时期的活动。",
+  "userContextLayers": "上传并结合您的区域、轨迹或点数据，使用更多格式，具有灵活的颜色、大小、标签、时间和筛选选项，以便最好地将您的数据集与全球渔业观察组织图层一起可视化和分析。"
 }

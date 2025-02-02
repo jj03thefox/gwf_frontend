@@ -1,8 +1,11 @@
-import cx from 'classnames'
 import { useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
+import cx from 'classnames'
+
 import type { DeckLayerPickingObject } from '@globalfishingwatch/deck-layers'
+
 import { selectIsGuestUser } from 'features/user/selectors/user.selectors'
+
 import styles from '../Popup.module.css'
 
 type AnnotationTooltipProps = {
@@ -19,7 +22,7 @@ function AnnotationTooltip({ features }: AnnotationTooltipProps) {
     <div className={cx(styles.popupSection, styles.withoutIcon)}>
       <div className={styles.popupSectionContent}>
         <span className={styles.rowText}>
-          {t('map.annotationsHover', 'Drag to move or click to edit annotation')}
+          {t('map.annotationsHover', '拖动以移动或单击以编辑注释')}
         </span>
       </div>
     </div>

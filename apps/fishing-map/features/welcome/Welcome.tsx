@@ -1,12 +1,16 @@
 import { useCallback, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Logo, Modal } from '@globalfishingwatch/ui-components'
+
 import { useLocalStorage } from '@globalfishingwatch/react-hooks'
-import { Locale } from 'types'
-import LanguageToggle from 'features/i18n/LanguageToggle'
+import { Logo, Modal } from '@globalfishingwatch/ui-components'
+
 import { ROOT_DOM_ELEMENT } from 'data/config'
+import LanguageToggle from 'features/i18n/LanguageToggle'
+import { Locale } from 'types'
+
 import type { WelcomeContentKey } from './welcome.content'
 import WELCOME_POPUP_CONTENT from './welcome.content'
+
 import styles from './Welcome.module.css'
 
 const DISABLE_WELCOME_POPUP_DICT: Record<WelcomeContentKey, string> = {
@@ -29,7 +33,7 @@ const Welcome = ({ contentKey }: WelcomeProps) => {
 
   const welcomeModalContent = WELCOME_POPUP_CONTENT[contentKey]
   const welcomeModalContentTranslated =
-    welcomeModalContent?.[i18n.language as Locale] || welcomeModalContent?.[Locale.en]
+    welcomeModalContent?.[i18n.language as Locale] || welcomeModalContent?.[Locale.zh]
 
   useEffect(() => {
     if (!welcomePopup?.visible && welcomePopup?.showAgain) {

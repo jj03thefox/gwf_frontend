@@ -1,55 +1,66 @@
-import { useSelector } from 'react-redux'
-import cx from 'classnames'
 import { Fragment } from 'react'
 import { useTranslation } from 'react-i18next'
+import { useSelector } from 'react-redux'
+import cx from 'classnames'
 import parse from 'html-react-parser'
 import { DateTime } from 'luxon'
-import { Button } from '@globalfishingwatch/ui-components'
 import { useGetReportEventsStatsQuery } from 'queries/report-events-stats-api'
+
+import { getDataviewFilters } from '@globalfishingwatch/dataviews-client'
+import { Button } from '@globalfishingwatch/ui-components'
+
+import EventsEmptyState from 'assets/images/emptyState-events@2x.png'
+import { useAppDispatch } from 'features/app/app.hooks'
+import { selectTimeRange } from 'features/app/selectors/app.timebar.selectors'
+import { getDownloadReportSupported } from 'features/download/download.utils'
+import { formatI18nDate } from 'features/i18n/i18nDate'
+import { formatI18nNumber } from 'features/i18n/i18nNumber'
+import ReportVesselsFilter from 'features/reports/shared/activity/vessels/ReportVesselsFilter'
 import EventsReportGraph from 'features/reports/shared/events/EventsReportGraph'
-import { selectReportPortId } from 'routes/routes.selectors'
 import EventsReportVesselPropertySelector from 'features/reports/shared/events/EventsReportVesselPropertySelector'
 import EventsReportVesselsTable from 'features/reports/shared/events/EventsReportVesselsTable'
-import EventsEmptyState from 'assets/images/emptyState-events@2x.png'
-import { selectTimeRange } from 'features/app/selectors/app.timebar.selectors'
-import ReportVesselsFilter from 'features/reports/shared/activity/vessels/ReportVesselsFilter'
-import { AsyncReducerStatus } from 'utils/async-slice'
-import ReportActivityPlaceholder from 'features/reports/shared/placeholders/ReportActivityPlaceholder'
 import EventsReportVesselsTableFooter from 'features/reports/shared/events/EventsReportVesselsTableFooter'
-import ReportVesselsPlaceholder from 'features/reports/shared/placeholders/ReportVesselsPlaceholder'
+import ReportActivityPlaceholder from 'features/reports/shared/placeholders/ReportActivityPlaceholder'
 import ReportTitlePlaceholder from 'features/reports/shared/placeholders/ReportTitlePlaceholder'
-import { formatI18nNumber } from 'features/i18n/i18nNumber'
-import { formatI18nDate } from 'features/i18n/i18nDate'
+import ReportVesselsPlaceholder from 'features/reports/shared/placeholders/ReportVesselsPlaceholder'
+import { useMigrateWorkspaceToast } from 'features/workspace/workspace-migration.hooks'
+import { selectReportPortId } from 'routes/routes.selectors'
+import { AsyncReducerStatus } from 'utils/async-slice'
 import { formatInfoField } from 'utils/info'
-import { useAppDispatch } from 'features/app/app.hooks'
-import { getDownloadReportSupported } from 'features/download/download.utils'
-import EventsReportVesselsGraph from '../vessel-groups/vessels/VesselGroupReportVesselsGraph'
+
+import { usePortsReportAreaFootprintFitBounds } from '../areas/area-reports.hooks'
 import { getDateRangeHash } from '../shared/activity/reports-activity.slice'
-import styles from './PortsReport.module.css'
+import EventsReportVesselsGraph from '../vessel-groups/vessels/VesselGroupReportVesselsGraph'
+
+import {
+  selectPortReportCountry,
+  selectPortReportName,
+  selectPortReportVesselsFilter,
+  selectPortReportVesselsProperty,
+  selectPortsReportDatasetId,
+} from './ports-report.config.selectors'
 import { useFetchPortsReport } from './ports-report.hooks'
 import {
   selectPortReportsDataview,
   selectPortReportVesselsGrouped,
+  selectPortReportVesselsIndividualData,
   selectPortReportVesselsPaginated,
   selectPortReportVesselsPagination,
 } from './ports-report.selectors'
 import {
-  selectPortReportCountry,
-  selectPortsReportDatasetId,
-  selectPortReportName,
-  selectPortReportVesselsFilter,
-  selectPortReportVesselsProperty,
-} from './ports-report.config.selectors'
-import {
   resetPortsReportData,
   selectPortsReportData,
-  selectPortsReportStatus,
   selectPortsReportDateRangeHash,
+  selectPortsReportStatus,
 } from './ports-report.slice'
+
+import styles from './PortsReport.module.css'
 
 const MAX_VESSELS_REPORT = 500
 
 function PortsReport() {
+  useMigrateWorkspaceToast()
+  usePortsReportAreaFootprintFitBounds()
   const dispatchFetchReport = useFetchPortsReport()
   const dispatch = useAppDispatch()
   const { t } = useTranslation()
@@ -65,6 +76,7 @@ function PortsReport() {
   const portsReportData = useSelector(selectPortsReportData)
   const portsReportDataStatus = useSelector(selectPortsReportStatus)
   const portsReportVesselsGrouped = useSelector(selectPortReportVesselsGrouped)
+  const portReportIndividualData = useSelector(selectPortReportVesselsIndividualData)
   const portsReportVesselsPaginated = useSelector(selectPortReportVesselsPaginated)
   const {
     data,
@@ -155,6 +167,12 @@ function PortsReport() {
             color={color}
             start={start}
             end={end}
+            filters={{
+              portId,
+              ...(dataview && { ...getDataviewFilters(dataview) }),
+            }}
+            includes={['id', 'start', 'end', 'vessel']}
+            datasetId={datasetId}
             timeseries={data.timeseries || []}
           />
         )}
@@ -215,6 +233,7 @@ function PortsReport() {
           </div>
           <EventsReportVesselsGraph
             data={portsReportVesselsGrouped}
+            individualData={portReportIndividualData}
             color={color}
             property={portReportVesselsProperty}
             filterQueryParam="portsReportVesselsFilter"

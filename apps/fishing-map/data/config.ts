@@ -1,25 +1,26 @@
 import { DateTime } from 'luxon'
+
 import { DataviewCategory, DataviewType } from '@globalfishingwatch/api-types'
+
 import type { AppState, WorkspaceState } from '../types'
 import { TimebarGraphs, TimebarVisualisations, UserTab } from '../types'
 import { getUTCDateTime } from '../utils/dates'
 
 export const ROOT_DOM_ELEMENT = '__next'
 
-export const SUPPORT_EMAIL = 'support@globalfishingwatch.org'
+export const SUPPORT_EMAIL = 'zhanyunfei@roodata.com'
 
 export const IS_DEVELOPMENT_ENV = process.env.NODE_ENV === 'development'
 export const IS_PRODUCTION_BUILD = process.env.NODE_ENV === 'production'
 export const PUBLIC_WORKSPACE_ENV = process.env.NEXT_PUBLIC_WORKSPACE_ENV
 export const IS_PRODUCTION_WORKSPACE_ENV =
   PUBLIC_WORKSPACE_ENV === 'production' || PUBLIC_WORKSPACE_ENV === 'staging'
-const IS_PRODUCTION = IS_PRODUCTION_WORKSPACE_ENV || IS_PRODUCTION_BUILD
 
 export const SHOW_LEAVE_CONFIRMATION = process.env.NEXT_PUBLIC_SHOW_LEAVE_CONFIRMATION
   ? process.env.NEXT_PUBLIC_SHOW_LEAVE_CONFIRMATION === 'true'
   : process.env.NODE_ENV !== 'development'
 
-export const PATH_BASENAME = process.env.NEXT_PUBLIC_URL || (IS_PRODUCTION ? '/map' : '')
+export const PATH_BASENAME = process.env.NEXT_PUBLIC_URL || '/map'
 
 export const REPORT_DAYS_LIMIT =
   typeof process.env.NEXT_PUBLIC_REPORT_DAYS_LIMIT !== 'undefined'
@@ -29,7 +30,7 @@ export const REPORT_DAYS_LIMIT =
 export const CARRIER_PORTAL_API_URL =
   process.env.NEXT_PUBLIC_CARRIER_PORTAL_API_URL || 'https://gateway.api.globalfishingwatch.org'
 export const CARRIER_PORTAL_URL =
-  process.env.NEXT_PUBLIC_CARRIER_PORTAL_URL || 'https://carrier-portal.globalfishingwatch.org'
+  process.env.NEXT_PUBLIC_CARRIER_PORTAL_URL || 'https://gfw.roodata.com'
 export const LATEST_CARRIER_DATASET_ID =
   process.env.NEXT_PUBLIC_LATEST_CARRIER_DATASET_ID || 'carriers:latest'
 
@@ -66,7 +67,7 @@ const DEFAULT_DATA_DELAY_DAYS = 3
 // used when no url data and no workspace data
 export const LAST_DATA_UPDATE = DateTime.fromObject(
   { hour: 0, minute: 0, second: 0 },
-  { zone: 'utc' }
+  { zone: 'Asia/Shanghai' }
 )
   .minus({ days: DEFAULT_DATA_DELAY_DAYS })
   .toISO() as string
@@ -99,12 +100,12 @@ export const FIRST_YEAR_OF_DATA = 2012
 
 export const AVAILABLE_START = DateTime.fromObject(
   { year: FIRST_YEAR_OF_DATA },
-  { zone: 'utc' }
+  { zone: 'Asia/Shanghai' }
 ).toISO() as string
 
 export const AVAILABLE_END = DateTime.fromObject(
-  { year: new Date().getFullYear() + 1 },
-  { zone: 'utc' }
+  { year: new Date().getUTCFullYear() + 1 },
+  { zone: 'Asia/Shanghai' }
 )
   .minus({ millisecond: 1 })
   .toISO() as string
@@ -155,4 +156,5 @@ export const REPORT_ONLY_VISIBLE_LAYERS = [
   DataviewType.Context,
   DataviewType.UserContext,
   DataviewType.UserPoints,
+  DataviewType.BasemapLabels,
 ]

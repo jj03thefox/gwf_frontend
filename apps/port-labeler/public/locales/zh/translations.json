@@ -1,0 +1,23 @@
+{
+    "common": {
+        "country": "国家",
+        "port": "港口",
+        "subarea": "子区域",
+        "anchorage": "锚地",
+        "anchorageId": "锚地ID",
+        "destination": "目的地",
+        "zoom_more": "放大",
+        "zoom_less": "缩小",
+        "select_port": "选择港口",
+        "add_port": "添加港口",
+        "select_subarea": "选择子区域",
+        "add_subarea": "添加子区域"
+    },
+    "messages": {
+        "no_anchorages": "未找到锚地",
+        "country_selection": "选择一个国家",
+        "add_port": "添加新港口",
+        "add_subarea": "添加新社区",
+        "select_subarea": "选择一个社区"
+    }
+}
