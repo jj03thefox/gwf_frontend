@@ -1225,6 +1225,18 @@
     "name": "港口访问事件（AIS）",
     "description": "数据集包含AIS的港口访问事件（置信度2）"
   },
+  "public-global-ports-footprint": {
+    "name": "按港口 ID 分组的锚地覆盖范围",
+    "description": "基于凸包算法并按港口 ID 分组得出的锚地覆盖范围",
+    "schema": {
+      "area": "area",
+      "label": {
+        "keyword": "label",
+        "enum": {}
+      },
+      "perimeter": "perimeter"
+    }
+  },
   "public-global-presence-tracks": {
     "name": "轨迹",
     "description": "数据集包含所有船舶（AIS）的轨迹 - 版本 20201001",

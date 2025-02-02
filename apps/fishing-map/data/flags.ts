@@ -785,7 +785,28 @@ const flags = [
     id: 'PLW',
     label: '帕劳',
   },
-  { id: 'PNG', label: '巴布亚新几内亚' },
+  {
+    id: 'PNG',
+    label: '巴布亚新几内亚'
+  },
+  {
+    id: 'POL',
+    label: '波兰',
+    alias: 'Polska',
+  },
+  {
+    id: 'PRI',
+    label: 'Puerto Rico',
+  },
+  {
+    id: 'PRK',
+    label: '朝鲜',
+    alias: 'PRK',
+  },
+  {
+    id: 'PRT',
+    label: '葡萄牙',
+  },
   {
     id: 'PRY',
     label: '巴拉圭',
@@ -797,6 +818,7 @@ const flags = [
   {
     id: 'PYF',
     label: '法属波利尼西亚',
+    alias: ['Polynésie française', 'Pōrīnetia Farāni'],
   },
   {
     id: 'QAT',
@@ -875,6 +897,7 @@ const flags = [
   {
     id: 'SRB',
     label: '塞尔维亚',
+    alias: 'Srbija',
   },
   {
     id: 'SSD',

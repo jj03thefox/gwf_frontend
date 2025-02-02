@@ -147,11 +147,11 @@ function SearchBasicResult({
   const vesselQuery = useMemo(() => {
     const query = { start: transmissionDateFrom, end: transmissionDateTo }
     if (trackBbox) {
-      const coordinates = getMapCoordinatesFromBounds(map, trackBbox)
+      const coordinates = getMapCoordinatesFromBounds(trackBbox)
       return { ...query, ...coordinates }
     }
     return query
-  }, [map, trackBbox, transmissionDateFrom, transmissionDateTo])
+  }, [trackBbox, transmissionDateFrom, transmissionDateTo])
 
   const onVesselClick = useCallback(
     (e: MouseEvent) => {

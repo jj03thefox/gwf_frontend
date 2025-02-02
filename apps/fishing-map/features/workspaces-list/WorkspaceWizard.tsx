@@ -5,6 +5,7 @@ import cx from 'classnames'
 import type { UseComboboxStateChange } from 'downshift'
 import { useCombobox } from 'downshift'
 import Link from 'redux-first-router-link'
+import type { Bbox } from 'types'
 
 import type { Dataview } from '@globalfishingwatch/api-types'
 import type { OceanArea,OceanAreaLocale } from '@globalfishingwatch/ocean-areas'
@@ -137,7 +138,7 @@ function WorkspaceWizard() {
   }
   const linkToArea = useMemo(() => {
     const linkViewport = selectedItem
-      ? getMapCoordinatesFromBounds(map, selectedItem.properties?.bounds as any)
+      ? getMapCoordinatesFromBounds(selectedItem.properties?.bounds as Bbox)
       : viewState
 
     return {
@@ -163,7 +164,7 @@ function WorkspaceWizard() {
       },
       replaceQuery: true,
     }
-  }, [map, selectedItem, viewState])
+  }, [selectedItem, viewState])
 
   const linkToReport = useMemo(() => {
     if (!selectedItem || selectedItem?.properties?.type === 'ocean') {

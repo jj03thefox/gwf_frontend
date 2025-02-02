@@ -139,13 +139,13 @@
     "edit": "编辑",
     "edit ": "编辑",
     "environment": "环境",
-    "event_one": "事件",
-    "event_other": "事件",
     "eventLabels": {
-      "encounter": "遭遇",
       "loitering": "徘徊",
+      "encounter": "遭遇",
       "port_visit": "港口访问"
     },
+    "event_one": "事件",
+    "event_other": "其他事件",
     "events": "事件",
     "Events": "事件",
     "exclude": "排除",
@@ -156,6 +156,7 @@
     "flag": "旗帜",
     "from": "来自",
     "geartype": "渔具类型",
+    "global": "全球",
     "globally": "全球",
     "help": "帮助",
     "hideAllHelpHints": "关闭所有",
@@ -175,7 +176,6 @@
     "layerList": "图层列表",
     "learnMore": "了解更多",
     "less": "更少",
-    "loading": "Loading",
     "loggedAs": "以以下身份登录",
     "login": "登录",
     "logout": "登出",
@@ -485,6 +485,7 @@
     "privateView": "这是一个私有视图",
     "profileEvents": "请求船只事件时出错。",
     "profileLogin": "登录以查看此船只",
+    "vesselGroupReportLogin": "登录查看活动船只",
     "reportLogin": "登录以查看该区域内活跃的船只",
     "requestAccess": "请求访问",
     "searchLogin": "登录以搜索船只",
@@ -500,7 +501,6 @@
     "uploadKML": "读取KML文件时出错：{{error}}",
     "uploadShapefile": "读取shapefile时出错：{{error}}",
     "uploadShapefileComponents": "读取shapefile时出错：必须包含扩展名为*.shp、*.shx、*.dbf和*.prj的文件。",
-    "vesselGroupReportLogin": "登录以查看活跃的船只",
     "vesselLoading": "加载船只详细轨迹时出错",
     "workspaceLoad": "加载工作区时出错，请稍后再试",
     "workspaceNotFound": "您请求的视图未找到"
@@ -615,11 +615,6 @@
     "convenedBy": "A partnership convened by",
     "supportBy": "Supported by"
   },
-  "insights": {
-    "countries": {
-      "tokyo": "Tokyo"
-    }
-  },
   "layer": {
     "activityFitBounds": "将视图中心放在活动上",
     "add": "添加图层",
@@ -713,6 +708,7 @@
     "rulersDelete": "删除所有测量",
     "rulersHover": "拖动以移动或单击以查看更多",
     "rulersStop": "停止测量",
+    "search": "搜索海洋和海域、海洋保护区或专属经济区",
     "screenshotArea": {
       "map": "仅地图",
       "withTimebar": "带时间条",
@@ -720,14 +716,13 @@
     },
     "screenshotDownload": "下载图像",
     "screenshotPreview": "截图预览",
-    "search": "搜索海洋和海域、海洋保护区或专属经济区",
     "zoom_in": "放大",
     "zoom_out": "缩小"
   },
   "portsReport": {
-    "maxVessels": "船只报告最多可提供{{vessels}}艘船只的信息",
     "newTimeRange": "点击按钮查看在<strong>{{start}}</strong>和<strong>{{end}}</strong>之间进入此港口的船只<br/>",
     "seePortReport": "查看所有进入此港口的事件",
+    "maxVessels": "船只报告最多可提供{{vessels}}艘船只的信息",
     "summaryEvents": "<strong>{{vessels}}艘船只</strong>来自<strong>{{flags}}个旗帜</strong>在<strong>{{start}}</strong>和<strong>{{end}}</strong>之间进入此港口<strong>{{activityQuantity}}</strong>次"
   },
   "search": {
@@ -803,26 +798,26 @@
     "maxPointsVisualizationExceeded": "最大点可视化超出，切换到热图模式。"
   },
   "user": {
+    "gfwBadges": "GFW 徽章",
     "badges": {
       "ambassador": {
+        "title": "大使",
         "description": "像曼塔鱼一样，优雅地在海洋中滑行，连接海洋生态系统的不同部分，您在我们的产品与其实际应用之间创造和谐的联系。",
-        "title": "大使"
       },
       "fixer": {
+        "title": "解决者",
         "description": "像章鱼一样，极其聪明和灵巧，您可以从各个角度解决问题，总能找到解决方案并提供支持。",
-        "title": "解决者"
       },
       "presenter": {
+        "title": "演讲者",
         "description": "像海马一样，以其迷人的美丽而闻名，您能够吸引观众，让我们的产品闪耀并激发兴趣。",
-        "title": "演讲者"
       },
       "teacher": {
+        "title": "教师",
         "description": "像海龟一样，耐心而智慧，凭借您冷静而稳重的专业知识，确保他人学习和成长。",
-        "title": "教师"
       }
     },
     "datasets": "用户数据集",
-    "gfwBadges": "GFW徽章",
     "groupMissing": "您是否属于未出现在此处的用户组？<2>请求访问</2>",
     "groups": "用户组",
     "info": "用户信息",
@@ -858,14 +853,13 @@
     "capacity": "容量",
     "carrier": "承运人",
     "casco": "船体",
+    "confirmationClose": "您想将此船只保留在工作区吗？",
     "clickToFitMapToEvents": "将地图中心放在事件上",
     "clickToSeeMore": "点击查看更多信息",
     "close": "关闭",
     "codMarinha": "海军代码",
-    "confirmationClose": "您想将此船只保留在工作区吗？",
     "dataset": "来源",
     "donor": "捐赠船只",
-    "extraInfo": "Request additional information at",
     "firstTransmissionDate": "首次传输日期",
     "fishingZone": "渔区",
     "flag": "旗帜",
@@ -1027,7 +1021,6 @@
     "owners": "所有者",
     "registeredGearType": "注册渔具类型",
     "registryGeartype": "注册渔具类型",
-    "registryOperator": "Operators",
     "registrySources": "注册来源",
     "removeAllVessels": "移除所有船只",
     "sectionActivity": "活动",

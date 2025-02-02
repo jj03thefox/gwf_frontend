@@ -177,7 +177,10 @@ export const resolveDeckUserLayerProps: DeckResolverFunction<BaseUserLayerProps>
   }
   return {
     ...baseLayerProps,
-    pickable: !dataset.configuration?.disableInteraction,
+    pickable:
+      dataview.config?.pickable !== undefined
+        ? dataview.config?.pickable
+        : !dataset.configuration?.disableInteraction,
     layers: [layer],
     highlightedFeatures: highlightedFeatures as UserLayerPickingObject[],
     ...(filter && { filter }),

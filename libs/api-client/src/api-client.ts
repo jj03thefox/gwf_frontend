@@ -292,8 +292,6 @@ export class GFW_API_CLASS {
         if (this.debug) {
           console.log(`GFWAPI: Fetching URL: ${url}`)
         }
-        // console.log(`GFWAPI: Fetching URL: ${url}`)
-        // console.log(`Bearer ${this.getToken()}`)
         const finalHeaders = {
           ...headers,
           ...(requestType === 'json' && { 'Content-Type': 'application/json' }),
@@ -306,8 +304,6 @@ export class GFW_API_CLASS {
             }),
           }),
           Authorization: `Bearer ${this.getToken()}`,
-          // Authorization: `Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6ImtpZEtleSJ9.eyJkYXRhIjp7Im5hbWUiOiJyb29kYXRhIiwidXNlcklkIjo0MDQ0OCwiYXBwbGljYXRpb25OYW1lIjoicm9vZGF0YSIsImlkIjoyMDg3LCJ0eXBlIjoidXNlci1hcHBsaWNhdGlvbiJ9LCJpYXQiOjE3MzM4Mjg1MDUsImV4cCI6MjA0OTE4ODUwNSwiYXVkIjoiZ2Z3IiwiaXNzIjoiZ2Z3In0.iO0iyqRS9hhA26wwHFIp4WiOay-qkmrNakkL7J_GZUD8z9KaugPjaTb98oEw450rjPlewGowVcjGlRnDeVs4kOSoOg1x1J8T5GbyAjzlkc6BEaOGBAmPE3YLfMCC4GWeuV3RPBoiWrJgsmHzjvzWaujpadYFMOAx0X-peeHY4EguREh51XAgk6ihLq8QUIoZrRi0ud4iiQeuI79ZpU9maFnQzdgQDRIA0zUUluJF1H2rOEJfJyX7KuN4j-sWL4AJvsKUqx0ZAOHS-v3uPwwtzE0NkvE54DMVtAcjyaH9zhvGTQ5GKuoVPzzJSgdfsq_SR7xpWZ4cASN9V80vgiYGRkW52P2C6153hQcc25v3bORJrUbLnCbfHZ_zkHs7WngP8UckQoDlSxYdJTb4OBANrWHUtHzzhQ3Q1Xeg7VVGSQLSj15zrO9eBjzquq9ybM5uP6zhbXtjW9Xrq3Cge1dh_rdHWqHnGR3Ir1WbkNJ2Vly0EVauZwcGSxHkx2wnP-Z-`,
-
         }
         const fetchUrl = isUrlAbsolute(url) ? url : this.baseUrl + url
         const data = await fetch(fetchUrl, {

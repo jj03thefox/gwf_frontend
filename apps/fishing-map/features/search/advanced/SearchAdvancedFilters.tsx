@@ -16,6 +16,7 @@ import {
   getSearchDataview,
   schemaFilterIds,
 } from 'features/search/advanced/advanced-search.utils'
+import AdvancedFilterInputField from 'features/search/advanced/AdvancedFilterInputField'
 import { useSearchFiltersConnect, useSearchFiltersErrors } from 'features/search/search.hook'
 import { selectAdvancedSearchDatasets } from 'features/search/search.selectors'
 import type { VesselSearchState } from 'features/search/search.types'
@@ -64,49 +65,6 @@ const isIncompatibleFilterBySelection = (
   return false
 }
 
-function AdvancedFilterInputField({
-  onChange,
-  field,
-}: {
-  onChange: (ev: React.ChangeEvent<HTMLInputElement>) => void
-  field: keyof VesselSearchState
-}) {
-  const { t } = useTranslation()
-  const searchFilterErrors = useSearchFiltersErrors()
-  const { searchFilters } = useSearchFiltersConnect()
-  const value = searchFilters[field] || ''
-  const invalid = searchFilterErrors[field]
-
-  const PLACEHOLDER_BY_FIELD: Record<string, string> = useMemo(
-    () => ({
-      ssvid: '123456789, 987654321, ...',
-      imo: '1234567, 7654321, ...',
-      callsign: 'A1BC2, X2YZ, ...',
-      owner: t('search.placeholderFilterMultiple', 'One or more values (comma separated)'),
-    }),
-    [t]
-  )
-
-  return (
-    <InputText
-      onChange={onChange}
-      id={field}
-      invalid={invalid}
-      invalidTooltip={
-        invalid
-          ? t('search.filterNotSupported', {
-              defaultValue: 'One of your sources selected doesn’t support filtering by {{filter}}',
-              filter: t(`vessel.${field}`, 'field').toLowerCase(),
-            })
-          : ''
-      }
-      value={value}
-      placeholder={PLACEHOLDER_BY_FIELD[field as string]}
-      label={t(`vessel.${field === 'ssvid' ? 'mmsi' : field}`, field)}
-    />
-  )
-}
-
 function SearchAdvancedFilters() {
   const { t } = useTranslation()
   const isGuestUser = useSelector(selectIsGuestUser)
@@ -150,7 +108,9 @@ function SearchAdvancedFilters() {
     return getSearchDataview(datasets, searchFilters, sources)
   }, [datasets, searchFilters, sources])
 
-  const schemaFilters = schemaFilterIds.map((id) => {
+  const schemaFilters = useMemo(
+    () =>
+      schemaFilterIds.map((id) => {
     const isSharedSelectionSchema = FILTERS_WITH_SHARED_SELECTION_COMPATIBILITY.includes(id)
     return getFiltersBySchema(dataview, id as SupportedDatasetSchema, {
       ...(isSharedSelectionSchema && {
@@ -159,15 +119,12 @@ function SearchAdvancedFilters() {
         isGuestUser,
       }),
     })
-  })
+      }),
+    [dataview, infoSource, isGuestUser]
+  )
 
-  const onSourceSelect = (filter: any) => {
-    const newSources = [...(sources || []), filter.id]
-    const notCompatibleSchemaFilters = getIncompatibleFilters(newSources)
-    setSearchFilters({ ...notCompatibleSchemaFilters, sources: newSources })
-  }
-
-  const getIncompatibleFilters = (sources: any) => {
+  const getIncompatibleFilters = useCallback(
+    (sources: any) => {
     // Recalculates schemaFilters to validate a new source has valid selection
     // when not valid we need to remove the filter from the search
     const newDataview = getSearchDataview(datasets, searchFilters, sources)
@@ -178,7 +135,18 @@ function SearchAdvancedFilters() {
       return disabled && (searchFilters as any)[id] !== undefined ? id : []
     })
     return Object.fromEntries(notCompatibleSchemaFilters.map((schema) => [schema, undefined]))
-  }
+    },
+    [datasets, isGuestUser, searchFilters]
+  )
+
+  const onSourceSelect = useCallback(
+    (filter: any) => {
+      const newSources = [...(sources || []), filter.id]
+      const notCompatibleSchemaFilters = getIncompatibleFilters(newSources)
+      setSearchFilters({ ...notCompatibleSchemaFilters, sources: newSources })
+    },
+    [getIncompatibleFilters, setSearchFilters, sources]
+  )
 
   const onInputChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {

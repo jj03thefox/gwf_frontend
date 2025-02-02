@@ -32,7 +32,7 @@ import {
 } from 'features/download/downloadActivity.slice'
 import DownloadActivityProductsBanner from 'features/download/DownloadActivityProductsBanner'
 import UserGuideLink from 'features/help/UserGuideLink'
-import { TimelineDatesRange } from 'features/map/controls/MapInfo'
+import TimelineDatesRange from 'features/map/controls/TimelineDatesRange'
 import { useTimerangeConnect } from 'features/timebar/timebar.hooks'
 import { selectUserData } from 'features/user/selectors/user.selectors'
 import { getSourcesSelectedInDataview } from 'features/workspace/activity/activity.utils'

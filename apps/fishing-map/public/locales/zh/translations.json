@@ -145,7 +145,7 @@
       "port_visit": "港口访问"
     },
     "event_one": "事件",
-    "event_other": "事件",
+    "event_other": "其他事件",
     "events": "事件",
     "Events": "事件",
     "exclude": "排除",
@@ -156,6 +156,7 @@
     "flag": "旗帜",
     "from": "来自",
     "geartype": "渔具类型",
+    "global": "全球",
     "globally": "全球",
     "help": "帮助",
     "hideAllHelpHints": "关闭所有",
@@ -484,7 +485,7 @@
     "privateView": "这是一个私有视图",
     "profileEvents": "请求船只事件时出错。",
     "profileLogin": "登录以查看此船只",
-    "vesselGroupReportLogin": "登录以查看活跃的船只",
+    "vesselGroupReportLogin": "登录查看活动船只",
     "reportLogin": "登录以查看该区域内活跃的船只",
     "requestAccess": "请求访问",
     "searchLogin": "登录以搜索船只",
@@ -553,10 +554,10 @@
   "eventInfo": {
     "authorization": "授权",
     "averageSpeedKnots": "平均速度（节）",
+    "depth": "深度",
     "distanceFromPortKm": "距离港口（公里）",
     "distanceFromShoreKm": "距离海岸（公里）",
     "duration": "持续时间",
-    "depth": "深度",
     "encounteredVesselName": "遭遇船只",
     "end": "结束",
     "flag": "旗帜",
@@ -797,23 +798,23 @@
     "maxPointsVisualizationExceeded": "最大点可视化超出，切换到热图模式。"
   },
   "user": {
-    "gfwBadges": "GFW徽章",
+    "gfwBadges": "GFW 徽章",
     "badges": {
       "ambassador": {
         "title": "大使",
-        "description": "像曼塔鱼一样，优雅地在海洋中滑行，连接海洋生态系统的不同部分，您在我们的产品与其实际应用之间创造和谐的联系。"
+        "description": "像曼塔鱼一样，优雅地在海洋中滑行，连接海洋生态系统的不同部分，您在我们的产品与其实际应用之间创造和谐的联系。",
       },
       "fixer": {
         "title": "解决者",
-        "description": "像章鱼一样，极其聪明和灵巧，您可以从各个角度解决问题，总能找到解决方案并提供支持。"
+        "description": "像章鱼一样，极其聪明和灵巧，您可以从各个角度解决问题，总能找到解决方案并提供支持。",
       },
       "presenter": {
         "title": "演讲者",
-        "description": "像海马一样，以其迷人的美丽而闻名，您能够吸引观众，让我们的产品闪耀并激发兴趣。"
+        "description": "像海马一样，以其迷人的美丽而闻名，您能够吸引观众，让我们的产品闪耀并激发兴趣。",
       },
       "teacher": {
         "title": "教师",
-        "description": "像海龟一样，耐心而智慧，凭借您冷静而稳重的专业知识，确保他人学习和成长。"
+        "description": "像海龟一样，耐心而智慧，凭借您冷静而稳重的专业知识，确保他人学习和成长。",
       }
     },
     "datasets": "用户数据集",
@@ -1123,7 +1124,6 @@
   "vesselGroupReport": {
     "clickToSee": "点击分析船只组并查看报告",
     "insights": {
-      "title": "船只组洞察",
       "fishingEventsError": "加载捕鱼事件时出错",
       "fishingInNoTakeMpas_one": "{{count}}个捕鱼事件来自{{vessels}}艘船只，在禁渔海洋保护区中被检测到",
       "fishingInNoTakeMpas_other": "{{count}}个捕鱼事件来自{{vessels}}艘船只，在禁渔海洋保护区中被检测到",
@@ -1143,7 +1143,8 @@
       "MOUListsCount": "{{vessels}}艘船只在{{list}}名单下操作",
       "MOUListsCount_one": "{{vessels}}艘船只在{{list}}名单下操作",
       "MOUListsCount_other": "{{vessels}}艘船只在{{list}}名单下操作",
-      "MOUListsEmpty": "没有船只在{{country}} MOU黑名单或灰名单下操作"
+      "MOUListsEmpty": "没有船只在{{country}} MOU黑名单或灰名单下操作",
+      "title": "船只组洞察"
     },
     "linkDisabled": "此船只组需要更新为最新可用数据",
     "linkToReport": "在此查看船只组报告",

@@ -25,7 +25,7 @@ import {
   selectUrlQuery,
   selectVesselId,
 } from 'routes/routes.selectors'
-import type { OfflineVessel} from 'types/vessel';
+import type { OfflineVessel } from 'types/vessel'
 import { VesselFieldLabel } from 'types/vessel'
 import { getUTCDateTime } from 'utils/dates'
 
@@ -33,7 +33,7 @@ import { selectCurrentUserProfileHasPortInspectorPermission } from '../profile.s
 
 import AuthorizationsField from './AuthorizationsField'
 import ForcedLabor from './ForcedLabor'
-import Highlights from './Highlights'
+// import Highlights from './Highlights'
 import HistoryDate from './HistoryDate'
 import InfoField from './InfoField'
 
@@ -424,7 +424,7 @@ const Info: React.FC<InfoProps> = (props): React.ReactElement<any> => {
             if you have questions or would like more information about this vessel.
           </Trans>
         </div>
-        <Highlights onMoveToMap={props.onMoveToMap}></Highlights>
+        {/* <Highlights onMoveToMap={props.onMoveToMap}></Highlights> */}
       </div>
     </Fragment>
   )

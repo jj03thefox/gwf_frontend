@@ -11,14 +11,26 @@ import { Button } from '@globalfishingwatch/ui-components'
 import { LEGACY_TO_LATEST_DATAVIEWS } from 'data/dataviews'
 import { TrackCategory, trackEvent } from 'features/app/analytics.hooks'
 import { useAppDispatch } from 'features/app/app.hooks'
+import { selectCurrentReport } from 'features/app/selectors/app.reports.selector'
 import { selectWorkspaceWithCurrentState } from 'features/app/selectors/app.workspace.selectors'
 import { fetchDatasetsByIdsThunk, selectDeprecatedDatasets } from 'features/datasets/datasets.slice'
 import {
   selectDeprecatedDataviewInstances,
   selectHasDeprecatedDataviewInstances,
 } from 'features/dataviews/selectors/dataviews.instances.selectors'
+import { selectIsReportOwner } from 'features/reports/areas/area-reports.selectors'
+import { updateReportThunk } from 'features/reports/areas/area-reports.slice'
+import { getWorkspaceReport } from 'features/reports/areas/area-reports.utils'
+import { selectVesselDatasetId } from 'features/vessel/vessel.config.selectors'
+import { fetchVesselInfoThunk } from 'features/vessel/vessel.slice'
 import type { AppWorkspace } from 'features/workspaces-list/workspaces-list.slice'
-import { selectUrlDataviewInstances } from 'routes/routes.selectors'
+import { useLocationConnect } from 'routes/routes.hook'
+import {
+  selectIsAnyAreaReportLocation,
+  selectIsAnyVesselLocation,
+  selectUrlDataviewInstances,
+  selectVesselId,
+} from 'routes/routes.selectors'
 
 import { useDataviewInstancesConnect } from './workspace.hook'
 import { selectIsWorkspaceOwner } from './workspace.selectors'
@@ -30,9 +42,10 @@ export const useMigrateWorkspace = () => {
   const deprecatedDataviewInstances = useSelector(selectDeprecatedDataviewInstances)
   const urlDataviewInstances = useSelector(selectUrlDataviewInstances)
   const workspace = useSelector(selectWorkspaceWithCurrentState)
-  // const vesselDatasetId = useSelector(selectVesselDatasetId)
-  // const isAnyVesselLocation = useSelector(selectIsAnyVesselLocation)
-  // const { dispatchQueryParams } = useLocationConnect()
+  const vesselDatasetId = useSelector(selectVesselDatasetId)
+  const isAnyVesselLocation = useSelector(selectIsAnyVesselLocation)
+  const vesselId = useSelector(selectVesselId)
+  const { dispatchQueryParams } = useLocationConnect()
   const deprecatedDatasets = useSelector(selectDeprecatedDatasets)
   const dispatch = useAppDispatch()
   const { upsertDataviewInstance } = useDataviewInstancesConnect()
@@ -94,12 +107,13 @@ export const useMigrateWorkspace = () => {
       if (dataviewInstancesToMigrate.length) {
         upsertDataviewInstance(dataviewInstancesToMigrate)
       }
-      // TODO update the vesselDatasetId in the url too
-      // if (isAnyVesselLocation && deprecatedDatasets[vesselDatasetId]) {
-      //   setTimeout(() => {
-      //     dispatchQueryParams({ vesselDatasetId: deprecatedDatasets[vesselDatasetId] })
-      //   }, 100)
-      // }
+      if (isAnyVesselLocation && deprecatedDatasets[vesselDatasetId]) {
+        const newVesselDatasetId = deprecatedDatasets[vesselDatasetId]
+        setTimeout(() => {
+          dispatchQueryParams({ vesselDatasetId: newVesselDatasetId })
+          dispatch(fetchVesselInfoThunk({ vesselId, datasetId: newVesselDatasetId }))
+        }, 100)
+      }
       const migratedWorkspace = {
         ...workspace,
         // This is needed to get the latest workspace state without waiting to resolve dataviewInstances
@@ -144,8 +158,12 @@ export const useMigrateWorkspace = () => {
     deprecatedDatasets,
     deprecatedDataviewInstances,
     dispatch,
+    dispatchQueryParams,
+    isAnyVesselLocation,
     upsertDataviewInstance,
     urlDataviewInstances,
+    vesselDatasetId,
+    vesselId,
     workspace,
   ])
 
@@ -157,6 +175,9 @@ export const useMigrateWorkspaceToast = () => {
   const dispatch = useAppDispatch()
   const hasDeprecatedDataviews = useSelector(selectHasDeprecatedDataviewInstances)
   const isWorkspaceOwner = useSelector(selectIsWorkspaceOwner)
+  const report = useSelector(selectCurrentReport)
+  const isReportOwner = useSelector(selectIsReportOwner)
+  const isAnyAreaReportLocation = useSelector(selectIsAnyAreaReportLocation)
   const migrateWorkspace = useMigrateWorkspace()
   const toastId = useRef<any>(undefined)
 
@@ -181,10 +202,15 @@ export const useMigrateWorkspaceToast = () => {
       render: <ToastContent loading={true} />,
     })
     const { workspace } = await migrateWorkspace()
-    if (workspace && isWorkspaceOwner) {
+
+    if (isAnyAreaReportLocation) {
+      if (workspace && report && isReportOwner) {
+        const workspaceReport = getWorkspaceReport(workspace)
+        await dispatch(updateReportThunk({ ...report, workspace: workspaceReport }))
+      }
+    } else if (workspace && isWorkspaceOwner) {
       await dispatch(updatedCurrentWorkspaceThunk(workspace))
     }
-    // TODO update report is reportOwner too
     closeToast()
   }
 
@@ -208,7 +234,12 @@ export const useMigrateWorkspaceToast = () => {
         {/* <Button onClick={dissmissToast} type="secondary" className={styles.updateBtn}>
           {t('workspace.migrationMaintain', 'Skip')}
         </Button> */}
-        <Button loading={loading} onClick={updateWorkspace} className={styles.updateBtn}>
+        <Button
+          loading={loading}
+          testId="migrate-workspace-btn"
+          onClick={updateWorkspace}
+          className={styles.updateBtn}
+        >
           {t('workspace.migrationUpdate', 'Update')}
         </Button>
       </div>

@@ -22,7 +22,7 @@ import {
   selectDownloadTrackRateLimit,
   selectDownloadTrackStatus,
 } from 'features/download/downloadTrack.slice'
-import { TimelineDatesRange } from 'features/map/controls/MapInfo'
+import TimelineDatesRange from 'features/map/controls/TimelineDatesRange'
 import { useTimerangeConnect } from 'features/timebar/timebar.hooks'
 import { selectIsGFWUser } from 'features/user/selectors/user.selectors'
 import { AsyncReducerStatus } from 'utils/async-slice'

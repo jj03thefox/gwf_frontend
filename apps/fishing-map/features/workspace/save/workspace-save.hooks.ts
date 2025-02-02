@@ -1,5 +1,5 @@
 import type { ChangeEvent } from 'react'
-import { useCallback, useState } from 'react'
+import { useCallback, useMemo, useState } from 'react'
 import { useSelector } from 'react-redux'
 
 import type { SelectOption } from '@globalfishingwatch/ui-components'
@@ -54,10 +54,8 @@ export const useSaveWorkspaceTimerange = (workspace: AppWorkspace) => {
   const defaultDaysFromLatest = workspace?.state?.daysFromLatest || DEFAULT_DAYS_FROM_LATEST
   const [daysFromLatest, setDaysFromLatest] = useState<number | undefined>(defaultDaysFromLatest)
 
-  const handleTimeRangeChange = (
-    option: SelectOption<WorkspaceTimeRangeMode>,
-    workspaceName: string
-  ) => {
+  const handleTimeRangeChange = useCallback(
+    (option: SelectOption<WorkspaceTimeRangeMode>, workspaceName: string) => {
     const newTimeRangeOption = option.id
     setTimeRangeOption(newTimeRangeOption)
 
@@ -76,12 +74,12 @@ export const useSaveWorkspaceTimerange = (workspace: AppWorkspace) => {
       ...(newTimeRangeOption === 'dynamic' && { daysFromLatest: defaultDaysFromLatest }),
     })
     return newName
-  }
+    },
+    [daysFromLatest, defaultDaysFromLatest, timeRangeOption, timerange]
+  )
 
-  const handleDaysFromLatestChange = (
-    event: ChangeEvent<HTMLInputElement>,
-    workspaceName: string
-  ) => {
+  const handleDaysFromLatestChange = useCallback(
+    (event: ChangeEvent<HTMLInputElement>, workspaceName: string) => {
     const newDaysFromLatest = parseInt(event.target.value)
     if (isValidDaysFromLatest(newDaysFromLatest)) {
       setDaysFromLatest(newDaysFromLatest)
@@ -97,13 +95,24 @@ export const useSaveWorkspaceTimerange = (workspace: AppWorkspace) => {
       daysFromLatest: newDaysFromLatest,
     })
     return newName
-  }
+    },
+    [daysFromLatest, timeRangeOption, timerange]
+  )
 
-  return {
+  return useMemo(
+    () => ({
     timeRangeOptions,
     timeRangeOption,
     daysFromLatest,
     handleTimeRangeChange,
     handleDaysFromLatestChange,
-  }
+    }),
+    [
+      daysFromLatest,
+      handleDaysFromLatestChange,
+      handleTimeRangeChange,
+      timeRangeOption,
+      timeRangeOptions,
+    ]
+  )
 }

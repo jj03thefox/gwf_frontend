@@ -156,6 +156,7 @@ const useReportTimeseries = (reportLayers: DeckLayerAtom<FourwingsLayer>[]) => {
     setTimeseries([])
     setFeaturesFiltered([])
     featuresFilteredDirtyRef.current = true
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
     area?.id,
     reportCategory,
@@ -198,6 +199,7 @@ const useReportTimeseries = (reportLayers: DeckLayerAtom<FourwingsLayer>[]) => {
         featuresFilteredDirtyRef.current = false
       }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [area, reportCategory, areaInViewport, layersLoaded, reportBufferHash])
 
   const computeTimeseries = useCallback(
@@ -310,6 +312,7 @@ const useReportTimeseries = (reportLayers: DeckLayerAtom<FourwingsLayer>[]) => {
     if (layersLoaded && featuresFiltered?.length && areaInViewport) {
       computeTimeseries(instances, featuresFiltered, reportGraphMode)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
     layersLoaded,
     featuresFiltered,
@@ -330,6 +333,7 @@ const useReportTimeseries = (reportLayers: DeckLayerAtom<FourwingsLayer>[]) => {
     ) {
       computeTimeseriesStats(instances, featuresFiltered, timerange)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
     layersLoaded,
     featuresFiltered,

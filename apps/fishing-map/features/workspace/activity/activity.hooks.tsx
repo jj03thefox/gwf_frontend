@@ -99,5 +99,8 @@ export const useVisualizationsOptions = (
     ]
   }, [category, isPositionsLayerAvailable, t])
 
-  return { visualizationOptions, activeVisualizationOption, onVisualizationModeChange }
+  return useMemo(
+    () => ({ visualizationOptions, activeVisualizationOption, onVisualizationModeChange }),
+    [activeVisualizationOption, onVisualizationModeChange, visualizationOptions]
+  )
 }

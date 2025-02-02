@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react'
+import { useCallback, useMemo, useState } from 'react'
 import { useSelector } from 'react-redux'
 import type { DeckProps, PickingInfo } from '@deck.gl/core'
 import type { ThunkDispatch } from '@reduxjs/toolkit'
@@ -113,7 +113,8 @@ export const useClickedEventConnect = () => {
   // const fishingPromiseRef = useRef<any>()
   // const eventsPromiseRef = useRef<any>()
 
-  const dispatchClickedEvent = (deckEvent: InteractionEvent | null) => {
+  const dispatchClickedEvent = useCallback(
+    (deckEvent: InteractionEvent | null) => {
     // Cancel all pending promises
     cancelPendingInteractionRequests()
 
@@ -228,15 +229,39 @@ export const useClickedEventConnect = () => {
       const eventsPromise = dispatch(clusterFn(tileClusterFeature as any) as any)
       setInteractionPromises((prev) => ({ ...prev, activity: eventsPromise as any }))
     }
-  }
+    },
+    [
+      addErrorNotification,
+      addMapAnnotation,
+      areTilesClusterLoading,
+      cancelPendingInteractionRequests,
+      clickedEvent,
+      dispatch,
+      isErrorNotificationEditing,
+      isMapAnnotating,
+      onRulerMapClick,
+      rulersEditing,
+      setInteractionPromises,
+      setMapCoordinates,
+    ]
+  )
 
-  return {
+  return useMemo(
+    () => ({
     clickedEvent,
     fishingInteractionStatus,
     apiEventStatus,
     dispatchClickedEvent,
     cancelPendingInteractionRequests,
-  }
+    }),
+    [
+      apiEventStatus,
+      cancelPendingInteractionRequests,
+      clickedEvent,
+      dispatchClickedEvent,
+      fishingInteractionStatus,
+    ]
+  )
 }
 
 const useGetPickingInteraction = () => {
@@ -292,7 +317,8 @@ export const useMapMouseHover = () => {
 
   const [hoveredCoordinates, setHoveredCoordinates] = useState<number[]>()
 
-  const onMouseMove: DeckProps['onHover'] = useCallback(
+  const onMouseMove: DeckProps['onHover'] = useMemo(
+    () =>
     throttle((info: PickingInfo, event: MjolnirPointerEvent) => {
       setHoveredCoordinates(info.coordinate)
       if (
@@ -334,13 +360,16 @@ export const useMapMouseHover = () => {
     ]
   )
 
-  return {
+  return useMemo(
+    () => ({
     onMouseMove,
     // resetHoverState,
     hoveredCoordinates,
     // hoveredDebouncedEvent,
     // hoveredTooltipEvent,
-  }
+    }),
+    [hoveredCoordinates, onMouseMove]
+  )
 }
 
 export const useMapMouseClick = () => {
@@ -372,6 +401,7 @@ export const useMapCursor = () => {
   const { isErrorNotificationEditing } = useMapErrorNotification()
   const { rulersEditing } = useRulers()
   const hoverFeatures = useMapHoverInteraction()?.features
+  const hoverFeaturesHash = hoverFeatures?.map((f) => f.id).join()
 
   const getCursor = useCallback(
     ({ isDragging }: { isDragging: boolean }) => {
@@ -404,9 +434,10 @@ export const useMapCursor = () => {
       }
       return 'grab'
     },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [
       annotationsCursor,
-      hoverFeatures,
+      hoverFeaturesHash,
       isMapAnnotating,
       isErrorNotificationEditing,
       rulersEditing,
@@ -454,13 +485,17 @@ export const useMapDrag = () => {
     },
     [onRulerDragEnd]
   )
-  return { onMapDrag, onMapDragStart, onMapDragEnd }
+  return useMemo(
+    () => ({ onMapDrag, onMapDragStart, onMapDragEnd }),
+    [onMapDrag, onMapDragEnd, onMapDragStart]
+  )
 }
 
 export const useDebouncedDispatchHighlightedEvent = () => {
   const dispatch = useAppDispatch()
 
-  return useCallback(
+  return useMemo(
+    () =>
     debounce((eventIds?: string | string[]) => {
       let ids: string[] | undefined
       if (eventIds) {

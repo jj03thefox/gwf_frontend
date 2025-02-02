@@ -87,7 +87,10 @@ export const useSetReportTimeComparison = () => {
     dispatchQueryParams({ start: timebarStart, end: timebarEnd, reportTimeComparison: undefined })
   }, [dispatchQueryParams, timebarEnd, timebarStart])
 
-  return { setReportTimecomparison, resetReportTimecomparison }
+  return useMemo(
+    () => ({ setReportTimecomparison, resetReportTimecomparison }),
+    [resetReportTimecomparison, setReportTimecomparison]
+  )
 }
 
 export const useReportTimeCompareConnect = (activityType: ReportActivityGraph) => {

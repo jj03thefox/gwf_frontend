@@ -6,6 +6,7 @@ import parse from 'html-react-parser'
 import { DateTime } from 'luxon'
 import { useGetReportEventsStatsQuery } from 'queries/report-events-stats-api'
 
+import { getDataviewFilters } from '@globalfishingwatch/dataviews-client'
 import { Button } from '@globalfishingwatch/ui-components'
 
 import EventsEmptyState from 'assets/images/emptyState-events@2x.png'
@@ -27,6 +28,7 @@ import { selectReportPortId } from 'routes/routes.selectors'
 import { AsyncReducerStatus } from 'utils/async-slice'
 import { formatInfoField } from 'utils/info'
 
+import { usePortsReportAreaFootprintFitBounds } from '../areas/area-reports.hooks'
 import { getDateRangeHash } from '../shared/activity/reports-activity.slice'
 import EventsReportVesselsGraph from '../vessel-groups/vessels/VesselGroupReportVesselsGraph'
 
@@ -41,6 +43,7 @@ import { useFetchPortsReport } from './ports-report.hooks'
 import {
   selectPortReportsDataview,
   selectPortReportVesselsGrouped,
+  selectPortReportVesselsIndividualData,
   selectPortReportVesselsPaginated,
   selectPortReportVesselsPagination,
 } from './ports-report.selectors'
@@ -57,6 +60,7 @@ const MAX_VESSELS_REPORT = 500
 
 function PortsReport() {
   useMigrateWorkspaceToast()
+  usePortsReportAreaFootprintFitBounds()
   const dispatchFetchReport = useFetchPortsReport()
   const dispatch = useAppDispatch()
   const { t } = useTranslation()
@@ -72,6 +76,7 @@ function PortsReport() {
   const portsReportData = useSelector(selectPortsReportData)
   const portsReportDataStatus = useSelector(selectPortsReportStatus)
   const portsReportVesselsGrouped = useSelector(selectPortReportVesselsGrouped)
+  const portReportIndividualData = useSelector(selectPortReportVesselsIndividualData)
   const portsReportVesselsPaginated = useSelector(selectPortReportVesselsPaginated)
   const {
     data,
@@ -162,6 +167,12 @@ function PortsReport() {
             color={color}
             start={start}
             end={end}
+            filters={{
+              portId,
+              ...(dataview && { ...getDataviewFilters(dataview) }),
+            }}
+            includes={['id', 'start', 'end', 'vessel']}
+            datasetId={datasetId}
             timeseries={data.timeseries || []}
           />
         )}
@@ -222,6 +233,7 @@ function PortsReport() {
           </div>
           <EventsReportVesselsGraph
             data={portsReportVesselsGrouped}
+            individualData={portReportIndividualData}
             color={color}
             property={portReportVesselsProperty}
             filterQueryParam="portsReportVesselsFilter"
