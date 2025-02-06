@@ -1,5 +1,7 @@
 import { DateTime } from 'luxon'
+
 import { DataviewCategory, DataviewType } from '@globalfishingwatch/api-types'
+
 import type { AppState, WorkspaceState } from '../types'
 import { TimebarGraphs, TimebarVisualisations, UserTab } from '../types'
 import { getUTCDateTime } from '../utils/dates'
@@ -13,13 +15,12 @@ export const IS_PRODUCTION_BUILD = process.env.NODE_ENV === 'production'
 export const PUBLIC_WORKSPACE_ENV = process.env.NEXT_PUBLIC_WORKSPACE_ENV
 export const IS_PRODUCTION_WORKSPACE_ENV =
   PUBLIC_WORKSPACE_ENV === 'production' || PUBLIC_WORKSPACE_ENV === 'staging'
-const IS_PRODUCTION = IS_PRODUCTION_WORKSPACE_ENV || IS_PRODUCTION_BUILD
 
 export const SHOW_LEAVE_CONFIRMATION = process.env.NEXT_PUBLIC_SHOW_LEAVE_CONFIRMATION
   ? process.env.NEXT_PUBLIC_SHOW_LEAVE_CONFIRMATION === 'true'
   : process.env.NODE_ENV !== 'development'
 
-export const PATH_BASENAME = process.env.NEXT_PUBLIC_URL || (IS_PRODUCTION ? '/map' : '')
+export const PATH_BASENAME = process.env.NEXT_PUBLIC_URL || '/map'
 
 export const REPORT_DAYS_LIMIT =
   typeof process.env.NEXT_PUBLIC_REPORT_DAYS_LIMIT !== 'undefined'
@@ -103,7 +104,7 @@ export const AVAILABLE_START = DateTime.fromObject(
 ).toISO() as string
 
 export const AVAILABLE_END = DateTime.fromObject(
-  { year: new Date().getFullYear() + 1 },
+  { year: new Date().getUTCFullYear() + 1 },
   { zone: 'utc' }
 )
   .minus({ millisecond: 1 })
@@ -155,4 +156,5 @@ export const REPORT_ONLY_VISIBLE_LAYERS = [
   DataviewType.Context,
   DataviewType.UserContext,
   DataviewType.UserPoints,
+  DataviewType.BasemapLabels,
 ]

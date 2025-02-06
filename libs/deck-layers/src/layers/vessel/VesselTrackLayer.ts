@@ -1,14 +1,17 @@
-import type { NumericArray } from '@math.gl/core'
 import type { AccessorFunction, ChangeFlags, DefaultProps } from '@deck.gl/core'
 import type { PathLayerProps } from '@deck.gl/layers'
 import { PathLayer } from '@deck.gl/layers'
+import type { NumericArray } from '@math.gl/core'
+
+import type { ThinningLevels } from '@globalfishingwatch/api-client'
 import type { TrackSegment } from '@globalfishingwatch/api-types'
-import type { VesselTrackData, VesselTrackGraphExtent } from '@globalfishingwatch/deck-loaders'
 import type { Bbox } from '@globalfishingwatch/data-transforms'
 import { wrapBBoxLongitudes } from '@globalfishingwatch/data-transforms'
-import type { ThinningLevels } from '@globalfishingwatch/api-client'
-import { MAX_FILTER_VALUE } from '../layers.config'
+import type { VesselTrackData, VesselTrackGraphExtent } from '@globalfishingwatch/deck-loaders'
+
 import { colorToVec, hexToDeckColor } from '../../utils/colors'
+import { MAX_FILTER_VALUE } from '../layers.config'
+
 import { DEFAULT_HIGHLIGHT_COLOR_VEC } from './vessel.config'
 import type { GetSegmentsFromDataParams } from './vessel.utils'
 import { generateVesselGraphSteps, getSegmentsFromData, VESSEL_GRAPH_STEPS } from './vessel.utils'
@@ -296,15 +299,21 @@ export class VesselTrackLayer<DataT = any, ExtraProps = Record<string, unknown>>
     const steps =
       trackGraphExtent && colorBy ? generateVesselGraphSteps(trackGraphExtent, colorBy) : []
 
-    const values = steps.reduce((acc, step, index) => {
-      acc[`value${index}`] = step.value
-      return acc
-    }, {} as Record<string, number>)
+    const values = steps.reduce(
+      (acc, step, index) => {
+        acc[`value${index}`] = step.value
+        return acc
+      },
+      {} as Record<string, number>
+    )
 
-    const colors = steps.reduce((acc, step, index) => {
-      acc[`color${index}`] = (hexToDeckColor(step.color) as number[]).map((c) => colorToVec(c))
-      return acc
-    }, {} as Record<string, number[]>)
+    const colors = steps.reduce(
+      (acc, step, index) => {
+        acc[`color${index}`] = (hexToDeckColor(step.color) as number[]).map((c) => colorToVec(c))
+        return acc
+      },
+      {} as Record<string, number[]>
+    )
 
     params.uniforms = {
       ...params.uniforms,
@@ -346,7 +355,9 @@ export class VesselTrackLayer<DataT = any, ExtraProps = Record<string, unknown>>
 
     const firstPointIndex = timestamps.findIndex((t) => t > this.props.startTime)
     const lastPointIndex = timestamps.findLastIndex((t) => t < this.props.endTime)
-    if (firstPointIndex === -1 || lastPointIndex === -1) return null
+    if (firstPointIndex === -1 || lastPointIndex === -1 || firstPointIndex >= lastPointIndex) {
+      return null
+    }
 
     const bounds = [Infinity, Infinity, -Infinity, -Infinity] as Bbox
     for (let index = firstPointIndex; index <= lastPointIndex; index++) {
