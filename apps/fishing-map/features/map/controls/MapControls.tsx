@@ -1,24 +1,27 @@
-import { Fragment, useCallback, useState, useMemo } from 'react'
-import dynamic from 'next/dynamic'
-import cx from 'classnames'
-import { useSelector } from 'react-redux'
+import { Fragment, memo, useCallback, useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { MiniGlobe, IconButton, Tooltip } from '@globalfishingwatch/ui-components'
-import { useDebounce } from '@globalfishingwatch/react-hooks'
+import { useSelector } from 'react-redux'
+import cx from 'classnames'
+import dynamic from 'next/dynamic'
+
 import { DataviewType } from '@globalfishingwatch/api-types'
 import { BasemapType } from '@globalfishingwatch/deck-layers'
-import { useDataviewInstancesConnect } from 'features/workspace/workspace.hook'
-import { useSetMapCoordinates, useMapViewState } from 'features/map/map-viewport.hooks'
-import {
-  selectIsAnyVesselLocation,
-  selectIsWorkspaceLocation,
-  selectIsMapDrawing,
-  selectIsAnyReportLocation,
-} from 'routes/routes.selectors'
-import { useMapBounds } from 'features/map/map-bounds.hooks'
-import { selectIsGFWUser } from 'features/user/selectors/user.selectors'
-import { useMapErrorNotification } from 'features/map/overlays/error-notification/error-notification.hooks'
+import { useDebounce } from '@globalfishingwatch/react-hooks'
+import { IconButton, MiniGlobe, Tooltip } from '@globalfishingwatch/ui-components'
+
 import { selectDataviewInstancesResolved } from 'features/dataviews/selectors/dataviews.resolvers.selectors'
+import { useMapBounds } from 'features/map/map-bounds.hooks'
+import { useMapViewState, useSetMapCoordinates } from 'features/map/map-viewport.hooks'
+import { useMapErrorNotification } from 'features/map/overlays/error-notification/error-notification.hooks'
+import { selectIsGFWUser } from 'features/user/selectors/user.selectors'
+import { useDataviewInstancesConnect } from 'features/workspace/workspace.hook'
+import {
+  selectIsAnyReportLocation,
+  selectIsAnyVesselLocation,
+  selectIsMapDrawing,
+  selectIsWorkspaceLocation,
+} from 'routes/routes.selectors'
+
 import styles from './MapControls.module.css'
 
 const MiniGlobeInfo = dynamic(
@@ -42,7 +45,7 @@ const MapControls = ({
 }: {
   mapLoading?: boolean
   onMouseEnter?: () => void
-}): React.ReactElement => {
+}): React.ReactElement<any> => {
   const { t } = useTranslation()
   const [miniGlobeHovered, setMiniGlobeHovered] = useState(false)
   const resolvedDataviewInstances = useSelector(selectDataviewInstancesResolved)
@@ -80,11 +83,17 @@ const MapControls = ({
     setMapCoordinates({ zoom: Math.max(zoom - 1, 0) })
   }, [setMapCoordinates, zoom])
 
-  const basemapDataviewInstance = resolvedDataviewInstances?.find(
-    (d) => d.config?.type === DataviewType.Basemap
+  const basemapDataviewInstance = useMemo(
+    () => resolvedDataviewInstances?.find((d) => d.config?.type === DataviewType.Basemap),
+    [resolvedDataviewInstances]
   )
-  const currentBasemap = basemapDataviewInstance?.config?.basemap ?? BasemapType.Default
-  const switchBasemap = () => {
+
+  const currentBasemap = useMemo(
+    () => basemapDataviewInstance?.config?.basemap ?? BasemapType.Default,
+    [basemapDataviewInstance?.config?.basemap]
+  )
+
+  const switchBasemap = useCallback(() => {
     upsertDataviewInstance({
       id: basemapDataviewInstance?.id,
       config: {
@@ -92,15 +101,15 @@ const MapControls = ({
           currentBasemap === BasemapType.Default ? BasemapType.Satellite : BasemapType.Default,
       },
     })
-  }
+  }, [basemapDataviewInstance?.id, currentBasemap, upsertDataviewInstance])
+
+  const enterMiniGlobeHandler = useCallback(() => setMiniGlobeHovered(true), [])
+  const leaveMiniGlobeHandler = useCallback(() => setMiniGlobeHovered(false), [])
 
   return (
     <Fragment>
       <div className={styles.mapControls} onMouseEnter={onMouseEnter}>
-        <div
-          onMouseEnter={() => setMiniGlobeHovered(true)}
-          onMouseLeave={() => setMiniGlobeHovered(false)}
-        >
+        <div onMouseEnter={enterMiniGlobeHandler} onMouseLeave={leaveMiniGlobeHandler}>
           <MiniGlobe
             className={styles.miniglobe}
             size={60}
@@ -171,4 +180,4 @@ const MapControls = ({
   )
 }
 
-export default MapControls
+export default memo(MapControls)
