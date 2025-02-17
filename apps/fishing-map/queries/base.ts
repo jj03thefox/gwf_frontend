@@ -1,5 +1,6 @@
 import type { BaseQueryFn } from '@reduxjs/toolkit/query/react'
 import { stringify } from 'qs'
+
 import type { ParsedAPIError } from '@globalfishingwatch/api-client'
 import { GFWAPI, parseAPIError } from '@globalfishingwatch/api-client'
 
@@ -24,7 +25,11 @@ export const gfwBaseQuery =
   > =>
   async ({ url, signal, body }) => {
     try {
-      const data = await GFWAPI.fetch<Response>(baseUrl + url, { signal, method, body })
+      const data = await GFWAPI.fetch<Response>(baseUrl + url, {
+        signal,
+        method,
+        body,
+      })
       return { data }
     } catch (gfwApiError: any) {
       return {
