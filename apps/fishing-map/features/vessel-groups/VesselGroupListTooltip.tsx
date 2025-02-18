@@ -1,32 +1,36 @@
-import { useCallback, useEffect, useState } from 'react'
-import cx from 'classnames'
+import React, { useCallback, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
-import React from 'react'
 import { toast } from 'react-toastify'
+import cx from 'classnames'
+
 import { Popover, Spinner } from '@globalfishingwatch/ui-components'
+
+import { useAppDispatch } from 'features/app/app.hooks'
+import { selectIsGuestUser } from 'features/user/selectors/user.selectors'
 import {
   NEW_VESSEL_GROUP_ID,
   useVesselGroupsOptions,
 } from 'features/vessel-groups/vessel-groups.hooks'
 import { selectVesselGroupsStatusId } from 'features/vessel-groups/vessel-groups.slice'
-import { selectIsGuestUser } from 'features/user/selectors/user.selectors'
-import { useAppDispatch } from 'features/app/app.hooks'
-import styles from './VesselGroupListTooltip.module.css'
+
 import {
   setVesselGroupsModalOpen,
   type VesselGroupVesselIdentity,
 } from './vessel-groups-modal.slice'
+
+import styles from './VesselGroupListTooltip.module.css'
 
 type VesselGroupListTooltipProps = {
   children?: React.ReactNode
   vessels?: VesselGroupVesselIdentity[]
   onAddToVesselGroup?: (vesselGroupId: string) => void
   keepOpenWhileAdding?: boolean
+  disabled?: boolean
 }
 
 function VesselGroupListTooltip(props: VesselGroupListTooltipProps) {
-  const { onAddToVesselGroup, children, keepOpenWhileAdding = false } = props
+  const { onAddToVesselGroup, children, keepOpenWhileAdding = false, disabled = false } = props
   const { t } = useTranslation()
   const dispatch = useAppDispatch()
   const vesselGroupOptions = useVesselGroupsOptions()
@@ -36,8 +40,10 @@ function VesselGroupListTooltip(props: VesselGroupListTooltipProps) {
   const guestUser = useSelector(selectIsGuestUser)
 
   const toggleVesselGroupsOpen = useCallback(() => {
-    setVesselGroupsOpen(!vesselGroupsOpen)
-  }, [vesselGroupsOpen])
+    if (!disabled) {
+      setVesselGroupsOpen(!vesselGroupsOpen)
+    }
+  }, [vesselGroupsOpen, disabled])
 
   useEffect(() => {
     if (addingToGroup && !vesselGroupsStatusId) {
@@ -106,8 +112,9 @@ function VesselGroupListTooltip(props: VesselGroupListTooltipProps) {
               {
                 ...props,
                 onToggleClick: toggleVesselGroupsOpen,
+                disabled,
               } as any,
-              child.props.children
+              (child.props as any).children
             )
           }
         })}

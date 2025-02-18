@@ -1,7 +1,8 @@
-import { useState, useEffect, useCallback, useRef } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { saveAs } from 'file-saver'
-import { cleantInlineStyles, setInlineStyles } from 'utils/dom'
+
 import { useDeckMap } from 'features/map/map-context.hooks'
+import { cleantInlineStyles, setInlineStyles } from 'utils/dom'
 
 export const useDownloadDomElementAsImage = () => {
   const [error, setError] = useState<string | null>('')
@@ -93,17 +94,30 @@ export const useDownloadDomElementAsImage = () => {
     [getCanvas]
   )
 
-  return {
-    loading,
-    error,
-    finished,
-    downloadImage,
-    getCanvas,
-    previewImage,
-    resetPreviewImage,
-    generatePreviewImage,
-    previewImageLoading,
-  }
+  return useMemo(
+    () => ({
+      loading,
+      error,
+      finished,
+      downloadImage,
+      getCanvas,
+      previewImage,
+      resetPreviewImage,
+      generatePreviewImage,
+      previewImageLoading,
+    }),
+    [
+      downloadImage,
+      error,
+      finished,
+      generatePreviewImage,
+      getCanvas,
+      loading,
+      previewImage,
+      previewImageLoading,
+      resetPreviewImage,
+    ]
+  )
 }
 
 export const useOnScreen = (ref: any, rootMargin = '0px') => {

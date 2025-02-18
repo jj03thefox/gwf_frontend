@@ -1,42 +1,46 @@
-import { useSelector } from 'react-redux'
+import { useCallback, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
+import { useSelector } from 'react-redux'
 import Sticky from 'react-sticky-el'
-import { useCallback, useEffect } from 'react'
-import { Button, Icon, IconButton } from '@globalfishingwatch/ui-components'
-import { useSmallScreen } from '@globalfishingwatch/react-hooks'
+import { uniqBy } from 'es-toolkit'
+
 import { VesselIdentitySourceEnum } from '@globalfishingwatch/api-types'
-import { setVesselPrintMode } from 'features/vessel/vessel.slice'
-import { formatInfoField, getVesselOtherNamesLabel } from 'utils/info'
-import VesselGroupAddButton, {
-  VesselGroupAddActionButton,
-} from 'features/vessel-groups/VesselGroupAddButton'
-import {
-  getCurrentIdentityVessel,
-  getOtherVesselNames,
-  getVesselProperty,
-} from 'features/vessel/vessel.utils'
+import { useSmallScreen } from '@globalfishingwatch/react-hooks'
+import { Button, Icon, IconButton } from '@globalfishingwatch/ui-components'
+
+import { TrackCategory, trackEvent } from 'features/app/analytics.hooks'
 import { COLOR_PRIMARY_BLUE } from 'features/app/app.config'
-import { useLocationConnect } from 'routes/routes.hook'
+import { useAppDispatch } from 'features/app/app.hooks'
+import {
+  selectVesselProfileColor,
+  selectVesselProfileDataview,
+} from 'features/dataviews/selectors/dataviews.instances.selectors'
+import { selectIsGFWUser } from 'features/user/selectors/user.selectors'
+import {
+  selectVesselInfoData,
+  selectVesselPrintMode,
+} from 'features/vessel/selectors/vessel.selectors'
 import {
   selectVesselIdentityId,
   selectVesselIdentitySource,
   selectViewOnlyVessel,
 } from 'features/vessel/vessel.config.selectors'
-import { selectIsWorkspaceVesselLocation } from 'routes/routes.selectors'
-import { useAppDispatch } from 'features/app/app.hooks'
+import { setVesselPrintMode } from 'features/vessel/vessel.slice'
+import {
+  getCurrentIdentityVessel,
+  getOtherVesselNames,
+  getVesselProperty,
+} from 'features/vessel/vessel.utils'
 import { useVesselProfileBounds } from 'features/vessel/vessel-bounds.hooks'
-import { useCallbackAfterPaint } from 'hooks/paint.hooks'
+import VesselGroupAddButton, {
+  VesselGroupAddActionButton,
+} from 'features/vessel-groups/VesselGroupAddButton'
 import VesselDownload from 'features/workspace/vessels/VesselDownload'
-import { TrackCategory, trackEvent } from 'features/app/analytics.hooks'
-import {
-  selectVesselProfileColor,
-  selectVesselProfileDataview,
-} from 'features/dataviews/selectors/dataviews.instances.selectors'
-import {
-  selectVesselInfoData,
-  selectVesselPrintMode,
-} from 'features/vessel/selectors/vessel.selectors'
-import { selectIsGFWUser } from 'features/user/selectors/user.selectors'
+import { useCallbackAfterPaint } from 'hooks/paint.hooks'
+import { useLocationConnect } from 'routes/routes.hook'
+import { selectIsWorkspaceVesselLocation } from 'routes/routes.selectors'
+import { formatInfoField, getVesselOtherNamesLabel } from 'utils/info'
+
 import styles from './VesselHeader.module.css'
 
 const VesselHeader = () => {
@@ -54,13 +58,18 @@ const VesselHeader = () => {
   const vesselPrintMode = useSelector(selectVesselPrintMode)
   const vesselProfileDataview = useSelector(selectVesselProfileDataview)
   const { boundsReady, setVesselBounds } = useVesselProfileBounds()
-  const vesselIdentity = getCurrentIdentityVessel(vessel, {
-    identityId,
-    identitySource,
-  })
   const vesselPrintCallback = useCallback(() => {
     window.print()
   }, [])
+  const [currentImageIndex, setCurrentImageIndex] = useState(0)
+
+  const allVesselImages = uniqBy(
+    vessel.identities
+      .flatMap((identity) => identity.extraFields?.[0]?.images?.map((img) => img) || [])
+      .filter(Boolean),
+    (img) => img.url
+  )
+  const filteredImages = allVesselImages.filter((img) => isGFWUser || img.copyright === 'TMT')
 
   const trackAction = useCallback((label: 'center_map' | 'print' | 'share') => {
     trackEvent({
@@ -105,8 +114,6 @@ const VesselHeader = () => {
 
   const shipname = getVesselProperty(vessel, 'shipname', { identityId, identitySource })
   const nShipname = getVesselProperty(vessel, 'nShipname', { identityId, identitySource })
-  // TODO remove false when we have a vessel image
-  const vesselImage = isGFWUser && vesselIdentity?.images?.[0].url
   const otherNamesLabel = getVesselOtherNamesLabel(getOtherVesselNames(vessel, nShipname))
 
   const onVesselFitBoundsClick = () => {
@@ -129,7 +136,34 @@ const VesselHeader = () => {
     <Sticky scrollElement=".scrollContainer" stickyClassName={styles.sticky}>
       <div className={styles.summaryContainer}>
         <div className={styles.summaryWrapper}>
-          {vesselImage && <img src={vesselImage} alt={shipname} className={styles.vesselImage} />}
+          {filteredImages.length > 0 && (
+            <div className={styles.imageSliderContainer}>
+              <img
+                src={filteredImages[currentImageIndex].url}
+                alt={`${shipname} - ${currentImageIndex + 1}`}
+                title={
+                  filteredImages[currentImageIndex].copyright
+                    ? `copyright: ${filteredImages[currentImageIndex].copyright}`
+                    : undefined
+                }
+                className={styles.vesselImage}
+              />
+              {filteredImages.length > 1 && (
+                <div className={styles.navigationButtons}>
+                  {filteredImages.map((_, index) => (
+                    <button
+                      key={index}
+                      onClick={() => setCurrentImageIndex(index)}
+                      className={`${styles.dot} ${index === currentImageIndex ? styles.activeDot : ''}`}
+                      aria-label={t('vessel.goToImage', 'Go to image {{number}}', {
+                        number: index + 1,
+                      })}
+                    />
+                  ))}
+                </div>
+              )}
+            </div>
+          )}
           <div className={styles.titleContainer}>
             <h1 data-test="vv-vessel-name" className={styles.title}>
               <svg className={styles.vesselIcon} width="16" height="16">
